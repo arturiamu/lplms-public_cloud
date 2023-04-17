@@ -4,25 +4,28 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7d19db42-2b2d-4b98-9fa9-fbc4540df982" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/application/compute_app.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/application/network_app.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/application/storage_app.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/application/system_app.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/application/user_app.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/config/config.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/domain/entity/user.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/domain/repository/user_repository.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/infrastructure/persistence/user_repository.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lplms-public_cloud.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
+    <list default="true" id="7d19db42-2b2d-4b98-9fa9-fbc4540df982" name="Changes" comment="基础框架">
+      <change afterPath="$PROJECT_DIR$/application/stack.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/domain/entity/flavor.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/domain/entity/image.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/domain/entity/keypair.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/domain/entity/security_group.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/domain/entity/server.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/domain/repository/compute_repository.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/infrastructure/persistence/compute_repository.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/infrastructure/persistence/stack.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/interfaces/http/v1/auth/login_handler.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/interfaces/http/v1/router.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/interfaces/middleware/auth.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/interfaces/middleware/cors.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/compute_app.go" beforeDir="false" afterPath="$PROJECT_DIR$/application/compute_app.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/user_app.go" beforeDir="false" afterPath="$PROJECT_DIR$/application/user_app.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/config.go" beforeDir="false" afterPath="$PROJECT_DIR$/config/config.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/domain/repository/user_repository.go" beforeDir="false" afterPath="$PROJECT_DIR$/domain/repository/user_repository.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/go.sum" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/infrastructure/persistence/user_repository.go" beforeDir="false" afterPath="$PROJECT_DIR$/infrastructure/persistence/user_repository.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -69,6 +72,11 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/interfaces/http/v1" />
+    </key>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -77,12 +85,24 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1681713970884</updated>
-      <workItem from="1681713972822" duration="2178000" />
+      <workItem from="1681713972822" duration="9552000" />
     </task>
+    <task id="LOCAL-00001" summary="基础框架">
+      <created>1681716317665</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1681716317666</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="基础框架" />
+    <option name="LAST_COMMIT_MESSAGE" value="基础框架" />
   </component>
   <component name="VgoProject">
     <settings-migrated>true</settings-migrated>

@@ -1,8 +1,8 @@
 package application
 
 import (
-	"lplms-public_cloud/domain/entity"
-	"lplms-public_cloud/domain/repository"
+	"github.com/arturiamu/lplms-public_cloud/domain/entity"
+	"github.com/arturiamu/lplms-public_cloud/domain/repository"
 )
 
 var _ UserAppInterface = &userApp{}

@@ -1,6 +1,6 @@
 package repository
 
-import "lplms-public_cloud/domain/entity"
+import "github.com/arturiamu/lplms-public_cloud/domain/entity"
 
 type UserRepositoryInterface interface {
 	SaveUser(*entity.User) (*entity.User, error)
