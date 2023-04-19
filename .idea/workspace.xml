@@ -5,27 +5,28 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7d19db42-2b2d-4b98-9fa9-fbc4540df982" name="Changes" comment="基础框架">
-      <change afterPath="$PROJECT_DIR$/application/stack.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/domain/entity/flavor.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/domain/entity/image.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/domain/entity/keypair.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/domain/entity/security_group.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/domain/entity/server.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/domain/repository/compute_repository.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/infrastructure/persistence/compute_repository.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/infrastructure/persistence/stack.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/interfaces/http/v1/auth/login_handler.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/interfaces/http/v1/router.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/interfaces/middleware/auth.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/interfaces/middleware/cors.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/domain/entity/disk.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/domain/entity/eip.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/domain/entity/slb.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/domain/entity/v_switch.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/domain/entity/vpc.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/domain/repository/network_repository.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/domain/repository/storage_repository.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/infrastructure/persistence/network_repository.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/infrastructure/persistence/storage_repository.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/interfaces/http/v1/compute/compute.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/interfaces/http/v1/network/network.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/interfaces/http/v1/storage/storage.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/gorm_test/test.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/compute_app.go" beforeDir="false" afterPath="$PROJECT_DIR$/application/compute_app.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/user_app.go" beforeDir="false" afterPath="$PROJECT_DIR$/application/user_app.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/config.go" beforeDir="false" afterPath="$PROJECT_DIR$/config/config.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/domain/repository/user_repository.go" beforeDir="false" afterPath="$PROJECT_DIR$/domain/repository/user_repository.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/network_app.go" beforeDir="false" afterPath="$PROJECT_DIR$/application/network_app.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/stack.go" beforeDir="false" afterPath="$PROJECT_DIR$/application/stack.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/storage_app.go" beforeDir="false" afterPath="$PROJECT_DIR$/application/storage_app.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/go.sum" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/infrastructure/persistence/user_repository.go" beforeDir="false" afterPath="$PROJECT_DIR$/infrastructure/persistence/user_repository.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/infrastructure/persistence/stack.go" beforeDir="false" afterPath="$PROJECT_DIR$/infrastructure/persistence/stack.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/interfaces/http/v1/router.go" beforeDir="false" afterPath="$PROJECT_DIR$/interfaces/http/v1/router.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -55,27 +56,48 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "DefaultGoTemplateProperty": "Go File",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.go.formatter.settings.were.checked": "true",
-    "RunOnceActivity.go.migrated.go.modules.settings": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "go.import.settings.migrated": "true",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;DefaultGoTemplateProperty&quot;: &quot;Go File&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.go.formatter.settings.were.checked&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.go.migrated.go.modules.settings&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;go.import.settings.migrated&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  },
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;sqlite&quot;
+    ]
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/interfaces/http/v1" />
     </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="go build github.com/arturiamu/lplms-public_cloud/test/gorm_test" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
+      <module name="lplms-public_cloud" />
+      <working_directory value="$PROJECT_DIR$" />
+      <kind value="PACKAGE" />
+      <package value="github.com/arturiamu/lplms-public_cloud/test/gorm_test" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$/test/gorm_test/test.go" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Go Build.go build github.com/arturiamu/lplms-public_cloud/test/gorm_test" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -85,7 +107,9 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1681713970884</updated>
-      <workItem from="1681713972822" duration="9552000" />
+      <workItem from="1681713972822" duration="9866000" />
+      <workItem from="1681783985792" duration="1074000" />
+      <workItem from="1681873023614" duration="6559000" />
     </task>
     <task id="LOCAL-00001" summary="基础框架">
       <created>1681716317665</created>
@@ -94,7 +118,14 @@
       <option name="project" value="LOCAL" />
       <updated>1681716317666</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="基础框架">
+      <created>1681723969840</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1681723969840</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

@@ -2,17 +2,21 @@ package persistence
 
 import (
 	"fmt"
+	"github.com/arturiamu/lplms-public_cloud/application"
 	"github.com/arturiamu/lplms-public_cloud/config"
-	"github.com/arturiamu/lplms-public_cloud/domain/repository"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 )
 
 const MSQDSN = "%s:%s@tcp(%s:%d)/%s?charset=utf8&parseTime=True&loc=Local"
 
+var _ application.StackInterface = &Repositories{}
+
 type Repositories struct {
-	User    repository.UserRepositoryInterface
-	Compute repository.ComputeRepositoryInterface
+	computeRepo ComputeRepo
+	userRepo    UserRepo
+	storageRepo StorageRepo
+	networkRepo NetworkRepo
 }
 
 func NewRepositories(sql *config.MySQL, path *string) (repos *Repositories, err error) {
@@ -22,7 +26,25 @@ func NewRepositories(sql *config.MySQL, path *string) (repos *Repositories, err 
 		return
 	}
 	return &Repositories{
-		User:    NewUserRepository(db),
-		Compute: NewComputeRepo(path),
+		userRepo:    *NewUserRepository(db),
+		computeRepo: *NewComputeRepo(path),
+		storageRepo: *NewStorageRepo(path),
+		networkRepo: *NewNetworkRepo(path),
 	}, nil
+}
+
+func (r Repositories) User() application.UserAppInterface {
+	return &r.userRepo
+}
+
+func (r Repositories) Compute() application.ComputeAppInterface {
+	return &r.computeRepo
+}
+
+func (r Repositories) Storage() application.StorageAppInterface {
+	return &r.storageRepo
+}
+
+func (r Repositories) Network() application.NetworkAppInterface {
+	return &r.networkRepo
 }

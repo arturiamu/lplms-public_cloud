@@ -1,18 +1,21 @@
 package application
 
+import (
+	"github.com/arturiamu/lplms-public_cloud/config"
+	"github.com/arturiamu/lplms-public_cloud/infrastructure/persistence"
+)
+
 type StackInterface interface {
 	User() UserAppInterface
 	Compute() ComputeAppInterface
-}
-type stack struct {
-	ComputeAppInterface
-	UserAppInterface
+	Storage() StorageAppInterface
+	Network() NetworkAppInterface
 }
 
-func (s *stack) User() UserAppInterface {
-	return s.UserAppInterface
-}
-
-func (s *stack) Compute() ComputeAppInterface {
-	return s.ComputeAppInterface
+func NewStack(config *config.AppConfig, path *string) StackInterface {
+	stk, err := persistence.NewRepositories(nil, nil)
+	if err != nil {
+		return nil
+	}
+	return stk
 }
