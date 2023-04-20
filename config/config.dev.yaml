@@ -1,0 +1,19 @@
+app:
+  env: dev # production
+  name: lplms
+  version: 0.1
+  port: 12345
+
+mysql:
+  host: localhost
+  port: 3306
+  username: mlb
+  password: mlb
+  database: lplms
+  max_idle_conn: 10
+  max_open_conn: 100
+  conn_max_life_time: 5
+
+sqllite:
+  path: ./config/
+  name: lplms.dev.db
