@@ -2,10 +2,12 @@ package persistence
 
 import "github.com/arturiamu/lplms-public_cloud/domain/repository"
 
+var _ stack = &Stack{}
+
 var stk Stack
 
 type stack interface {
-	User() repository.StorageRepositoryInterface
+	User() repository.UserRepositoryInterface
 	Compute() repository.ComputeRepositoryInterface
 	Storage() repository.StorageRepositoryInterface
 	Network() repository.NetworkRepositoryInterface
@@ -18,18 +20,18 @@ type Stack struct {
 	N *NetworkRepo
 }
 
-func (s *Stack) User() repository.UserRepositoryInterface {
+func (s Stack) User() repository.UserRepositoryInterface {
 	return s.U
 }
 
-func (s *Stack) Compute() repository.ComputeRepositoryInterface {
+func (s Stack) Compute() repository.ComputeRepositoryInterface {
 	return s.C
 }
 
-func (s *Stack) Storage() repository.StorageRepositoryInterface {
+func (s Stack) Storage() repository.StorageRepositoryInterface {
 	return s.S
 }
 
-func (s *Stack) Network() repository.NetworkRepositoryInterface {
+func (s Stack) Network() repository.NetworkRepositoryInterface {
 	return s.N
 }

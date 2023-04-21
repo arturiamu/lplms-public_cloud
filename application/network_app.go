@@ -50,102 +50,101 @@ type networkApp struct {
 	nr repository.NetworkRepositoryInterface
 }
 
-func (n networkApp) CreateEip(arg *entity.EipCreateArg) (*entity.Eip, error) {
+func (n *networkApp) CreateEip(arg *entity.EipCreateArg) (*entity.Eip, error) {
+	return n.nr.CreateEip(arg)
+}
+
+func (n *networkApp) DeleteEip(arg *entity.EipDeleteArg) (*entity.Eip, error) {
 	//TODO implement me
 	panic("implement me")
 }
 
-func (n networkApp) DeleteEip(arg *entity.EipDeleteArg) (*entity.Eip, error) {
+func (n *networkApp) UpdateEip(arg *entity.EipUpdateArg) (*entity.Eip, error) {
 	//TODO implement me
 	panic("implement me")
 }
 
-func (n networkApp) UpdateEip(arg *entity.EipUpdateArg) (*entity.Eip, error) {
+func (n *networkApp) GetEip(arg *entity.EipGetArg) (*entity.Eip, error) {
 	//TODO implement me
 	panic("implement me")
 }
 
-func (n networkApp) GetEip(arg *entity.EipGetArg) (*entity.Eip, error) {
+func (n *networkApp) ListEip(arg *entity.EipListArg) ([]*entity.Eip, error) {
 	//TODO implement me
 	panic("implement me")
 }
 
-func (n networkApp) ListEip(arg *entity.EipListArg) ([]*entity.Eip, error) {
+func (n *networkApp) CreateVpc(arg *entity.VpcCreateArg) (*entity.Vpc, error) {
 	//TODO implement me
 	panic("implement me")
 }
 
-func (n networkApp) CreateVpc(arg *entity.VpcCreateArg) (*entity.Vpc, error) {
+func (n *networkApp) DeleteVpc(arg *entity.VpcDeleteArg) (*entity.Vpc, error) {
 	//TODO implement me
 	panic("implement me")
 }
 
-func (n networkApp) DeleteVpc(arg *entity.VpcDeleteArg) (*entity.Vpc, error) {
+func (n *networkApp) UpdateVpc(arg *entity.VpcUpdateArg) (*entity.Vpc, error) {
 	//TODO implement me
 	panic("implement me")
 }
 
-func (n networkApp) UpdateVpc(arg *entity.VpcUpdateArg) (*entity.Vpc, error) {
+func (n *networkApp) GetVpc(arg *entity.VpcGetArg) (*entity.Vpc, error) {
 	//TODO implement me
 	panic("implement me")
 }
 
-func (n networkApp) GetVpc(arg *entity.VpcGetArg) (*entity.Vpc, error) {
+func (n *networkApp) ListVpc(arg *entity.VpcListArg) ([]*entity.Vpc, error) {
 	//TODO implement me
 	panic("implement me")
 }
 
-func (n networkApp) ListVpc(arg *entity.VpcListArg) ([]*entity.Vpc, error) {
+func (n *networkApp) CreateVSwitch(arg *entity.VSwitchCreateArg) (*entity.VSwitch, error) {
 	//TODO implement me
 	panic("implement me")
 }
 
-func (n networkApp) CreateVSwitch(arg *entity.VSwitchCreateArg) (*entity.VSwitch, error) {
+func (n *networkApp) DeleteVSwitch(arg *entity.VSwitchDeleteArg) (*entity.VSwitch, error) {
 	//TODO implement me
 	panic("implement me")
 }
 
-func (n networkApp) DeleteVSwitch(arg *entity.VSwitchDeleteArg) (*entity.VSwitch, error) {
+func (n *networkApp) UpdateVSwitch(arg *entity.VSwitchUpdateArg) (*entity.VSwitch, error) {
 	//TODO implement me
 	panic("implement me")
 }
 
-func (n networkApp) UpdateVSwitch(arg *entity.VSwitchUpdateArg) (*entity.VSwitch, error) {
+func (n *networkApp) GetVSwitch(arg *entity.VSwitchGetArg) (*entity.VSwitch, error) {
 	//TODO implement me
 	panic("implement me")
 }
 
-func (n networkApp) GetVSwitch(arg *entity.VSwitchGetArg) (*entity.VSwitch, error) {
+func (n *networkApp) ListVSwitch(arg *entity.VSwitchListArg) ([]*entity.VSwitch, error) {
 	//TODO implement me
 	panic("implement me")
 }
 
-func (n networkApp) ListVSwitch(arg *entity.VSwitchListArg) ([]*entity.VSwitch, error) {
+func (n *networkApp) CreateSlb(arg *entity.SlbCreateArg) (*entity.Slb, error) {
 	//TODO implement me
 	panic("implement me")
 }
 
-func (n networkApp) CreateSlb(arg *entity.SlbCreateArg) (*entity.Slb, error) {
+func (n *networkApp) DeleteSlb(arg *entity.SlbDeleteArg) (*entity.Slb, error) {
 	//TODO implement me
 	panic("implement me")
 }
 
-func (n networkApp) DeleteSlb(arg *entity.SlbDeleteArg) (*entity.Slb, error) {
+func (n *networkApp) UpdateSlb(arg *entity.SlbUpdateArg) (*entity.Slb, error) {
 	//TODO implement me
 	panic("implement me")
 }
 
-func (n networkApp) UpdateSlb(arg *entity.SlbUpdateArg) (*entity.Slb, error) {
+func (n *networkApp) GetSlb(arg *entity.SlbGetArg) (*entity.Slb, error) {
 	//TODO implement me
 	panic("implement me")
 }
 
-func (n networkApp) GetSlb(arg *entity.SlbGetArg) (*entity.Slb, error) {
-	//TODO implement me
-	panic("implement me")
-}
-
-func (n networkApp) ListSlb(arg *entity.SlbListArg) ([]*entity.Slb, error) {
+func (n *networkApp) ListSlb(arg *entity.SlbListArg) ([]*entity.Slb, error) {
 	//TODO implement me
 	panic("implement me")
 }

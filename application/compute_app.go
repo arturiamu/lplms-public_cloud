@@ -59,127 +59,126 @@ type computeApp struct {
 	cr repository.ComputeRepositoryInterface
 }
 
-func (c computeApp) CreateServer(arg *entity.ServerCreateArg) (*entity.Server, error) {
+func (c *computeApp) CreateServer(arg *entity.ServerCreateArg) (*entity.Server, error) {
+	return c.cr.CreateServer(arg)
+}
+
+func (c *computeApp) DeleteServer(arg *entity.ServerDeleteArg) (*entity.Server, error) {
 	//TODO implement me
 	panic("implement me")
 }
 
-func (c computeApp) DeleteServer(arg *entity.ServerDeleteArg) (*entity.Server, error) {
+func (c *computeApp) UpdateServer(arg *entity.ServerUpdateArg) (*entity.Server, error) {
 	//TODO implement me
 	panic("implement me")
 }
 
-func (c computeApp) UpdateServer(arg *entity.ServerUpdateArg) (*entity.Server, error) {
+func (c *computeApp) GetServer(arg *entity.ServerGetArg) (*entity.Server, error) {
 	//TODO implement me
 	panic("implement me")
 }
 
-func (c computeApp) GetServer(arg *entity.ServerGetArg) (*entity.Server, error) {
+func (c *computeApp) ListServer(arg *entity.ServerListArg) ([]*entity.Server, error) {
 	//TODO implement me
 	panic("implement me")
 }
 
-func (c computeApp) ListServer(arg *entity.ServerListArg) ([]*entity.Server, error) {
+func (c *computeApp) CreateFlavor(arg *entity.FlavorCreateArg) (*entity.Flavor, error) {
 	//TODO implement me
 	panic("implement me")
 }
 
-func (c computeApp) CreateFlavor(arg *entity.FlavorCreateArg) (*entity.Flavor, error) {
+func (c *computeApp) DeleteFlavor(arg *entity.FlavorDeleteArg) (*entity.Flavor, error) {
 	//TODO implement me
 	panic("implement me")
 }
 
-func (c computeApp) DeleteFlavor(arg *entity.FlavorDeleteArg) (*entity.Flavor, error) {
+func (c *computeApp) UpdateFlavor(arg *entity.FlavorUpdateArg) (*entity.Flavor, error) {
 	//TODO implement me
 	panic("implement me")
 }
 
-func (c computeApp) UpdateFlavor(arg *entity.FlavorUpdateArg) (*entity.Flavor, error) {
+func (c *computeApp) GetFlavor(arg *entity.FlavorGetArg) (*entity.Flavor, error) {
 	//TODO implement me
 	panic("implement me")
 }
 
-func (c computeApp) GetFlavor(arg *entity.FlavorGetArg) (*entity.Flavor, error) {
+func (c *computeApp) ListFlavor(arg *entity.FlavorListArg) ([]*entity.Flavor, error) {
 	//TODO implement me
 	panic("implement me")
 }
 
-func (c computeApp) ListFlavor(arg *entity.FlavorListArg) ([]*entity.Flavor, error) {
+func (c *computeApp) CreateImage(arg *entity.ImageCreateArg) (*entity.Image, error) {
 	//TODO implement me
 	panic("implement me")
 }
 
-func (c computeApp) CreateImage(arg *entity.ImageCreateArg) (*entity.Image, error) {
+func (c *computeApp) DeleteImage(arg *entity.ImageDeleteArg) (*entity.Image, error) {
 	//TODO implement me
 	panic("implement me")
 }
 
-func (c computeApp) DeleteImage(arg *entity.ImageDeleteArg) (*entity.Image, error) {
+func (c *computeApp) UpdateImage(arg *entity.ImageUpdateArg) (*entity.Image, error) {
 	//TODO implement me
 	panic("implement me")
 }
 
-func (c computeApp) UpdateImage(arg *entity.ImageUpdateArg) (*entity.Image, error) {
+func (c *computeApp) GetImage(arg *entity.ImageGetArg) (*entity.Image, error) {
 	//TODO implement me
 	panic("implement me")
 }
 
-func (c computeApp) GetImage(arg *entity.ImageGetArg) (*entity.Image, error) {
+func (c *computeApp) ListImage(arg *entity.ImageListArg) ([]*entity.Image, error) {
 	//TODO implement me
 	panic("implement me")
 }
 
-func (c computeApp) ListImage(arg *entity.ImageListArg) ([]*entity.Image, error) {
+func (c *computeApp) CreateKeypair(arg *entity.KeypairCreateArg) (*entity.Keypair, error) {
 	//TODO implement me
 	panic("implement me")
 }
 
-func (c computeApp) CreateKeypair(arg *entity.KeypairCreateArg) (*entity.Keypair, error) {
+func (c *computeApp) DeleteKeypair(arg *entity.KeypairDeleteArg) (*entity.Keypair, error) {
 	//TODO implement me
 	panic("implement me")
 }
 
-func (c computeApp) DeleteKeypair(arg *entity.KeypairDeleteArg) (*entity.Keypair, error) {
+func (c *computeApp) UpdateKeypair(arg *entity.KeypairUpdateArg) (*entity.Keypair, error) {
 	//TODO implement me
 	panic("implement me")
 }
 
-func (c computeApp) UpdateKeypair(arg *entity.KeypairUpdateArg) (*entity.Keypair, error) {
+func (c *computeApp) GetKeypair(arg *entity.KeypairGetArg) (*entity.Keypair, error) {
 	//TODO implement me
 	panic("implement me")
 }
 
-func (c computeApp) GetKeypair(arg *entity.KeypairGetArg) (*entity.Keypair, error) {
+func (c *computeApp) ListKeypair(arg *entity.KeypairListArg) ([]*entity.Keypair, error) {
 	//TODO implement me
 	panic("implement me")
 }
 
-func (c computeApp) ListKeypair(arg *entity.KeypairListArg) ([]*entity.Keypair, error) {
+func (c *computeApp) CreateSecurityGroup(arg *entity.SecurityGroupCreateArg) (*entity.SecurityGroup, error) {
 	//TODO implement me
 	panic("implement me")
 }
 
-func (c computeApp) CreateSecurityGroup(arg *entity.SecurityGroupCreateArg) (*entity.SecurityGroup, error) {
+func (c *computeApp) DeleteSecurityGroup(arg *entity.SecurityGroupDeleteArg) (*entity.SecurityGroup, error) {
 	//TODO implement me
 	panic("implement me")
 }
 
-func (c computeApp) DeleteSecurityGroup(arg *entity.SecurityGroupDeleteArg) (*entity.SecurityGroup, error) {
+func (c *computeApp) UpdateSecurityGroup(arg *entity.SecurityGroupUpdateArg) (*entity.SecurityGroup, error) {
 	//TODO implement me
 	panic("implement me")
 }
 
-func (c computeApp) UpdateSecurityGroup(arg *entity.SecurityGroupUpdateArg) (*entity.SecurityGroup, error) {
+func (c *computeApp) GetSecurityGroup(arg *entity.SecurityGroupGetArg) (*entity.SecurityGroup, error) {
 	//TODO implement me
 	panic("implement me")
 }
 
-func (c computeApp) GetSecurityGroup(arg *entity.SecurityGroupGetArg) (*entity.SecurityGroup, error) {
-	//TODO implement me
-	panic("implement me")
-}
-
-func (c computeApp) ListSecurityGroup(arg *entity.SecurityGroupListArg) ([]*entity.SecurityGroup, error) {
+func (c *computeApp) ListSecurityGroup(arg *entity.SecurityGroupListArg) ([]*entity.SecurityGroup, error) {
 	//TODO implement me
 	panic("implement me")
 }

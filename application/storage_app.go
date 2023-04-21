@@ -32,52 +32,52 @@ type storageApp struct {
 	sr repository.StorageRepositoryInterface
 }
 
-func (s storageApp) CreateDisk(arg *entity.DiskCreateArg) (*entity.Disk, error) {
+func (s *storageApp) CreateDisk(arg *entity.DiskCreateArg) (*entity.Disk, error) {
 	//TODO implement me
 	panic("implement me")
 }
 
-func (s storageApp) DeleteDisk(arg *entity.DiskDeleteArg) (*entity.Disk, error) {
+func (s *storageApp) DeleteDisk(arg *entity.DiskDeleteArg) (*entity.Disk, error) {
 	//TODO implement me
 	panic("implement me")
 }
 
-func (s storageApp) UpdateDisk(arg *entity.DiskUpdateArg) (*entity.Disk, error) {
+func (s *storageApp) UpdateDisk(arg *entity.DiskUpdateArg) (*entity.Disk, error) {
 	//TODO implement me
 	panic("implement me")
 }
 
-func (s storageApp) GetDisk(arg *entity.DiskGetArg) (*entity.Disk, error) {
+func (s *storageApp) GetDisk(arg *entity.DiskGetArg) (*entity.Disk, error) {
 	//TODO implement me
 	panic("implement me")
 }
 
-func (s storageApp) ListDisk(arg *entity.DiskListArg) ([]*entity.Disk, error) {
+func (s *storageApp) ListDisk(arg *entity.DiskListArg) ([]*entity.Disk, error) {
 	//TODO implement me
 	panic("implement me")
 }
 
-func (s storageApp) CreateSnapshot(arg *entity.SnapshotCreateArg) (*entity.Snapshot, error) {
+func (s *storageApp) CreateSnapshot(arg *entity.SnapshotCreateArg) (*entity.Snapshot, error) {
 	//TODO implement me
 	panic("implement me")
 }
 
-func (s storageApp) DeleteSnapshot(arg *entity.SnapshotDeleteArg) (*entity.Snapshot, error) {
+func (s *storageApp) DeleteSnapshot(arg *entity.SnapshotDeleteArg) (*entity.Snapshot, error) {
 	//TODO implement me
 	panic("implement me")
 }
 
-func (s storageApp) UpdateSnapshot(arg *entity.SnapshotUpdateArg) (*entity.Snapshot, error) {
+func (s *storageApp) UpdateSnapshot(arg *entity.SnapshotUpdateArg) (*entity.Snapshot, error) {
 	//TODO implement me
 	panic("implement me")
 }
 
-func (s storageApp) GetSnapshot(arg *entity.SnapshotGetArg) (*entity.Snapshot, error) {
+func (s *storageApp) GetSnapshot(arg *entity.SnapshotGetArg) (*entity.Snapshot, error) {
 	//TODO implement me
 	panic("implement me")
 }
 
-func (s storageApp) ListSnapshot(arg *entity.SnapshotListArg) ([]*entity.Snapshot, error) {
+func (s *storageApp) ListSnapshot(arg *entity.SnapshotListArg) ([]*entity.Snapshot, error) {
 	//TODO implement me
 	panic("implement me")
 }

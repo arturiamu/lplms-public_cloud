@@ -60,7 +60,7 @@ func (co *Compute) CreateServer(c *gin.Context) {
 		c.AbortWithError(http.StatusBadRequest, err)
 		return
 	}
-	co.ci.SaveServer(&entity.Server{})
+	co.ci.CreateServer(&entity.ServerCreateArg{})
 }
 
 func (co *Compute) DeleteServer(c *gin.Context) {

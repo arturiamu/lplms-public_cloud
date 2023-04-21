@@ -15,52 +15,52 @@ type StorageRepo struct {
 	k8Virt kubecli.KubevirtClient
 }
 
-func (s StorageRepo) CreateDisk(arg *entity.DiskCreateArg) (*entity.Disk, error) {
+func (s *StorageRepo) CreateDisk(arg *entity.DiskCreateArg) (*entity.Disk, error) {
 	//TODO implement me
 	panic("implement me")
 }
 
-func (s StorageRepo) DeleteDisk(arg *entity.DiskDeleteArg) (*entity.Disk, error) {
+func (s *StorageRepo) DeleteDisk(arg *entity.DiskDeleteArg) (*entity.Disk, error) {
 	//TODO implement me
 	panic("implement me")
 }
 
-func (s StorageRepo) UpdateDisk(arg *entity.DiskUpdateArg) (*entity.Disk, error) {
+func (s *StorageRepo) UpdateDisk(arg *entity.DiskUpdateArg) (*entity.Disk, error) {
 	//TODO implement me
 	panic("implement me")
 }
 
-func (s StorageRepo) GetDisk(arg *entity.DiskGetArg) (*entity.Disk, error) {
+func (s *StorageRepo) GetDisk(arg *entity.DiskGetArg) (*entity.Disk, error) {
 	//TODO implement me
 	panic("implement me")
 }
 
-func (s StorageRepo) ListDisk(arg *entity.DiskListArg) ([]*entity.Disk, error) {
+func (s *StorageRepo) ListDisk(arg *entity.DiskListArg) ([]*entity.Disk, error) {
 	//TODO implement me
 	panic("implement me")
 }
 
-func (s StorageRepo) CreateSnapshot(arg *entity.SnapshotCreateArg) (*entity.Snapshot, error) {
+func (s *StorageRepo) CreateSnapshot(arg *entity.SnapshotCreateArg) (*entity.Snapshot, error) {
 	//TODO implement me
 	panic("implement me")
 }
 
-func (s StorageRepo) DeleteSnapshot(arg *entity.SnapshotDeleteArg) (*entity.Snapshot, error) {
+func (s *StorageRepo) DeleteSnapshot(arg *entity.SnapshotDeleteArg) (*entity.Snapshot, error) {
 	//TODO implement me
 	panic("implement me")
 }
 
-func (s StorageRepo) UpdateSnapshot(arg *entity.SnapshotUpdateArg) (*entity.Snapshot, error) {
+func (s *StorageRepo) UpdateSnapshot(arg *entity.SnapshotUpdateArg) (*entity.Snapshot, error) {
 	//TODO implement me
 	panic("implement me")
 }
 
-func (s StorageRepo) GetSnapshot(arg *entity.SnapshotGetArg) (*entity.Snapshot, error) {
+func (s *StorageRepo) GetSnapshot(arg *entity.SnapshotGetArg) (*entity.Snapshot, error) {
 	//TODO implement me
 	panic("implement me")
 }
 
-func (s StorageRepo) ListSnapshot(arg *entity.SnapshotListArg) ([]*entity.Snapshot, error) {
+func (s *StorageRepo) ListSnapshot(arg *entity.SnapshotListArg) ([]*entity.Snapshot, error) {
 	//TODO implement me
 	panic("implement me")
 }
