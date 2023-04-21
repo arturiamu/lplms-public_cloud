@@ -4,6 +4,7 @@ go 1.18
 
 require (
 	github.com/gin-gonic/gin v1.9.0
+	github.com/golang-jwt/jwt/v4 v4.0.0
 	github.com/kubeovn/kube-ovn v1.10.8
 	github.com/spf13/viper v1.12.0
 	gorm.io/driver/mysql v1.5.0
@@ -13,7 +14,7 @@ require (
 )
 
 require (
-	github.com/google/uuid v1.3.0 // indirect
+	github.com/google/uuid v1.3.0
 	golang.org/x/crypto v0.6.0 // indirect
 	k8s.io/api v0.26.0 // indirect
 	k8s.io/apimachinery v0.26.0

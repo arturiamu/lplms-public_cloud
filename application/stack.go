@@ -30,7 +30,7 @@ func NewStack(path *string) (stack StackInterface, err error) {
 	)
 
 	if config.AppConfig.App.Env == "dev" {
-		db, err = gorm.Open(sqlite.Open("test.db"), &gorm.Config{})
+		db, err = gorm.Open(sqlite.Open("config/lplms.dev.db"), &gorm.Config{})
 		if err != nil {
 			return nil, err
 		}

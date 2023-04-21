@@ -2,7 +2,7 @@ app:
   env: dev # production
   name: lplms
   version: 0.1
-  port: 12345
+  port: 10086
 
 mysql:
   host: localhost

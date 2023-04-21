@@ -20,7 +20,7 @@ type App struct {
 	Env     string `yaml:"env" mapstructure:"env"`
 	Name    string `yaml:"name" mapstructure:"name"`
 	Version string `yaml:"version" mapstructure:"version"`
-	Port    string `yaml:"port" mapstructure:"port"`
+	Port    int    `yaml:"port" mapstructure:"port"`
 }
 
 type SQLLite struct {

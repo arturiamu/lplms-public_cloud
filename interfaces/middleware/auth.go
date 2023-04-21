@@ -1,18 +1,27 @@
 package middleware
 
-import "github.com/gin-gonic/gin"
+import (
+	"github.com/arturiamu/lplms-public_cloud/utils/token"
+	"github.com/gin-gonic/gin"
+	"net/http"
+)
+
+const UserInfo = "user_info"
 
 func AuthMiddleware() gin.HandlerFunc {
 	return func(c *gin.Context) {
-		c.Writer.Header().Set("Access-Control-Allow-Origin", "*")
-		c.Writer.Header().Set("Access-Control-Allow-Credentials", "true")
-		c.Writer.Header().Set("Access-Control-Allow-Headers", "Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization, accept, origin, Cache-Control, X-Requested-With")
-		c.Writer.Header().Set("Access-Control-Allow-Methods", "POST, OPTIONS, GET, PUT, PATCH, DELETE")
-
-		if c.Request.Method == "OPTIONS" {
-			c.AbortWithStatus(204)
+		tokenStr := c.GetHeader("Authorization")
+		if len(tokenStr) == 0 {
+			c.AbortWithError(http.StatusNonAuthoritativeInfo, http.ErrNoCookie)
 			return
 		}
+		ac, err := token.ParseToken(tokenStr)
+		if err != nil {
+			c.AbortWithError(http.StatusNonAuthoritativeInfo, err)
+			return
+		}
+		c.Set(UserInfo, ac.User)
 		c.Next()
+		return
 	}
 }
