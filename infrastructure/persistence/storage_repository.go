@@ -15,6 +15,56 @@ type StorageRepo struct {
 	k8Virt kubecli.KubevirtClient
 }
 
+func (s StorageRepo) CreateDisk(arg *entity.DiskCreateArg) (*entity.Disk, error) {
+	//TODO implement me
+	panic("implement me")
+}
+
+func (s StorageRepo) DeleteDisk(arg *entity.DiskDeleteArg) (*entity.Disk, error) {
+	//TODO implement me
+	panic("implement me")
+}
+
+func (s StorageRepo) UpdateDisk(arg *entity.DiskUpdateArg) (*entity.Disk, error) {
+	//TODO implement me
+	panic("implement me")
+}
+
+func (s StorageRepo) GetDisk(arg *entity.DiskGetArg) (*entity.Disk, error) {
+	//TODO implement me
+	panic("implement me")
+}
+
+func (s StorageRepo) ListDisk(arg *entity.DiskListArg) ([]*entity.Disk, error) {
+	//TODO implement me
+	panic("implement me")
+}
+
+func (s StorageRepo) CreateSnapshot(arg *entity.SnapshotCreateArg) (*entity.Snapshot, error) {
+	//TODO implement me
+	panic("implement me")
+}
+
+func (s StorageRepo) DeleteSnapshot(arg *entity.SnapshotDeleteArg) (*entity.Snapshot, error) {
+	//TODO implement me
+	panic("implement me")
+}
+
+func (s StorageRepo) UpdateSnapshot(arg *entity.SnapshotUpdateArg) (*entity.Snapshot, error) {
+	//TODO implement me
+	panic("implement me")
+}
+
+func (s StorageRepo) GetSnapshot(arg *entity.SnapshotGetArg) (*entity.Snapshot, error) {
+	//TODO implement me
+	panic("implement me")
+}
+
+func (s StorageRepo) ListSnapshot(arg *entity.SnapshotListArg) ([]*entity.Snapshot, error) {
+	//TODO implement me
+	panic("implement me")
+}
+
 func NewStorageRepo(path *string) *StorageRepo {
 	config, err := clientcmd.BuildConfigFromFlags("", *path)
 	if err != nil {
@@ -27,44 +77,4 @@ func NewStorageRepo(path *string) *StorageRepo {
 	}
 	stk.S = &storageRepo
 	return &storageRepo
-}
-
-func (s StorageRepo) SaveDisk(disk *entity.Disk) (*entity.Disk, error) {
-	//TODO implement me
-	panic("implement me")
-}
-
-func (s StorageRepo) GetDisk(u uint64) (*entity.Disk, error) {
-	//TODO implement me
-	panic("implement me")
-}
-
-func (s StorageRepo) ListDisk() (*entity.Disk, error) {
-	//TODO implement me
-	panic("implement me")
-}
-
-func (s StorageRepo) GetDiskBy(u uint64) (*entity.Disk, error) {
-	//TODO implement me
-	panic("implement me")
-}
-
-func (s StorageRepo) SaveSnapshot(disk *entity.Disk) (*entity.Disk, error) {
-	//TODO implement me
-	panic("implement me")
-}
-
-func (s StorageRepo) GetSnapshot(u uint64) (*entity.Disk, error) {
-	//TODO implement me
-	panic("implement me")
-}
-
-func (s StorageRepo) ListSnapshot() (*entity.Disk, error) {
-	//TODO implement me
-	panic("implement me")
-}
-
-func (s StorageRepo) GetSnapshotBy(u uint64) (*entity.Disk, error) {
-	//TODO implement me
-	panic("implement me")
 }

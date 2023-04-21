@@ -20,3 +20,11 @@ func GetUser(c *gin.Context) *entity.User {
 	}
 	return nil
 }
+
+func GetProject(c *gin.Context) string {
+	user := GetUser(c)
+	if user == nil {
+		return ""
+	}
+	return user.ProjectID
+}

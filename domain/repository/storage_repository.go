@@ -8,15 +8,17 @@ type StorageRepositoryInterface interface {
 }
 
 type DiskRepositoryInterface interface {
-	SaveDisk(*entity.Disk) (*entity.Disk, error)
-	GetDisk(uint64) (*entity.Disk, error)
-	ListDisk() (*entity.Disk, error)
-	GetDiskBy(uint64) (*entity.Disk, error)
+	CreateDisk(arg *entity.DiskCreateArg) (*entity.Disk, error)
+	DeleteDisk(arg *entity.DiskDeleteArg) (*entity.Disk, error)
+	UpdateDisk(arg *entity.DiskUpdateArg) (*entity.Disk, error)
+	GetDisk(arg *entity.DiskGetArg) (*entity.Disk, error)
+	ListDisk(arg *entity.DiskListArg) ([]*entity.Disk, error)
 }
 
 type SnapshotRepositoryInterface interface {
-	SaveSnapshot(*entity.Disk) (*entity.Disk, error)
-	GetSnapshot(uint64) (*entity.Disk, error)
-	ListSnapshot() (*entity.Disk, error)
-	GetSnapshotBy(uint64) (*entity.Disk, error)
+	CreateSnapshot(arg *entity.SnapshotCreateArg) (*entity.Snapshot, error)
+	DeleteSnapshot(arg *entity.SnapshotDeleteArg) (*entity.Snapshot, error)
+	UpdateSnapshot(arg *entity.SnapshotUpdateArg) (*entity.Snapshot, error)
+	GetSnapshot(arg *entity.SnapshotGetArg) (*entity.Snapshot, error)
+	ListSnapshot(arg *entity.SnapshotListArg) ([]*entity.Snapshot, error)
 }

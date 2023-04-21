@@ -10,29 +10,33 @@ type NetworkRepositoryInterface interface {
 }
 
 type EIPInterface interface {
-	SaveEip(*entity.Eip) (*entity.Eip, error)
-	GetEip(uint64) (*entity.Eip, error)
-	ListEip() (*entity.Eip, error)
-	GetEipBy(uint64) (*entity.Eip, error)
+	CreateEip(arg *entity.EipCreateArg) (*entity.Eip, error)
+	DeleteEip(arg *entity.EipDeleteArg) (*entity.Eip, error)
+	UpdateEip(arg *entity.EipUpdateArg) (*entity.Eip, error)
+	GetEip(arg *entity.EipGetArg) (*entity.Eip, error)
+	ListEip(arg *entity.EipListArg) ([]*entity.Eip, error)
 }
 
 type VPCInterface interface {
-	SaveVpc(*entity.Vpc) (*entity.Vpc, error)
-	GetVpc(uint64) (*entity.Vpc, error)
-	ListVpc() (*entity.Vpc, error)
-	GetVpcBy(uint64) (*entity.Vpc, error)
+	CreateVpc(arg *entity.VpcCreateArg) (*entity.Vpc, error)
+	DeleteVpc(arg *entity.VpcDeleteArg) (*entity.Vpc, error)
+	UpdateVpc(arg *entity.VpcUpdateArg) (*entity.Vpc, error)
+	GetVpc(arg *entity.VpcGetArg) (*entity.Vpc, error)
+	ListVpc(arg *entity.VpcListArg) ([]*entity.Vpc, error)
 }
 
 type VSwitchInterface interface {
-	SaveVSwitch(*entity.VSwitch) (*entity.VSwitch, error)
-	GetVSwitch(uint64) (*entity.VSwitch, error)
-	ListVSwitch() (*entity.VSwitch, error)
-	GetVSwitchBy(uint64) (*entity.VSwitch, error)
+	CreateVSwitch(arg *entity.VSwitchCreateArg) (*entity.VSwitch, error)
+	DeleteVSwitch(arg *entity.VSwitchDeleteArg) (*entity.VSwitch, error)
+	UpdateVSwitch(arg *entity.VSwitchUpdateArg) (*entity.VSwitch, error)
+	GetVSwitch(arg *entity.VSwitchGetArg) (*entity.VSwitch, error)
+	ListVSwitch(arg *entity.VSwitchListArg) ([]*entity.VSwitch, error)
 }
 
 type SLBInterface interface {
-	SaveSlb(*entity.Slb) (*entity.Slb, error)
-	GetSlb(uint64) (*entity.Slb, error)
-	ListSlb() (*entity.Slb, error)
-	GetSlbBy(uint64) (*entity.Slb, error)
+	CreateSlb(arg *entity.SlbCreateArg) (*entity.Slb, error)
+	DeleteSlb(arg *entity.SlbDeleteArg) (*entity.Slb, error)
+	UpdateSlb(arg *entity.SlbUpdateArg) (*entity.Slb, error)
+	GetSlb(arg *entity.SlbGetArg) (*entity.Slb, error)
+	ListSlb(arg *entity.SlbListArg) ([]*entity.Slb, error)
 }

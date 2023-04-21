@@ -11,36 +11,41 @@ type ComputeRepositoryInterface interface {
 }
 
 type ServerRepositoryInterface interface {
-	SaveServer(*entity.Server) (*entity.Server, error)
-	GetServer(uint64) (*entity.Server, error)
-	ListServer() (*entity.Server, error)
-	GetServerBy(uint64) (*entity.Server, error)
+	CreateServer(arg *entity.ServerCreateArg) (*entity.Server, error)
+	DeleteServer(arg *entity.ServerDeleteArg) (*entity.Server, error)
+	UpdateServer(arg *entity.ServerUpdateArg) (*entity.Server, error)
+	GetServer(arg *entity.ServerGetArg) (*entity.Server, error)
+	ListServer(arg *entity.ServerListArg) ([]*entity.Server, error)
 }
 
 type ImageRepositoryInterface interface {
-	SaveImage(*entity.Image) (*entity.Image, error)
-	GetImage(uint64) (*entity.Image, error)
-	ListImage() (*entity.Image, error)
-	GetImageBy(uint64) (*entity.Image, error)
+	CreateFlavor(arg *entity.FlavorCreateArg) (*entity.Flavor, error)
+	DeleteFlavor(arg *entity.FlavorDeleteArg) (*entity.Flavor, error)
+	UpdateFlavor(arg *entity.FlavorUpdateArg) (*entity.Flavor, error)
+	GetFlavor(arg *entity.FlavorGetArg) (*entity.Flavor, error)
+	ListFlavor(arg *entity.FlavorListArg) ([]*entity.Flavor, error)
 }
 
 type FlavorRepositoryInterface interface {
-	SaveFlavor(*entity.Flavor) (*entity.Flavor, error)
-	GetFlavor(uint64) (*entity.Flavor, error)
-	ListFlavor() (*entity.Flavor, error)
-	GetFlavorBy(uint64) (*entity.Flavor, error)
+	CreateImage(arg *entity.ImageCreateArg) (*entity.Image, error)
+	DeleteImage(arg *entity.ImageDeleteArg) (*entity.Image, error)
+	UpdateImage(arg *entity.ImageUpdateArg) (*entity.Image, error)
+	GetImage(arg *entity.ImageGetArg) (*entity.Image, error)
+	ListImage(arg *entity.ImageListArg) ([]*entity.Image, error)
 }
 
 type KeypairRepositoryInterface interface {
-	SaveKeyPair(*entity.KeyPair) (*entity.KeyPair, error)
-	GetKeyPair(uint64) (*entity.KeyPair, error)
-	ListKeyPair() (*entity.KeyPair, error)
-	GetKeyPairBy(uint64) (*entity.KeyPair, error)
+	CreateKeypair(arg *entity.KeypairCreateArg) (*entity.Keypair, error)
+	DeleteKeypair(arg *entity.KeypairDeleteArg) (*entity.Keypair, error)
+	UpdateKeypair(arg *entity.KeypairUpdateArg) (*entity.Keypair, error)
+	GetKeypair(arg *entity.KeypairGetArg) (*entity.Keypair, error)
+	ListKeypair(arg *entity.KeypairListArg) ([]*entity.Keypair, error)
 }
 
 type SecurityGroupRepositoryInterface interface {
-	SaveSecurityGroup(*entity.SecurityGroup) (*entity.SecurityGroup, error)
-	GetSecurityGroup(uint64) (*entity.SecurityGroup, error)
-	ListSecurityGroup() (*entity.SecurityGroup, error)
-	GetSecurityGroupBy(uint64) (*entity.SecurityGroup, error)
+	CreateSecurityGroup(arg *entity.SecurityGroupCreateArg) (*entity.SecurityGroup, error)
+	DeleteSecurityGroup(arg *entity.SecurityGroupDeleteArg) (*entity.SecurityGroup, error)
+	UpdateSecurityGroup(arg *entity.SecurityGroupUpdateArg) (*entity.SecurityGroup, error)
+	GetSecurityGroup(arg *entity.SecurityGroupGetArg) (*entity.SecurityGroup, error)
+	ListSecurityGroup(arg *entity.SecurityGroupListArg) ([]*entity.SecurityGroup, error)
 }

@@ -29,82 +29,102 @@ func NewNetworkRepo(path *string) *NetworkRepo {
 	return &networkRepo
 }
 
-func (n NetworkRepo) SaveEip(eip *entity.Eip) (*entity.Eip, error) {
+func (n NetworkRepo) CreateEip(arg *entity.EipCreateArg) (*entity.Eip, error) {
 	//TODO implement me
 	panic("implement me")
 }
 
-func (n NetworkRepo) GetEip(u uint64) (*entity.Eip, error) {
+func (n NetworkRepo) DeleteEip(arg *entity.EipDeleteArg) (*entity.Eip, error) {
 	//TODO implement me
 	panic("implement me")
 }
 
-func (n NetworkRepo) ListEip() (*entity.Eip, error) {
+func (n NetworkRepo) UpdateEip(arg *entity.EipUpdateArg) (*entity.Eip, error) {
 	//TODO implement me
 	panic("implement me")
 }
 
-func (n NetworkRepo) GetEipBy(u uint64) (*entity.Eip, error) {
+func (n NetworkRepo) GetEip(arg *entity.EipGetArg) (*entity.Eip, error) {
 	//TODO implement me
 	panic("implement me")
 }
 
-func (n NetworkRepo) SaveVpc(vpc *entity.Vpc) (*entity.Vpc, error) {
+func (n NetworkRepo) ListEip(arg *entity.EipListArg) ([]*entity.Eip, error) {
 	//TODO implement me
 	panic("implement me")
 }
 
-func (n NetworkRepo) GetVpc(u uint64) (*entity.Vpc, error) {
+func (n NetworkRepo) CreateVpc(arg *entity.VpcCreateArg) (*entity.Vpc, error) {
 	//TODO implement me
 	panic("implement me")
 }
 
-func (n NetworkRepo) ListVpc() (*entity.Vpc, error) {
+func (n NetworkRepo) DeleteVpc(arg *entity.VpcDeleteArg) (*entity.Vpc, error) {
 	//TODO implement me
 	panic("implement me")
 }
 
-func (n NetworkRepo) GetVpcBy(u uint64) (*entity.Vpc, error) {
+func (n NetworkRepo) UpdateVpc(arg *entity.VpcUpdateArg) (*entity.Vpc, error) {
 	//TODO implement me
 	panic("implement me")
 }
 
-func (n NetworkRepo) SaveVSwitch(vSwitch *entity.VSwitch) (*entity.VSwitch, error) {
+func (n NetworkRepo) GetVpc(arg *entity.VpcGetArg) (*entity.Vpc, error) {
 	//TODO implement me
 	panic("implement me")
 }
 
-func (n NetworkRepo) GetVSwitch(u uint64) (*entity.VSwitch, error) {
+func (n NetworkRepo) ListVpc(arg *entity.VpcListArg) ([]*entity.Vpc, error) {
 	//TODO implement me
 	panic("implement me")
 }
 
-func (n NetworkRepo) ListVSwitch() (*entity.VSwitch, error) {
+func (n NetworkRepo) CreateVSwitch(arg *entity.VSwitchCreateArg) (*entity.VSwitch, error) {
 	//TODO implement me
 	panic("implement me")
 }
 
-func (n NetworkRepo) GetVSwitchBy(u uint64) (*entity.VSwitch, error) {
+func (n NetworkRepo) DeleteVSwitch(arg *entity.VSwitchDeleteArg) (*entity.VSwitch, error) {
 	//TODO implement me
 	panic("implement me")
 }
 
-func (n NetworkRepo) SaveSlb(slb *entity.Slb) (*entity.Slb, error) {
+func (n NetworkRepo) UpdateVSwitch(arg *entity.VSwitchUpdateArg) (*entity.VSwitch, error) {
 	//TODO implement me
 	panic("implement me")
 }
 
-func (n NetworkRepo) GetSlb(u uint64) (*entity.Slb, error) {
+func (n NetworkRepo) GetVSwitch(arg *entity.VSwitchGetArg) (*entity.VSwitch, error) {
 	//TODO implement me
 	panic("implement me")
 }
 
-func (n NetworkRepo) ListSlb() (*entity.Slb, error) {
+func (n NetworkRepo) ListVSwitch(arg *entity.VSwitchListArg) ([]*entity.VSwitch, error) {
 	//TODO implement me
 	panic("implement me")
 }
 
-func (n NetworkRepo) GetSlbBy(u uint64) (*entity.Slb, error) {
+func (n NetworkRepo) CreateSlb(arg *entity.SlbCreateArg) (*entity.Slb, error) {
+	//TODO implement me
+	panic("implement me")
+}
+
+func (n NetworkRepo) DeleteSlb(arg *entity.SlbDeleteArg) (*entity.Slb, error) {
+	//TODO implement me
+	panic("implement me")
+}
+
+func (n NetworkRepo) UpdateSlb(arg *entity.SlbUpdateArg) (*entity.Slb, error) {
+	//TODO implement me
+	panic("implement me")
+}
+
+func (n NetworkRepo) GetSlb(arg *entity.SlbGetArg) (*entity.Slb, error) {
+	//TODO implement me
+	panic("implement me")
+}
+
+func (n NetworkRepo) ListSlb(arg *entity.SlbListArg) ([]*entity.Slb, error) {
 	//TODO implement me
 	panic("implement me")
 }

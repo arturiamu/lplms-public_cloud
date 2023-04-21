@@ -13,58 +13,71 @@ type StorageAppInterface interface {
 }
 
 type DiskRepositoryInterface interface {
-	SaveDisk(*entity.Disk) (*entity.Disk, error)
-	GetDisk(uint64) (*entity.Disk, error)
-	ListDisk() (*entity.Disk, error)
-	GetDiskBy(uint64) (*entity.Disk, error)
+	CreateDisk(arg *entity.DiskCreateArg) (*entity.Disk, error)
+	DeleteDisk(arg *entity.DiskDeleteArg) (*entity.Disk, error)
+	UpdateDisk(arg *entity.DiskUpdateArg) (*entity.Disk, error)
+	GetDisk(arg *entity.DiskGetArg) (*entity.Disk, error)
+	ListDisk(arg *entity.DiskListArg) ([]*entity.Disk, error)
 }
 
 type SnapshotRepositoryInterface interface {
-	SaveSnapshot(*entity.Disk) (*entity.Disk, error)
-	GetSnapshot(uint64) (*entity.Disk, error)
-	ListSnapshot() (*entity.Disk, error)
-	GetSnapshotBy(uint64) (*entity.Disk, error)
+	CreateSnapshot(arg *entity.SnapshotCreateArg) (*entity.Snapshot, error)
+	DeleteSnapshot(arg *entity.SnapshotDeleteArg) (*entity.Snapshot, error)
+	UpdateSnapshot(arg *entity.SnapshotUpdateArg) (*entity.Snapshot, error)
+	GetSnapshot(arg *entity.SnapshotGetArg) (*entity.Snapshot, error)
+	ListSnapshot(arg *entity.SnapshotListArg) ([]*entity.Snapshot, error)
 }
 
 type storageApp struct {
 	sr repository.StorageRepositoryInterface
 }
 
-func (s storageApp) SaveDisk(disk *entity.Disk) (*entity.Disk, error) {
-	return s.sr.SaveDisk(disk)
-}
-
-func (s storageApp) GetDisk(u uint64) (*entity.Disk, error) {
+func (s storageApp) CreateDisk(arg *entity.DiskCreateArg) (*entity.Disk, error) {
 	//TODO implement me
 	panic("implement me")
 }
 
-func (s storageApp) ListDisk() (*entity.Disk, error) {
+func (s storageApp) DeleteDisk(arg *entity.DiskDeleteArg) (*entity.Disk, error) {
 	//TODO implement me
 	panic("implement me")
 }
 
-func (s storageApp) GetDiskBy(u uint64) (*entity.Disk, error) {
+func (s storageApp) UpdateDisk(arg *entity.DiskUpdateArg) (*entity.Disk, error) {
 	//TODO implement me
 	panic("implement me")
 }
 
-func (s storageApp) SaveSnapshot(disk *entity.Disk) (*entity.Disk, error) {
+func (s storageApp) GetDisk(arg *entity.DiskGetArg) (*entity.Disk, error) {
 	//TODO implement me
 	panic("implement me")
 }
 
-func (s storageApp) GetSnapshot(u uint64) (*entity.Disk, error) {
+func (s storageApp) ListDisk(arg *entity.DiskListArg) ([]*entity.Disk, error) {
 	//TODO implement me
 	panic("implement me")
 }
 
-func (s storageApp) ListSnapshot() (*entity.Disk, error) {
+func (s storageApp) CreateSnapshot(arg *entity.SnapshotCreateArg) (*entity.Snapshot, error) {
 	//TODO implement me
 	panic("implement me")
 }
 
-func (s storageApp) GetSnapshotBy(u uint64) (*entity.Disk, error) {
+func (s storageApp) DeleteSnapshot(arg *entity.SnapshotDeleteArg) (*entity.Snapshot, error) {
+	//TODO implement me
+	panic("implement me")
+}
+
+func (s storageApp) UpdateSnapshot(arg *entity.SnapshotUpdateArg) (*entity.Snapshot, error) {
+	//TODO implement me
+	panic("implement me")
+}
+
+func (s storageApp) GetSnapshot(arg *entity.SnapshotGetArg) (*entity.Snapshot, error) {
+	//TODO implement me
+	panic("implement me")
+}
+
+func (s storageApp) ListSnapshot(arg *entity.SnapshotListArg) ([]*entity.Snapshot, error) {
 	//TODO implement me
 	panic("implement me")
 }
