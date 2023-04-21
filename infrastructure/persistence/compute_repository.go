@@ -25,10 +25,12 @@ func NewComputeRepo(path *string) *ComputeRepo {
 	config.NegotiatedSerializer = serializer.WithoutConversionCodecFactory{CodecFactory: serializer.NewCodecFactory(runtime.NewScheme())}
 	kubevirtClient, err := kubecli.GetKubevirtClientFromRESTConfig(config)
 	ovnClient, err := versioned.NewForConfig(config)
-	return &ComputeRepo{
+	var computeRepo = ComputeRepo{
 		k8Virt: kubevirtClient,
 		ovn:    ovnClient,
 	}
+	stk.C = &computeRepo
+	return &computeRepo
 }
 
 func (c *ComputeRepo) SaveServer(server *entity.Server) (*entity.Server, error) {

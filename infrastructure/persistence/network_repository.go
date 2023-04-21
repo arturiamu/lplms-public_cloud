@@ -22,9 +22,11 @@ func NewNetworkRepo(path *string) *NetworkRepo {
 	}
 	config.NegotiatedSerializer = serializer.WithoutConversionCodecFactory{CodecFactory: serializer.NewCodecFactory(runtime.NewScheme())}
 	ovnClient, err := versioned.NewForConfig(config)
-	return &NetworkRepo{
+	var networkRepo = NetworkRepo{
 		ovn: ovnClient,
 	}
+	stk.N = &networkRepo
+	return &networkRepo
 }
 
 func (n NetworkRepo) SaveEip(eip *entity.Eip) (*entity.Eip, error) {

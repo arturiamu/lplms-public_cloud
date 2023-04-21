@@ -16,6 +16,9 @@ func NewCompute(ci application.ComputeAppInterface) *Compute {
 	}
 }
 
+type CreateServerArg struct {
+}
+
 func (co *Compute) CreateServer(c *gin.Context) {
 	co.ci.SaveServer(&entity.Server{})
 }

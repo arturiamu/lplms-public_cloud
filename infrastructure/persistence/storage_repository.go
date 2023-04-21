@@ -22,9 +22,11 @@ func NewStorageRepo(path *string) *StorageRepo {
 	}
 	config.NegotiatedSerializer = serializer.WithoutConversionCodecFactory{CodecFactory: serializer.NewCodecFactory(runtime.NewScheme())}
 	kubevirtClient, err := kubecli.GetKubevirtClientFromRESTConfig(config)
-	return &StorageRepo{
+	var storageRepo = StorageRepo{
 		k8Virt: kubevirtClient,
 	}
+	stk.S = &storageRepo
+	return &storageRepo
 }
 
 func (s StorageRepo) SaveDisk(disk *entity.Disk) (*entity.Disk, error) {

@@ -13,9 +13,9 @@ type UserRepo struct {
 }
 
 func NewUserRepository(db *gorm.DB) *UserRepo {
-	return &UserRepo{
-		db: db,
-	}
+	var userRepo = UserRepo{db: db}
+	stk.U = &userRepo
+	return &userRepo
 }
 
 func (u *UserRepo) SaveUser(user *entity.User) (*entity.User, error) {
