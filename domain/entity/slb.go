@@ -17,3 +17,13 @@ type SlbGetArg struct {
 
 type SlbListArg struct {
 }
+
+type SlbCreateResp struct{}
+
+type SlbDeleteResp struct{}
+
+type SlbUpdateResp struct{}
+
+type SlbGetResp struct{}
+
+type SlbListResp struct{}

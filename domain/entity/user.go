@@ -22,3 +22,28 @@ type User struct {
 func (u User) TableName() string {
 	return "users"
 }
+
+type UserCreateArg struct {
+}
+
+type UserDeleteArg struct {
+}
+
+type UserUpdateArg struct {
+}
+
+type UserGetArg struct {
+}
+
+type UserListArg struct {
+}
+
+type UserCreateResp struct{}
+
+type UserDeleteResp struct{}
+
+type UserUpdateResp struct{}
+
+type UserGetResp struct{}
+
+type UserListResp struct{}

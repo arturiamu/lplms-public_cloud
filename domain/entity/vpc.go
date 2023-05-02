@@ -17,3 +17,13 @@ type VpcGetArg struct {
 
 type VpcListArg struct {
 }
+
+type VpcCreateResp struct{}
+
+type VpcDeleteResp struct{}
+
+type VpcUpdateResp struct{}
+
+type VpcGetResp struct{}
+
+type VpcListResp struct{}

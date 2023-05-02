@@ -17,3 +17,13 @@ type FlavorGetArg struct {
 
 type FlavorListArg struct {
 }
+
+type FlavorCreateResp struct{}
+
+type FlavorDeleteResp struct{}
+
+type FlavorUpdateResp struct{}
+
+type FlavorGetResp struct{}
+
+type FlavorListResp struct{}

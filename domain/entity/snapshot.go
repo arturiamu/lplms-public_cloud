@@ -75,3 +75,13 @@ type SnapshotListArg struct {
 	// IsAdmin 标识是不是 admin 查询
 	IsAdmin bool
 }
+
+type SnapshotCreateResp struct{}
+
+type SnapshotDeleteResp struct{}
+
+type SnapshotUpdateResp struct{}
+
+type SnapshotGetResp struct{}
+
+type SnapshotListResp struct{}

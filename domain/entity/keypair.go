@@ -24,3 +24,13 @@ type KeypairGetArg struct {
 
 type KeypairListArg struct {
 }
+
+type KeypairCreateResp struct{}
+
+type KeypairDeleteResp struct{}
+
+type KeypairUpdateResp struct{}
+
+type KeypairGetResp struct{}
+
+type KeypairListResp struct{}

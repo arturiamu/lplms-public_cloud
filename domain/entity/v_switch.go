@@ -17,3 +17,13 @@ type VSwitchGetArg struct {
 
 type VSwitchListArg struct {
 }
+
+type VSwitchCreateResp struct{}
+
+type VSwitchDeleteResp struct{}
+
+type VSwitchUpdateResp struct{}
+
+type VSwitchGetResp struct{}
+
+type VSwitchListResp struct{}

@@ -143,3 +143,13 @@ type DiskListArg struct {
 	// IsAdmin 标识是否是 admin 查询
 	IsAdmin bool
 }
+
+type DiskCreateResp struct{}
+
+type DiskDeleteResp struct{}
+
+type DiskUpdateResp struct{}
+
+type DiskGetResp struct{}
+
+type DiskListResp struct{}

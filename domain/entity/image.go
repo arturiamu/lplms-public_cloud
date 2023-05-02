@@ -1,23 +1,27 @@
 package entity
 
+import "github.com/arturiamu/lplms-public_cloud/common"
+
 type Image struct {
-	ImageID            string // 镜像 ID
-	SnapshotID         string // 快照 ID
-	Description        string // 镜像描述
-	OSType             string // 操作系统类型
-	Architecture       string // 镜像系统架构类型
-	OSName             string // 操作系统的中文显示名称
-	Progress           string // 对于导入中的镜像，返回导入任务的进度
-	ImageVersion       string // 镜像版本
-	Status             string // 镜像的状态
-	ImageName          string // 镜像名称
-	ImageOwnerAlias    string // 镜像来源
-	Platform           string // 操作系统平台
-	Size               int64  // 镜像大小，单位：Bytes
-	IsSupportCloudInit bool   // 镜像是否支持cloud-init
-	IsCopied           bool   // 是否是拷贝的镜像
-	CreatedAt          int64  // 镜像的创建时间
-	MinDiskSize        int64  // 镜像要求的最小系统盘容量，单位：Bytes
+	//ZoneID             enums.Zone
+	ImageID             string                  // 镜像 ID
+	SnapshotID          string                  // 快照 ID
+	Description         string                  // 镜像描述
+	OSType              common.OSType           // 操作系统类型
+	Architecture        common.ArchitectureType // 镜像系统架构类型
+	OSName              string                  // 操作系统的中文显示名称
+	Progress            string                  // 对于导入中的镜像，返回导入任务的进度
+	ImageVersion        string                  // 镜像版本
+	Status              common.ImageStatus      // 镜像的状态
+	ImageName           string                  // 镜像名称
+	ImageOwnerAlias     common.ImageOwnerAlias  // 镜像来源
+	Platform            common.PlatformType     // 操作系统平台
+	Size                int64                   // 镜像大小，单位：Bytes
+	IsSupportCloudInit  bool                    // 镜像是否支持cloud-init
+	IsCopied            bool                    // 是否是拷贝的镜像
+	CreatedAt           int64                   // 镜像的创建时间
+	ImageDeviceMappings []*ImageDeviceMapping   // 镜像下包含磁盘和快照的映射关系
+	MinImageSize        int64                   // 镜像要求的最小系统盘容量，单位：Bytes
 }
 
 type ImageCreateArg struct {
@@ -39,7 +43,7 @@ type ImageCreateArg struct {
 	Description *string
 
 	// 镜像格式
-	DiskFormat string
+	ImageFormat string
 }
 
 type ImageDeleteArg struct {
@@ -79,3 +83,13 @@ type ImageGetArg struct {
 
 type ImageListArg struct {
 }
+
+type ImageCreateResp struct{}
+
+type ImageDeleteResp struct{}
+
+type ImageUpdateResp struct{}
+
+type ImageGetResp struct{}
+
+type ImageListResp struct{}
