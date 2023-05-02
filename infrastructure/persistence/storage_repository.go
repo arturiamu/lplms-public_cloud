@@ -15,6 +15,20 @@ type StorageRepo struct {
 	k8Virt kubecli.KubevirtClient
 }
 
+func NewStorageRepo(path *string) *StorageRepo {
+	config, err := clientcmd.BuildConfigFromFlags("", *path)
+	if err != nil {
+		panic(err)
+	}
+	config.NegotiatedSerializer = serializer.WithoutConversionCodecFactory{CodecFactory: serializer.NewCodecFactory(runtime.NewScheme())}
+	kubevirtClient, err := kubecli.GetKubevirtClientFromRESTConfig(config)
+	var storageRepo = StorageRepo{
+		k8Virt: kubevirtClient,
+	}
+	stk.S = &storageRepo
+	return &storageRepo
+}
+
 func (s *StorageRepo) CreateDisk(arg *entity.DiskCreateArg) (*entity.Disk, error) {
 	//TODO implement me
 	panic("implement me")
@@ -63,18 +77,4 @@ func (s *StorageRepo) GetSnapshot(arg *entity.SnapshotGetArg) (*entity.Snapshot,
 func (s *StorageRepo) ListSnapshot(arg *entity.SnapshotListArg) ([]*entity.Snapshot, error) {
 	//TODO implement me
 	panic("implement me")
-}
-
-func NewStorageRepo(path *string) *StorageRepo {
-	config, err := clientcmd.BuildConfigFromFlags("", *path)
-	if err != nil {
-		panic(err)
-	}
-	config.NegotiatedSerializer = serializer.WithoutConversionCodecFactory{CodecFactory: serializer.NewCodecFactory(runtime.NewScheme())}
-	kubevirtClient, err := kubecli.GetKubevirtClientFromRESTConfig(config)
-	var storageRepo = StorageRepo{
-		k8Virt: kubevirtClient,
-	}
-	stk.S = &storageRepo
-	return &storageRepo
 }

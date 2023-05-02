@@ -17,6 +17,22 @@ type ComputeRepo struct {
 	ovn    *versioned.Clientset
 }
 
+func NewComputeRepo(path *string) *ComputeRepo {
+	config, err := clientcmd.BuildConfigFromFlags("", *path)
+	if err != nil {
+		panic(err)
+	}
+	config.NegotiatedSerializer = serializer.WithoutConversionCodecFactory{CodecFactory: serializer.NewCodecFactory(runtime.NewScheme())}
+	kubevirtClient, err := kubecli.GetKubevirtClientFromRESTConfig(config)
+	ovnClient, err := versioned.NewForConfig(config)
+	var computeRepo = ComputeRepo{
+		k8Virt: kubevirtClient,
+		ovn:    ovnClient,
+	}
+	stk.C = &computeRepo
+	return &computeRepo
+}
+
 func (c *ComputeRepo) CreateServer(arg *entity.ServerCreateArg) (*entity.Server, error) {
 	//TODO implement me
 	panic("implement me")
@@ -140,20 +156,4 @@ func (c *ComputeRepo) GetSecurityGroup(arg *entity.SecurityGroupGetArg) (*entity
 func (c *ComputeRepo) ListSecurityGroup(arg *entity.SecurityGroupListArg) ([]*entity.SecurityGroup, error) {
 	//TODO implement me
 	panic("implement me")
-}
-
-func NewComputeRepo(path *string) *ComputeRepo {
-	config, err := clientcmd.BuildConfigFromFlags("", *path)
-	if err != nil {
-		panic(err)
-	}
-	config.NegotiatedSerializer = serializer.WithoutConversionCodecFactory{CodecFactory: serializer.NewCodecFactory(runtime.NewScheme())}
-	kubevirtClient, err := kubecli.GetKubevirtClientFromRESTConfig(config)
-	ovnClient, err := versioned.NewForConfig(config)
-	var computeRepo = ComputeRepo{
-		k8Virt: kubevirtClient,
-		ovn:    ovnClient,
-	}
-	stk.C = &computeRepo
-	return &computeRepo
 }
