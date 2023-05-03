@@ -14,6 +14,7 @@ type Config struct {
 	App     App     `yaml:"app" mapstructure:"app"`
 	MySQL   MySQL   `yaml:"mysql" mapstructure:"mysql"`
 	SQLLite SQLLite `yaml:"sqllite" mapstructure:"sqllite"`
+	Cluster Cluster `yaml:"cluster" mapstructure:"cluster"`
 }
 
 type App struct {
@@ -37,6 +38,10 @@ type MySQL struct {
 	MaxIdleConn     int    `yaml:"max_idle_conn" mapstructure:"max_idle_conn"`
 	MaxOpenConn     int    `yaml:"max_open_conn" mapstructure:"max_open_conn"`
 	ConnMaxLifeTime int    `yaml:"conn_max_life_time" mapstructure:"conn_max_life_time"`
+}
+
+type Cluster struct {
+	BaseNamespace string `yaml:"base_namespace" mapstructure:"base_namespace"`
 }
 
 func LoadConfig(confPath string) (err error) {

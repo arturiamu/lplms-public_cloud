@@ -1,14 +1,16 @@
 package entity
 
+import "github.com/arturiamu/lplms-public_cloud/common"
+
 type Disk struct {
+	//ZoneID           enums.Zone
 	ImageID          string
 	Device           string
 	DetachedAt       int64
-	DiskType         string
+	DiskType         *common.DiskType
 	Bootable         bool
 	ServerID         string
 	ServerName       string
-	ZoneID           string
 	AttachedTime     int64
 	SourceSnapshotID string
 	Size             int64
@@ -16,16 +18,19 @@ type Disk struct {
 	Portable         bool
 	DiskName         string
 	CreatedAt        int64
-	Status           string
-	Category         string
+	Status           common.DiskStatusType
+	Category         common.DiskCategory
 	DeleteWithServer bool
 	DiskID           string
-	OSType           string
+	OSType           common.OSType
 	OSName           string
 	ImageName        string
 }
 
 type DiskCreateArg struct {
+
+	// 在指定可用区内创建一块按量付费云盘。
+	//ZoneID enums.Zone
 
 	// 项目ID
 	ProjectID string
@@ -34,6 +39,7 @@ type DiskCreateArg struct {
 	Size *int64
 
 	// 云盘名称。长度为2~128个英文或中文字符。必须以大小字母或中文开头，不能以 http:// 和 https:// 开头。可以包含数字、半角冒号（:）、下划线（_）或者连字符（-）。
+	//
 	// 默认值：空
 	DiskName *string
 
@@ -41,6 +47,7 @@ type DiskCreateArg struct {
 	Category string
 
 	// 云盘描述。长度为2~256个英文或中文字符，不能以 http:// 和 https:// 开头。
+	//
 	// 默认值：空
 	Description *string
 
@@ -49,6 +56,9 @@ type DiskCreateArg struct {
 
 	// 创建云盘使用的镜像
 	ImageID *string
+
+	// 保证请求幂等性。从您的客户端生成一个参数值，确保不同请求间该参数值唯一。
+	ClientToken *string
 }
 
 type DiskDeleteArg struct {
@@ -57,6 +67,9 @@ type DiskDeleteArg struct {
 }
 
 type DiskUpdateArg struct {
+	// 所属的地域ID。您可以调用DescribeRegions查看最新的七牛云地域列表。
+	//ZoneID enums.Zone
+
 	// 项目ID
 	ProjectID string
 
@@ -71,13 +84,16 @@ type DiskUpdateArg struct {
 	Description *string
 
 	// 磁盘是否随实例释放。默认值：无，无表示不改变当前的值。
+	//
 	// 在下列两种情况下，将参数DeleteWithServer设置成false时会报错。
 	// - 磁盘的种类（category）为本地盘（ephemeral）时。
-	// - 磁盘的种类（category）为普通云盘（cloud），且不可以卸载（Portable=false）时。
 	DeleteWithServer *bool
+	// - 磁盘的种类（category）为普通云盘（cloud），且不可以卸载（Portable=false）时。
 }
 
 type DiskGetArg struct {
+	// 可用区ID。
+	//ZoneID enums.Zone
 
 	// 项目ID
 	ProjectID string
@@ -87,6 +103,9 @@ type DiskGetArg struct {
 }
 
 type DiskListArg struct {
+
+	// 可用区ID。
+	//ZoneID enums.Zone
 
 	// 项目ID
 	ProjectID string
@@ -102,7 +121,8 @@ type DiskListArg struct {
 	// - system：只查询系统盘。
 	// - data：只查询数据盘。
 	// 默认值：all
-	DiskType string
+
+	DiskType *common.DiskType
 
 	// 云盘或本地盘种类。取值范围：
 	// - all：所有云盘以及本地盘
@@ -115,7 +135,7 @@ type DiskListArg struct {
 	// - ephemeral：（已停售）本地盘
 	// - ephemeral_ssd：（已停售）本地SSD盘
 	// 默认值：all
-	Category string
+	Category *common.DiskCategory
 
 	// 云盘状态，详情参见云盘状态。取值范围：
 	// - In_use
@@ -126,7 +146,7 @@ type DiskListArg struct {
 	// - ReIniting
 	// - All
 	// 默认值：All
-	Status string
+	Status *common.DiskStatusType
 
 	// 创建云盘时使用的快照ID。
 	SnapshotID *string
@@ -142,14 +162,23 @@ type DiskListArg struct {
 
 	// IsAdmin 标识是否是 admin 查询
 	IsAdmin bool
+
+	common.Pagination // 分页信息
+
 }
 
-type DiskCreateResp struct{}
+type DiskCreateResp struct {
+	DiskID string // 云盘ID。
+}
 
 type DiskDeleteResp struct{}
 
 type DiskUpdateResp struct{}
 
-type DiskGetResp struct{}
+type DiskGetResp struct {
+	Disk Disk
+}
 
-type DiskListResp struct{}
+type DiskListResp struct {
+	Disks []Disk
+}

@@ -17,3 +17,6 @@ mysql:
 sqllite:
   path: ./config/
   name: lplms.dev.db
+
+cluster:
+  base_namespace: base
