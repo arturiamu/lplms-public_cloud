@@ -22,21 +22,21 @@ import (
 // 调用CreateKeyPair创建一对SSH密钥对或导入公钥。如果不传入公钥信息，则表示生成新密钥对，我们会为您保管密钥的公钥部分，
 // 并返回未加密的PEM编码的PKCS#8格式私钥。您需要自行妥善保管私钥部分。
 // 您在每个地域的密钥对数最高为500对。更多详情，请参见使用限制。
-func (c *ComputeRepo) CreateKeypair(arg *entity.KeypairCreateArg) (*entity.KeypairCreateResp, error) {
+func (c *ComputeRepo) CreateKeypair(args *entity.KeypairCreateArg) (*entity.KeypairCreateResp, error) {
 	var (
-		ns              = arg.ProjectID
+		ns              = args.ProjectID
 		k               = c.k8Virt.CoreV1().Secrets(ns)
 		pubKey, prvtKey []byte
 	)
 
-	if arg.PublicKeyBody == nil {
+	if args.PublicKeyBody == nil {
 		var err error
 		pubKey, prvtKey, err = generateSSHKey()
 		if err != nil {
 			return nil, err
 		}
 	} else {
-		pubKey = []byte(*arg.PublicKeyBody)
+		pubKey = []byte(*args.PublicKeyBody)
 	}
 
 	fp, err := fingerPrint(pubKey)
@@ -46,7 +46,7 @@ func (c *ComputeRepo) CreateKeypair(arg *entity.KeypairCreateArg) (*entity.Keypa
 
 	s, err := k.Create(context.Background(), &corev1.Secret{
 		ObjectMeta: v1.ObjectMeta{
-			Name: arg.KeyPairName,
+			Name: args.KeyPairName,
 			Annotations: map[string]string{
 				common.AnnotationFingerPrint: fp,
 			},
@@ -66,25 +66,25 @@ func (c *ComputeRepo) CreateKeypair(arg *entity.KeypairCreateArg) (*entity.Keypa
 	}, nil
 }
 
-func (c *ComputeRepo) DeleteKeypair(arg *entity.KeypairDeleteArg) (*entity.KeypairDeleteResp, error) {
-	err := c.k8Virt.CoreV1().Secrets(arg.ProjectID).Delete(context.Background(), arg.KeyPairName, v1.DeleteOptions{})
+func (c *ComputeRepo) DeleteKeypair(args *entity.KeypairDeleteArg) (*entity.KeypairDeleteResp, error) {
+	err := c.k8Virt.CoreV1().Secrets(args.ProjectID).Delete(context.Background(), args.KeyPairName, v1.DeleteOptions{})
 	return nil, err
 }
 
-func (c *ComputeRepo) UpdateKeypair(arg *entity.KeypairUpdateArg) (*entity.KeypairUpdateResp, error) {
+func (c *ComputeRepo) UpdateKeypair(args *entity.KeypairUpdateArg) (*entity.KeypairUpdateResp, error) {
 	//TODO implement me
 	panic("implement me")
 }
 
-func (c *ComputeRepo) GetKeypair(arg *entity.KeypairGetArg) (*entity.KeypairGetResp, error) {
+func (c *ComputeRepo) GetKeypair(args *entity.KeypairGetArg) (*entity.KeypairGetResp, error) {
 	//TODO implement me
 	panic("implement me")
 }
 
 // ListKeypair
 // 调用DescribeKeyPairs查询一个或多个密钥对。
-func (c *ComputeRepo) ListKeypair(arg *entity.KeypairListArg) (*entity.KeypairListResp, error) {
-	resp, err := c.k8Virt.CoreV1().Secrets(arg.ProjectID).List(context.Background(), v1.ListOptions{})
+func (c *ComputeRepo) ListKeypair(args *entity.KeypairListArg) (*entity.KeypairListResp, error) {
+	resp, err := c.k8Virt.CoreV1().Secrets(args.ProjectID).List(context.Background(), v1.ListOptions{})
 	if err != nil {
 		return nil, err
 	}
@@ -93,9 +93,9 @@ func (c *ComputeRepo) ListKeypair(arg *entity.KeypairListArg) (*entity.KeypairLi
 		KeyPairs: make([]entity.Keypair, 0, len(resp.Items)),
 	}
 
-	if arg.KeyPairName != nil {
+	if args.KeyPairName != nil {
 		for _, v := range resp.Items {
-			if v.Name == *arg.KeyPairName {
+			if v.Name == *args.KeyPairName {
 				res.KeyPairs = append(res.KeyPairs, entity.Keypair{
 					KeyPairName: v.Name,
 					FingerPrint: v.Annotations[common.AnnotationFingerPrint],
@@ -128,13 +128,13 @@ func (c *ComputeRepo) ListKeypair(arg *entity.KeypairListArg) (*entity.KeypairLi
 // 如果实例处于**已停止**（`Stopped`）状态，启动实例（StartServer）后，SSH密钥对生效。
 // 如果实例已经绑定了SSH密钥对，新的SSH密钥对自动替换原来的SSH密钥对。
 // 调用DeleteKeyPairs删除一对SSH密钥对。
-func (c *ComputeRepo) AttachKeyPair(arg *entity.KeypairAttachArg) (*entity.KeypairAttachResp, error) {
+func (c *ComputeRepo) AttachKeyPair(args *entity.KeypairAttachArg) (*entity.KeypairAttachResp, error) {
 	var (
-		ns = arg.ProjectID
+		ns = args.ProjectID
 		k  = c.k8Virt.VirtualMachine(ns)
 	)
 
-	oldServer, err := k.Get(arg.ServerID, &v1.GetOptions{})
+	oldServer, err := k.Get(args.ServerID, &v1.GetOptions{})
 	if err != nil {
 		return nil, err
 	}
@@ -145,7 +145,7 @@ func (c *ComputeRepo) AttachKeyPair(arg *entity.KeypairAttachArg) (*entity.Keypa
 	accessCredential.SSHPublicKey = &kubevirtv1.SSHPublicKeyAccessCredential{
 		Source: kubevirtv1.SSHPublicKeyAccessCredentialSource{
 			Secret: &kubevirtv1.AccessCredentialSecretSource{
-				SecretName: arg.KeyPairName,
+				SecretName: args.KeyPairName,
 			},
 		},
 		PropagationMethod: kubevirtv1.SSHPublicKeyAccessCredentialPropagationMethod{

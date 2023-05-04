@@ -11,43 +11,43 @@ type ComputeRepositoryInterface interface {
 }
 
 type ServerRepositoryInterface interface {
-	CreateServer(arg *entity.ServerCreateArg) (*entity.ServerCreateResp, error)
-	DeleteServer(arg *entity.ServerDeleteArg) (*entity.ServerDeleteResp, error)
-	UpdateServer(arg *entity.ServerUpdateArg) (*entity.ServerUpdateResp, error)
-	GetServer(arg *entity.ServerGetArg) (*entity.ServerGetResp, error)
-	ListServer(arg *entity.ServerListArg) (*entity.ServerListResp, error)
+	CreateServer(args *entity.ServerCreateArg) (*entity.ServerCreateResp, error)
+	DeleteServer(args *entity.ServerDeleteArg) (*entity.ServerDeleteResp, error)
+	UpdateServer(args *entity.ServerUpdateArg) (*entity.ServerUpdateResp, error)
+	GetServer(args *entity.ServerGetArg) (*entity.ServerGetResp, error)
+	ListServer(args *entity.ServerListArg) (*entity.ServerListResp, error)
 }
 
 type ImageRepositoryInterface interface {
-	CreateFlavor(arg *entity.FlavorCreateArg) (*entity.FlavorCreateResp, error)
-	DeleteFlavor(arg *entity.FlavorDeleteArg) (*entity.FlavorDeleteResp, error)
-	UpdateFlavor(arg *entity.FlavorUpdateArg) (*entity.FlavorUpdateResp, error)
-	GetFlavor(arg *entity.FlavorGetArg) (*entity.FlavorGetResp, error)
-	ListFlavor(arg *entity.FlavorListArg) (*entity.FlavorListResp, error)
+	CreateFlavor(args *entity.FlavorCreateArg) (*entity.FlavorCreateResp, error)
+	DeleteFlavor(args *entity.FlavorDeleteArg) (*entity.FlavorDeleteResp, error)
+	UpdateFlavor(args *entity.FlavorUpdateArg) (*entity.FlavorUpdateResp, error)
+	GetFlavor(args *entity.FlavorGetArg) (*entity.FlavorGetResp, error)
+	ListFlavor(args *entity.FlavorListArg) (*entity.FlavorListResp, error)
 }
 
 type FlavorRepositoryInterface interface {
-	CreateImage(arg *entity.ImageCreateArg) (*entity.ImageCreateResp, error)
-	DeleteImage(arg *entity.ImageDeleteArg) (*entity.ImageDeleteResp, error)
-	UpdateImage(arg *entity.ImageUpdateArg) (*entity.ImageUpdateResp, error)
-	GetImage(arg *entity.ImageGetArg) (*entity.ImageGetResp, error)
-	ListImage(arg *entity.ImageListArg) (*entity.ImageListResp, error)
+	CreateImage(args *entity.ImageCreateArg) (*entity.ImageCreateResp, error)
+	DeleteImage(args *entity.ImageDeleteArg) (*entity.ImageDeleteResp, error)
+	UpdateImage(args *entity.ImageUpdateArg) (*entity.ImageUpdateResp, error)
+	GetImage(args *entity.ImageGetArg) (*entity.ImageGetResp, error)
+	ListImage(args *entity.ImageListArg) (*entity.ImageListResp, error)
 }
 
 type KeypairRepositoryInterface interface {
-	CreateKeypair(arg *entity.KeypairCreateArg) (*entity.KeypairCreateResp, error)
-	DeleteKeypair(arg *entity.KeypairDeleteArg) (*entity.KeypairDeleteResp, error)
-	UpdateKeypair(arg *entity.KeypairUpdateArg) (*entity.KeypairUpdateResp, error)
-	GetKeypair(arg *entity.KeypairGetArg) (*entity.KeypairGetResp, error)
-	ListKeypair(arg *entity.KeypairListArg) (*entity.KeypairListResp, error)
+	CreateKeypair(args *entity.KeypairCreateArg) (*entity.KeypairCreateResp, error)
+	DeleteKeypair(args *entity.KeypairDeleteArg) (*entity.KeypairDeleteResp, error)
+	UpdateKeypair(args *entity.KeypairUpdateArg) (*entity.KeypairUpdateResp, error)
+	GetKeypair(args *entity.KeypairGetArg) (*entity.KeypairGetResp, error)
+	ListKeypair(args *entity.KeypairListArg) (*entity.KeypairListResp, error)
 	DetachKeyPair(args *entity.KeypairDetachArg) (*entity.KeypairDetachResp, error)
-	AttachKeyPair(arg *entity.KeypairAttachArg) (*entity.KeypairAttachResp, error)
+	AttachKeyPair(args *entity.KeypairAttachArg) (*entity.KeypairAttachResp, error)
 }
 
 type SecurityGroupRepositoryInterface interface {
-	CreateSecurityGroup(arg *entity.SecurityGroupCreateArg) (*entity.SecurityGroupCreateResp, error)
-	DeleteSecurityGroup(arg *entity.SecurityGroupDeleteArg) (*entity.SecurityGroupDeleteResp, error)
-	UpdateSecurityGroup(arg *entity.SecurityGroupUpdateArg) (*entity.SecurityGroupUpdateResp, error)
-	GetSecurityGroup(arg *entity.SecurityGroupGetArg) (*entity.SecurityGroupGetResp, error)
-	ListSecurityGroup(arg *entity.SecurityGroupListArg) (*entity.SecurityGroupListResp, error)
+	CreateSecurityGroup(args *entity.SecurityGroupCreateArg) (*entity.SecurityGroupCreateResp, error)
+	DeleteSecurityGroup(args *entity.SecurityGroupDeleteArg) (*entity.SecurityGroupDeleteResp, error)
+	UpdateSecurityGroup(args *entity.SecurityGroupUpdateArg) (*entity.SecurityGroupUpdateResp, error)
+	GetSecurityGroup(args *entity.SecurityGroupGetArg) (*entity.SecurityGroupGetResp, error)
+	ListSecurityGroup(args *entity.SecurityGroupListArg) (*entity.SecurityGroupListResp, error)
 }

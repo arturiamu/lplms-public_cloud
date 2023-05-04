@@ -8,21 +8,21 @@ type StorageRepositoryInterface interface {
 }
 
 type DiskRepositoryInterface interface {
-	CreateDisk(arg *entity.DiskCreateArg) (*entity.DiskCreateResp, error)
-	DeleteDisk(arg *entity.DiskDeleteArg) (*entity.DiskDeleteResp, error)
-	UpdateDisk(arg *entity.DiskUpdateArg) (*entity.DiskUpdateResp, error)
-	GetDisk(arg *entity.DiskGetArg) (*entity.DiskGetResp, error)
-	ListDisk(arg *entity.DiskListArg) (*entity.DiskListResp, error)
-	AttachDisk(arg *entity.DiskAttachArg) ([]*entity.DiskAttachResp, error)
-	DetachDisk(arg *entity.DiskDetachArg) ([]*entity.DiskDetachResp, error)
-	ResizeDisk(arg *entity.DiskResizeArg) ([]*entity.DiskResizeResp, error)
-	ResetDisk(arg *entity.DiskResetArg) ([]*entity.DiskResetResp, error)
+	CreateDisk(args *entity.DiskCreateArg) (*entity.DiskCreateResp, error)
+	DeleteDisk(args *entity.DiskDeleteArg) (*entity.DiskDeleteResp, error)
+	UpdateDisk(args *entity.DiskUpdateArg) (*entity.DiskUpdateResp, error)
+	GetDisk(args *entity.DiskGetArg) (*entity.DiskGetResp, error)
+	ListDisk(args *entity.DiskListArg) (*entity.DiskListResp, error)
+	AttachDisk(args *entity.DiskAttachArg) (*entity.DiskAttachResp, error)
+	DetachDisk(args *entity.DiskDetachArg) (*entity.DiskDetachResp, error)
+	ResizeDisk(args *entity.DiskResizeArg) (*entity.DiskResizeResp, error)
+	ResetDisk(args *entity.DiskResetArg) (*entity.DiskResetResp, error)
 }
 
 type SnapshotRepositoryInterface interface {
-	CreateSnapshot(arg *entity.SnapshotCreateArg) (*entity.SnapshotCreateResp, error)
-	DeleteSnapshot(arg *entity.SnapshotDeleteArg) (*entity.SnapshotDeleteResp, error)
-	UpdateSnapshot(arg *entity.SnapshotUpdateArg) (*entity.SnapshotUpdateResp, error)
-	GetSnapshot(arg *entity.SnapshotGetArg) (*entity.SnapshotGetResp, error)
-	ListSnapshot(arg *entity.SnapshotListArg) (*entity.SnapshotListResp, error)
+	CreateSnapshot(args *entity.SnapshotCreateArg) (*entity.SnapshotCreateResp, error)
+	DeleteSnapshot(args *entity.SnapshotDeleteArg) (*entity.SnapshotDeleteResp, error)
+	UpdateSnapshot(args *entity.SnapshotUpdateArg) (*entity.SnapshotUpdateResp, error)
+	GetSnapshot(args *entity.SnapshotGetArg) (*entity.SnapshotGetResp, error)
+	ListSnapshot(args *entity.SnapshotListArg) (*entity.SnapshotListResp, error)
 }

@@ -21,30 +21,30 @@ var gpuFlavorDriverMap = map[string]string{
 	"NVIDIA-3090-24G": "nvidia.com/GA102_GEFORCE_RTX_3090",
 }
 
-func (c *ComputeRepo) CreateFlavor(arg *entity.FlavorCreateArg) (*entity.FlavorCreateResp, error) {
+func (c *ComputeRepo) CreateFlavor(args *entity.FlavorCreateArg) (*entity.FlavorCreateResp, error) {
 	var (
 		ns = config.AppConfig.Cluster.BaseNamespace
 		k  = c.k8Virt.VirtualMachineInstancetype(ns)
 		id = uuid.GenerateUUID()
 	)
 	var gpus []corev1.GPU
-	for i := 0; i < arg.GPUAmount; i++ {
+	for i := 0; i < args.GPUAmount; i++ {
 		var gpu = corev1.GPU{
-			Name:       fmt.Sprintf("%s_%d", arg.GPUSpec, i+1),
-			DeviceName: arg.DeviceName,
+			Name:       fmt.Sprintf("%s_%d", args.GPUSpec, i+1),
+			DeviceName: args.DeviceName,
 		}
 		gpus = append(gpus, gpu)
 	}
-	quantity, _ := resource.ParseQuantity(fmt.Sprintf("%dMi", arg.RAM))
+	quantity, _ := resource.ParseQuantity(fmt.Sprintf("%dMi", args.RAM))
 	_, err := k.Create(context.Background(), &v1alpha2.VirtualMachineInstancetype{
 		ObjectMeta: v1.ObjectMeta{
 			Name: id,
 			Annotations: map[string]string{
-				common.AnnotationName: arg.Name,
+				common.AnnotationName: args.Name,
 			},
 		},
 		Spec: v1alpha2.VirtualMachineInstancetypeSpec{
-			CPU:    v1alpha2.CPUInstancetype{Guest: uint32(arg.VCPUs)},
+			CPU:    v1alpha2.CPUInstancetype{Guest: uint32(args.VCPUs)},
 			Memory: v1alpha2.MemoryInstancetype{Guest: quantity},
 			GPUs:   gpus,
 		},
@@ -55,26 +55,26 @@ func (c *ComputeRepo) CreateFlavor(arg *entity.FlavorCreateArg) (*entity.FlavorC
 	return &entity.FlavorCreateResp{
 		Flavor: entity.Flavor{
 			FlavorID: id,
-			Name:     arg.Name,
+			Name:     args.Name,
 		},
 	}, nil
 }
 
-func (c *ComputeRepo) DeleteFlavor(arg *entity.FlavorDeleteArg) (*entity.FlavorDeleteResp, error) {
+func (c *ComputeRepo) DeleteFlavor(args *entity.FlavorDeleteArg) (*entity.FlavorDeleteResp, error) {
 	var (
 		ns = config.AppConfig.Cluster.BaseNamespace
 		k  = c.k8Virt.VirtualMachineInstancetype(ns)
 	)
-	err := k.Delete(context.Background(), arg.FlavorID, v1.DeleteOptions{})
+	err := k.Delete(context.Background(), args.FlavorID, v1.DeleteOptions{})
 	return nil, err
 }
 
-func (c *ComputeRepo) UpdateFlavor(arg *entity.FlavorUpdateArg) (*entity.FlavorUpdateResp, error) {
+func (c *ComputeRepo) UpdateFlavor(args *entity.FlavorUpdateArg) (*entity.FlavorUpdateResp, error) {
 	//TODO implement me
 	panic("implement me")
 }
 
-func (c *ComputeRepo) GetFlavor(arg *entity.FlavorGetArg) (*entity.FlavorGetResp, error) {
+func (c *ComputeRepo) GetFlavor(args *entity.FlavorGetArg) (*entity.FlavorGetResp, error) {
 	var (
 		ns     = config.AppConfig.Cluster.BaseNamespace
 		k      = c.k8Virt.VirtualMachineInstancetype(ns)
@@ -87,7 +87,7 @@ func (c *ComputeRepo) GetFlavor(arg *entity.FlavorGetArg) (*entity.FlavorGetResp
 
 	if resp != nil {
 		for _, v := range resp.Items {
-			if v.Name == arg.FlavorID {
+			if v.Name == args.FlavorID {
 				flavor = entity.Flavor{
 					FlavorID:  v.ObjectMeta.GetName(),
 					Name:      v.ObjectMeta.GetAnnotations()[common.AnnotationName],
@@ -103,7 +103,7 @@ func (c *ComputeRepo) GetFlavor(arg *entity.FlavorGetArg) (*entity.FlavorGetResp
 	return &entity.FlavorGetResp{Flavor: flavor}, nil
 }
 
-func (c *ComputeRepo) ListFlavor(arg *entity.FlavorListArg) (*entity.FlavorListResp, error) {
+func (c *ComputeRepo) ListFlavor(args *entity.FlavorListArg) (*entity.FlavorListResp, error) {
 	//TODO implement me
 	panic("implement me")
 }

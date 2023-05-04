@@ -23,7 +23,7 @@ func (u *UserRepo) SaveUser(user *entity.User) (*entity.User, error) {
 	panic("implement me")
 }
 
-func (u *UserRepo) GetUser(u2 uint64) (*entity.User, error) {
+func (u *UserRepo) GetUser(id uint64) (*entity.User, error) {
 	//TODO implement me
 	panic("implement me")
 }
@@ -33,7 +33,7 @@ func (u *UserRepo) ListUser() (*entity.User, error) {
 	panic("implement me")
 }
 
-func (u *UserRepo) GetUserBy(u2 uint64) (*entity.User, error) {
+func (u *UserRepo) GetUserBy(id uint64) (*entity.User, error) {
 	//TODO implement me
 	panic("implement me")
 }

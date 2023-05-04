@@ -34,15 +34,15 @@ type AfterAttachDiskArgs struct {
 	ImageID    string `json:"image_id"`
 }
 
-func (s *StorageRepo) CreateDisk(arg *entity.DiskCreateArg) (*entity.DiskCreateResp, error) {
+func (s *StorageRepo) CreateDisk(args *entity.DiskCreateArg) (*entity.DiskCreateResp, error) {
 	var (
-		ns = arg.ProjectID
+		ns = args.ProjectID
 		k  = s.k8Virt.CdiClient().CdiV1beta1().DataVolumes(ns)
 		id = uuid.GenerateUUID()
 		// current only support rw once
 		accessMode = []corev1.PersistentVolumeAccessMode{corev1.ReadWriteMany}
 	)
-	quantity, err := resource.ParseQuantity(fmt.Sprintf("%dG", *arg.Size))
+	quantity, err := resource.ParseQuantity(fmt.Sprintf("%dG", *args.Size))
 	if err != nil {
 		return nil, err
 	}
@@ -53,18 +53,18 @@ func (s *StorageRepo) CreateDisk(arg *entity.DiskCreateArg) (*entity.DiskCreateR
 		Blank: &v1beta1.DataVolumeBlankImage{},
 	}
 
-	if arg.DiskName != nil {
-		annotations[common.AnnotationName] = *arg.DiskName
+	if args.DiskName != nil {
+		annotations[common.AnnotationName] = *args.DiskName
 	}
-	if arg.Description != nil {
-		annotations[common.AnnotationDescription] = *arg.Description
+	if args.Description != nil {
+		annotations[common.AnnotationDescription] = *args.Description
 	}
 	annotations[common.AnnotationDiskType] = common.DataDiskType.String()
 
-	if arg.ImageID != nil {
+	if args.ImageID != nil {
 		annotations[common.AnnotationDiskType] = common.SystemDiskType.String()
-		annotations[diskAnnotationImageID] = *arg.ImageID
-		imageInfo := GetImageInfo(*arg.ImageID)
+		annotations[diskAnnotationImageID] = *args.ImageID
+		imageInfo := GetImageInfo(*args.ImageID)
 		source = &v1beta1.DataVolumeSource{
 			Registry: &v1beta1.DataVolumeSourceRegistry{
 				PullMethod: pointerutil.Pointer(v1beta1.RegistryPullNode),
@@ -98,35 +98,35 @@ func (s *StorageRepo) CreateDisk(arg *entity.DiskCreateArg) (*entity.DiskCreateR
 	return &entity.DiskCreateResp{DiskID: id}, err
 }
 
-func (s *StorageRepo) DeleteDisk(arg *entity.DiskDeleteArg) (*entity.DiskDeleteResp, error) {
+func (s *StorageRepo) DeleteDisk(args *entity.DiskDeleteArg) (*entity.DiskDeleteResp, error) {
 	var (
-		ns = arg.ProjectID
+		ns = args.ProjectID
 		k  = s.k8Virt.CdiClient().CdiV1beta1().DataVolumes(ns)
 	)
-	err := k.Delete(context.Background(), arg.DiskID, metav1.DeleteOptions{})
+	err := k.Delete(context.Background(), args.DiskID, metav1.DeleteOptions{})
 	return nil, err
 }
 
-func (s *StorageRepo) UpdateDisk(arg *entity.DiskUpdateArg) (*entity.DiskUpdateResp, error) {
+func (s *StorageRepo) UpdateDisk(args *entity.DiskUpdateArg) (*entity.DiskUpdateResp, error) {
 	var (
-		ns = arg.ProjectID
+		ns = args.ProjectID
 		k  = s.k8Virt.CdiClient().CdiV1beta1().DataVolumes(ns)
 	)
-	oldDisk, err := k.Get(context.Background(), arg.DiskID, metav1.GetOptions{})
+	oldDisk, err := k.Get(context.Background(), args.DiskID, metav1.GetOptions{})
 	if err != nil {
 		return nil, err
 	}
 	newDisk := oldDisk.DeepCopy()
 	annotation := newDisk.ObjectMeta.Annotations
 	modified := false
-	if arg.DiskName != nil {
+	if args.DiskName != nil {
 		modified = true
-		annotation[common.AnnotationName] = *arg.DiskName
+		annotation[common.AnnotationName] = *args.DiskName
 	}
 
-	if arg.Description != nil {
+	if args.Description != nil {
 		modified = true
-		annotation[common.AnnotationDescription] = *arg.Description
+		annotation[common.AnnotationDescription] = *args.Description
 	}
 
 	if modified {
@@ -139,12 +139,12 @@ func (s *StorageRepo) UpdateDisk(arg *entity.DiskUpdateArg) (*entity.DiskUpdateR
 	return nil, err
 }
 
-func (s *StorageRepo) GetDisk(arg *entity.DiskGetArg) (*entity.DiskGetResp, error) {
+func (s *StorageRepo) GetDisk(args *entity.DiskGetArg) (*entity.DiskGetResp, error) {
 	var (
-		ns = arg.ProjectID
+		ns = args.ProjectID
 		k  = s.k8Virt.CdiClient().CdiV1beta1().DataVolumes(ns)
 	)
-	resp, err := k.Get(context.Background(), arg.DiskID, metav1.GetOptions{})
+	resp, err := k.Get(context.Background(), args.DiskID, metav1.GetOptions{})
 	if err != nil {
 		return nil, err
 	}
@@ -165,7 +165,7 @@ func (s *StorageRepo) GetDisk(arg *entity.DiskGetArg) (*entity.DiskGetResp, erro
 		DiskType:   pointerutil.Pointer(common.DiskType(resp.GetObjectMeta().GetAnnotations()[common.AnnotationDiskType])),
 		ServerID:   resp.GetObjectMeta().GetAnnotations()[diskAnnotationServerID],
 		ServerName: resp.GetObjectMeta().GetAnnotations()[diskAnnotationServerName],
-		//ZoneID:     arg.ZoneID,
+		//ZoneID:     args.ZoneID,
 		Size:      size / 1000 / 1000 / 1000,
 		DiskName:  resp.GetObjectMeta().GetAnnotations()[common.AnnotationName],
 		CreatedAt: resp.GetObjectMeta().GetCreationTimestamp().Unix(),
@@ -184,9 +184,9 @@ func (s *StorageRepo) GetDisk(arg *entity.DiskGetArg) (*entity.DiskGetResp, erro
 	return &entity.DiskGetResp{Disk: diskInfo}, nil
 }
 
-func (s *StorageRepo) ListDisk(arg *entity.DiskListArg) (*entity.DiskListResp, error) {
+func (s *StorageRepo) ListDisk(args *entity.DiskListArg) (*entity.DiskListResp, error) {
 	var (
-		ns = arg.ProjectID
+		ns = args.ProjectID
 		k  = s.k8Virt.CdiClient().CdiV1beta1().DataVolumes(ns)
 	)
 	resp, err := k.List(context.Background(), metav1.ListOptions{})
@@ -196,12 +196,12 @@ func (s *StorageRepo) ListDisk(arg *entity.DiskListArg) (*entity.DiskListResp, e
 
 	var res entity.DiskListResp
 	diskFilter := make(map[string]struct{})
-	for _, v := range arg.DiskIDs {
+	for _, v := range args.DiskIDs {
 		diskFilter[v] = struct{}{}
 	}
 
 	for _, v := range resp.Items {
-		if arg.ServerID != nil && *arg.ServerID != v.GetObjectMeta().GetAnnotations()[diskAnnotationServerID] {
+		if args.ServerID != nil && *args.ServerID != v.GetObjectMeta().GetAnnotations()[diskAnnotationServerID] {
 			continue
 		}
 		if len(diskFilter) != 0 {
@@ -225,7 +225,7 @@ func (s *StorageRepo) ListDisk(arg *entity.DiskListArg) (*entity.DiskListResp, e
 			DiskType:   pointerutil.Pointer(common.DiskType(v.GetObjectMeta().GetAnnotations()[common.AnnotationDiskType])),
 			ServerID:   v.GetObjectMeta().GetAnnotations()[diskAnnotationServerID],
 			ServerName: v.GetObjectMeta().GetAnnotations()[diskAnnotationServerName],
-			//ZoneID:     args.ZoneID,
+			//ZoneID:     argss.ZoneID,
 			Size:      size / 1000 / 1000 / 1000,
 			DiskName:  v.GetObjectMeta().GetAnnotations()[common.AnnotationName],
 			CreatedAt: v.GetObjectMeta().GetCreationTimestamp().Unix() * 1000,
@@ -247,7 +247,7 @@ func (s *StorageRepo) ListDisk(arg *entity.DiskListArg) (*entity.DiskListResp, e
 	return &res, nil
 }
 
-func (s *StorageRepo) AttachDisk(args *entity.DiskAttachArg) ([]*entity.DiskAttachResp, error) {
+func (s *StorageRepo) AttachDisk(args *entity.DiskAttachArg) (*entity.DiskAttachResp, error) {
 	c := s.k8Virt.VirtualMachine(args.ProjectID)
 	err := c.AddVolume(args.ServerID, &v1.AddVolumeOptions{
 		Disk: &v1.Disk{
@@ -285,16 +285,16 @@ func (s *StorageRepo) AttachDisk(args *entity.DiskAttachArg) ([]*entity.DiskAtta
 	return nil, nil
 }
 
-func (s *StorageRepo) DetachDisk(arg *entity.DiskDetachArg) ([]*entity.DiskDetachResp, error) {
-	c := s.k8Virt.VirtualMachine(arg.ProjectID)
-	err := c.RemoveVolume(arg.ServerID, &v1.RemoveVolumeOptions{
-		Name: arg.DiskID,
+func (s *StorageRepo) DetachDisk(args *entity.DiskDetachArg) (*entity.DiskDetachResp, error) {
+	c := s.k8Virt.VirtualMachine(args.ProjectID)
+	err := c.RemoveVolume(args.ServerID, &v1.RemoveVolumeOptions{
+		Name: args.DiskID,
 	})
 	if err != nil {
 		return nil, err
 	}
 	err = s.afterDetachDisk(
-		PublicInfo{ProjectID: arg.ProjectID, DiskID: arg.DiskID, ServerID: arg.ServerID},
+		PublicInfo{ProjectID: args.ProjectID, DiskID: args.DiskID, ServerID: args.ServerID},
 	)
 	if err != nil {
 		return nil, err
@@ -303,23 +303,23 @@ func (s *StorageRepo) DetachDisk(arg *entity.DiskDetachArg) ([]*entity.DiskDetac
 	return nil, nil
 }
 
-func (s *StorageRepo) ResizeDisk(arg *entity.DiskResizeArg) ([]*entity.DiskResizeResp, error) {
+func (s *StorageRepo) ResizeDisk(args *entity.DiskResizeArg) (*entity.DiskResizeResp, error) {
 	//TODO implement me
 	panic("implement me")
 }
 
-func (s *StorageRepo) ResetDisk(arg *entity.DiskResetArg) ([]*entity.DiskResetResp, error) {
+func (s *StorageRepo) ResetDisk(args *entity.DiskResetArg) (*entity.DiskResetResp, error) {
 	var (
-		d = s.k8Virt.CdiClient().CdiV1beta1().DataVolumes(arg.ProjectID)
+		d = s.k8Virt.CdiClient().CdiV1beta1().DataVolumes(args.ProjectID)
 	)
-	oldDisk, err := d.Get(context.Background(), arg.DiskID, metav1.GetOptions{})
+	oldDisk, err := d.Get(context.Background(), args.DiskID, metav1.GetOptions{})
 	if err != nil {
 		return nil, err
 	}
 	newDisk := oldDisk.DeepCopy()
 	apigroup := "snapshot.storage.k8s.io"
 	newDisk.Spec.PVC.DataSource = &corev1.TypedLocalObjectReference{
-		Name:     arg.SnapshotID,
+		Name:     args.SnapshotID,
 		Kind:     "VolumeSnapshot",
 		APIGroup: &apigroup,
 	}
@@ -327,23 +327,23 @@ func (s *StorageRepo) ResetDisk(arg *entity.DiskResetArg) ([]*entity.DiskResetRe
 	return nil, err
 }
 
-func (s *StorageRepo) AfterAttachDisk(args AfterAttachDiskArgs) (err error) {
-	d := s.k8Virt.CdiClient().CdiV1beta1().DataVolumes(args.ProjectID)
-	oldDisk, err := d.Get(context.Background(), args.DiskID, metav1.GetOptions{})
+func (s *StorageRepo) AfterAttachDisk(argss AfterAttachDiskArgs) (err error) {
+	d := s.k8Virt.CdiClient().CdiV1beta1().DataVolumes(argss.ProjectID)
+	oldDisk, err := d.Get(context.Background(), argss.DiskID, metav1.GetOptions{})
 	if err != nil {
 		return
 	}
 	newDisk := oldDisk.DeepCopy()
 	annotation := newDisk.ObjectMeta.Annotations
 
-	annotation[diskAnnotationServerID] = args.ServerID
-	server, err := s.k8Virt.VirtualMachine(args.ProjectID).Get(args.ServerID, &metav1.GetOptions{})
+	annotation[diskAnnotationServerID] = argss.ServerID
+	server, err := s.k8Virt.VirtualMachine(argss.ProjectID).Get(argss.ServerID, &metav1.GetOptions{})
 	if err == nil {
 		annotation[diskAnnotationServerName] = server.ObjectMeta.Annotations[common.AnnotationName]
 	}
 
-	if len(args.ImageID) > 0 {
-		annotation[diskAnnotationImageID] = args.ImageID
+	if len(argss.ImageID) > 0 {
+		annotation[diskAnnotationImageID] = argss.ImageID
 	}
 
 	annotation[diskAnnotationStatus] = common.DiskInUse.String()
@@ -353,9 +353,9 @@ func (s *StorageRepo) AfterAttachDisk(args AfterAttachDiskArgs) (err error) {
 	return
 }
 
-func (s *StorageRepo) afterDetachDisk(args PublicInfo) (err error) {
-	d := s.k8Virt.CdiClient().CdiV1beta1().DataVolumes(args.ProjectID)
-	oldDisk, err := d.Get(context.Background(), args.DiskID, metav1.GetOptions{})
+func (s *StorageRepo) afterDetachDisk(argss PublicInfo) (err error) {
+	d := s.k8Virt.CdiClient().CdiV1beta1().DataVolumes(argss.ProjectID)
+	oldDisk, err := d.Get(context.Background(), argss.DiskID, metav1.GetOptions{})
 	if err != nil {
 		return
 	}

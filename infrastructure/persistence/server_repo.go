@@ -52,15 +52,15 @@ type createSecretArgs struct {
 	Data      string
 }
 
-func (c *ComputeRepo) createSecretForServer(arg *createSecretArgs) (secret *k8sv1.Secret, err error) {
-	secret, err = c.k8Virt.CoreV1().Secrets(arg.Namespace).Create(context.Background(), &k8sv1.Secret{
+func (c *ComputeRepo) createSecretForServer(args *createSecretArgs) (secret *k8sv1.Secret, err error) {
+	secret, err = c.k8Virt.CoreV1().Secrets(args.Namespace).Create(context.Background(), &k8sv1.Secret{
 		TypeMeta: metav1.TypeMeta{},
 		ObjectMeta: metav1.ObjectMeta{
-			Name:      arg.Name,
-			Namespace: arg.Namespace,
+			Name:      args.Name,
+			Namespace: args.Namespace,
 		},
 		Data: map[string][]byte{
-			"root": []byte(arg.Data),
+			"root": []byte(args.Data),
 		},
 	}, metav1.CreateOptions{})
 	return
@@ -133,35 +133,35 @@ func (c *ComputeRepo) generateUserData(args *entity.ServerCreateArg) *string {
 	return &s
 }
 
-func (c *ComputeRepo) CreateServer(arg *entity.ServerCreateArg) (*entity.ServerCreateResp, error) {
+func (c *ComputeRepo) CreateServer(args *entity.ServerCreateArg) (*entity.ServerCreateResp, error) {
 	var (
-		ns = arg.ProjectID
+		ns = args.ProjectID
 		k  = c.k8Virt.VirtualMachine(ns)
 		id = uuid.GenerateUUID()
 	)
-	f, err := c.GetFlavor(&entity.FlavorGetArg{FlavorID: arg.FlavorID})
+	f, err := c.GetFlavor(&entity.FlavorGetArg{FlavorID: args.FlavorID})
 	flavor := f.Flavor
 	if err != nil {
 		return nil, err
 	}
 
 	annotationMap := map[string]string{
-		common.AnnotationName:      *arg.ServerName,
-		common.AnnotationVPCID:     *arg.VPCID,
-		common.AnnotationVSwitchID: *arg.VSwitchID,
-		common.AnnotationFlavor:    arg.FlavorID,
+		common.AnnotationName:      *args.ServerName,
+		common.AnnotationVPCID:     *args.VPCID,
+		common.AnnotationVSwitchID: *args.VSwitchID,
+		common.AnnotationFlavor:    args.FlavorID,
 	}
 
-	if arg.Description != nil {
-		annotationMap[common.AnnotationDescription] = *arg.Description
+	if args.Description != nil {
+		annotationMap[common.AnnotationDescription] = *args.Description
 	}
 
-	disks, volumes, err := c.generateCreateServerDisks(arg, id)
+	disks, volumes, err := c.generateCreateServerDisks(args, id)
 	if err != nil {
 		return nil, err
 	}
 
-	userData := c.generateUserData(arg)
+	userData := c.generateUserData(args)
 	if userData != nil {
 		volumes = append(volumes, v1.Volume{
 			Name: "cloudinitdisk",
@@ -178,7 +178,7 @@ func (c *ComputeRepo) CreateServer(arg *entity.ServerCreateArg) (*entity.ServerC
 	secret, err := c.createSecretForServer(&createSecretArgs{
 		Namespace: ns,
 		Name:      id,
-		Data:      *arg.Password,
+		Data:      *args.Password,
 	})
 	if err != nil {
 		return nil, err
@@ -197,9 +197,9 @@ func (c *ComputeRepo) CreateServer(arg *entity.ServerCreateArg) (*entity.ServerC
 			Template: &v1.VirtualMachineInstanceTemplateSpec{
 				ObjectMeta: metav1.ObjectMeta{
 					Annotations: map[string]string{
-						common.AnnotationOvnLogicalRouter: *arg.VPCID,
-						common.AnnotationOvnLogicalSwitch: *arg.VSwitchID,
-						common.AnnotationOvnSecurityGroup: arg.SecurityGroupID,
+						common.AnnotationOvnLogicalRouter: *args.VPCID,
+						common.AnnotationOvnLogicalSwitch: *args.VSwitchID,
+						common.AnnotationOvnSecurityGroup: args.SecurityGroupID,
 					},
 				},
 				Spec: v1.VirtualMachineInstanceSpec{
@@ -245,8 +245,8 @@ func (c *ComputeRepo) CreateServer(arg *entity.ServerCreateArg) (*entity.ServerC
 		},
 	}
 
-	if arg.HostName != nil {
-		createArgs.Spec.Template.Spec.Hostname = *arg.HostName
+	if args.HostName != nil {
+		createArgs.Spec.Template.Spec.Hostname = *args.HostName
 	}
 
 	if flavor.GPUSpec != "" {
@@ -274,22 +274,22 @@ func (c *ComputeRepo) CreateServer(arg *entity.ServerCreateArg) (*entity.ServerC
 	return &entity.ServerCreateResp{ServerID: id}, nil
 }
 
-func (c *ComputeRepo) DeleteServer(arg *entity.ServerDeleteArg) (*entity.ServerDeleteResp, error) {
+func (c *ComputeRepo) DeleteServer(args *entity.ServerDeleteArg) (*entity.ServerDeleteResp, error) {
 	//TODO implement me
 	panic("implement me")
 }
 
-func (c *ComputeRepo) UpdateServer(arg *entity.ServerUpdateArg) (*entity.ServerUpdateResp, error) {
+func (c *ComputeRepo) UpdateServer(args *entity.ServerUpdateArg) (*entity.ServerUpdateResp, error) {
 	//TODO implement me
 	panic("implement me")
 }
 
-func (c *ComputeRepo) GetServer(arg *entity.ServerGetArg) (*entity.ServerGetResp, error) {
+func (c *ComputeRepo) GetServer(args *entity.ServerGetArg) (*entity.ServerGetResp, error) {
 	var (
-		ns = arg.ProjectID
+		ns = args.ProjectID
 		k  = c.k8Virt.VirtualMachine(ns)
 	)
-	resp, err := k.Get(arg.ServerID, &metav1.GetOptions{})
+	resp, err := k.Get(args.ServerID, &metav1.GetOptions{})
 	if err != nil {
 		return nil, err
 	}
@@ -301,12 +301,12 @@ func (c *ComputeRepo) GetServer(arg *entity.ServerGetArg) (*entity.ServerGetResp
 	return &entity.ServerGetResp{Server: *server}, nil
 }
 
-func (c *ComputeRepo) ListServer(arg *entity.ServerListArg) (*entity.ServerListResp, error) {
+func (c *ComputeRepo) ListServer(args *entity.ServerListArg) (*entity.ServerListResp, error) {
 	//TODO implement me
 	panic("implement me")
 }
 
-func (c *ComputeRepo) generateCreateServerDisks(arg *entity.ServerCreateArg, serverID string) (disks []v1.Disk, volumes []v1.Volume, err error) {
+func (c *ComputeRepo) generateCreateServerDisks(args *entity.ServerCreateArg, serverID string) (disks []v1.Disk, volumes []v1.Volume, err error) {
 	var (
 		systemDisk string
 		dataDisks  []string
@@ -318,23 +318,23 @@ func (c *ComputeRepo) generateCreateServerDisks(arg *entity.ServerCreateArg, ser
 	go func() {
 		defer wg.Done()
 		systemDisk, sysErr = c.createDisk(&entity.DiskCreateArg{
-			//ZoneID:      arg.ZoneID,
-			ProjectID:   arg.ProjectID,
-			Size:        pointerutil.Pointer(int64(arg.SystemDisk.Size)),
-			DiskName:    arg.SystemDisk.DiskName,
-			Description: arg.SystemDisk.Description,
-			ImageID:     &arg.ImageID,
+			//ZoneID:      args.ZoneID,
+			ProjectID:   args.ProjectID,
+			Size:        pointerutil.Pointer(int64(args.SystemDisk.Size)),
+			DiskName:    args.SystemDisk.DiskName,
+			Description: args.SystemDisk.Description,
+			ImageID:     &args.ImageID,
 		})
 		return
 	}()
 
-	for _, v := range arg.DataDisks {
+	for _, v := range args.DataDisks {
 		wg.Add(1)
 		go func(disk *entity.DiskArgs) {
 			defer wg.Done()
 			diskID, err := c.createDisk(&entity.DiskCreateArg{
 				//ZoneID:      args.ZoneID,
-				ProjectID:   arg.ProjectID,
+				ProjectID:   args.ProjectID,
 				Size:        pointerutil.Pointer(int64(disk.Size)),
 				DiskName:    disk.DiskName,
 				Description: disk.Description,
@@ -359,11 +359,11 @@ func (c *ComputeRepo) generateCreateServerDisks(arg *entity.ServerCreateArg, ser
 		PublicInfo: PublicInfo{
 			//ZoneID:    args.ZoneID,
 			DiskID:    systemDisk,
-			ProjectID: arg.ProjectID,
+			ProjectID: args.ProjectID,
 			ServerID:  serverID,
 		},
-		ServerName: *arg.ServerName,
-		ImageID:    arg.ImageID,
+		ServerName: *args.ServerName,
+		ImageID:    args.ImageID,
 	})
 
 	disks = append(disks, v1.Disk{
@@ -407,20 +407,20 @@ func (c *ComputeRepo) generateCreateServerDisks(arg *entity.ServerCreateArg, ser
 			PublicInfo: PublicInfo{
 				//ZoneID:    args.ZoneID,
 				DiskID:    v,
-				ProjectID: arg.ProjectID,
+				ProjectID: args.ProjectID,
 				ServerID:  serverID,
 			},
-			ServerName: *arg.ServerName,
+			ServerName: *args.ServerName,
 		})
 	}
 
 	return
 }
 
-func (c *ComputeRepo) createDisk(arg *entity.DiskCreateArg) (diskID string, err error) {
+func (c *ComputeRepo) createDisk(args *entity.DiskCreateArg) (diskID string, err error) {
 	d := stk.S
 
-	diskInfo, err := d.CreateDisk(arg)
+	diskInfo, err := d.CreateDisk(args)
 	if err != nil {
 		return
 	}
@@ -428,7 +428,7 @@ func (c *ComputeRepo) createDisk(arg *entity.DiskCreateArg) (diskID string, err 
 
 	for {
 		info, err := d.GetDisk(
-			&entity.DiskGetArg{ProjectID: arg.ProjectID, DiskID: diskID},
+			&entity.DiskGetArg{ProjectID: args.ProjectID, DiskID: diskID},
 		)
 		if err != nil {
 			break

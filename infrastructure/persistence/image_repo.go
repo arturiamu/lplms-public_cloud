@@ -68,33 +68,33 @@ func GetImageInfo(imageID string) imageInfo {
 
 // CreateImage
 // 调用 CreateImage 创建一份自定义镜像。您可以使用创建的自定义镜像创建 Server 实例，或者更换实例的系统盘（ReplaceSystemDisk）。
-func (c *ComputeRepo) CreateImage(arg *entity.ImageCreateArg) (*entity.ImageCreateResp, error) {
+func (c *ComputeRepo) CreateImage(args *entity.ImageCreateArg) (*entity.ImageCreateResp, error) {
 	//TODO implement me
 	panic("implement me")
 }
 
 // DeleteImage
 // 调用 DeleteImage 删除一份自定义镜像。
-func (c *ComputeRepo) DeleteImage(arg *entity.ImageDeleteArg) (*entity.ImageDeleteResp, error) {
+func (c *ComputeRepo) DeleteImage(args *entity.ImageDeleteArg) (*entity.ImageDeleteResp, error) {
 	//TODO implement me
 	panic("implement me")
 }
 
 // UpdateImage
 // 调用 ModifyImage 修改一份自定义镜像的名称、描述信息、状态或镜像族系。
-func (c *ComputeRepo) UpdateImage(arg *entity.ImageUpdateArg) (*entity.ImageUpdateResp, error) {
+func (c *ComputeRepo) UpdateImage(args *entity.ImageUpdateArg) (*entity.ImageUpdateResp, error) {
 	//TODO implement me
 	panic("implement me")
 }
 
-func (c *ComputeRepo) GetImage(arg *entity.ImageGetArg) (*entity.ImageGetResp, error) {
+func (c *ComputeRepo) GetImage(args *entity.ImageGetArg) (*entity.ImageGetResp, error) {
 	//TODO implement me
 	panic("implement me")
 }
 
 // ListImage
 // 调用 DescribeImages 查询您可以使用的镜像资源。
-func (c *ComputeRepo) ListImage(arg *entity.ImageListArg) (*entity.ImageListResp, error) {
+func (c *ComputeRepo) ListImage(args *entity.ImageListArg) (*entity.ImageListResp, error) {
 	//TODO implement me
 	panic("implement me")
 }
