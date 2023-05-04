@@ -13,6 +13,10 @@ type DiskRepositoryInterface interface {
 	UpdateDisk(arg *entity.DiskUpdateArg) (*entity.DiskUpdateResp, error)
 	GetDisk(arg *entity.DiskGetArg) (*entity.DiskGetResp, error)
 	ListDisk(arg *entity.DiskListArg) (*entity.DiskListResp, error)
+	AttachDisk(arg *entity.DiskAttachArg) ([]*entity.DiskAttachResp, error)
+	DetachDisk(arg *entity.DiskDetachArg) ([]*entity.DiskDetachResp, error)
+	ResizeDisk(arg *entity.DiskResizeArg) ([]*entity.DiskResizeResp, error)
+	ResetDisk(arg *entity.DiskResetArg) ([]*entity.DiskResetResp, error)
 }
 
 type SnapshotRepositoryInterface interface {

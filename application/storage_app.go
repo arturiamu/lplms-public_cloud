@@ -18,6 +18,10 @@ type DiskRepositoryInterface interface {
 	UpdateDisk(arg *entity.DiskUpdateArg) (*entity.Disk, error)
 	GetDisk(arg *entity.DiskGetArg) (*entity.Disk, error)
 	ListDisk(arg *entity.DiskListArg) ([]*entity.Disk, error)
+	AttachDisk(arg *entity.DiskAttachArg) ([]*entity.DiskAttachResp, error)
+	DetachDisk(arg *entity.DiskDetachArg) ([]*entity.DiskDetachResp, error)
+	ResizeDisk(arg *entity.DiskResizeArg) ([]*entity.DiskResizeResp, error)
+	ResetDisk(arg *entity.DiskResetArg) ([]*entity.DiskResetResp, error)
 }
 
 type SnapshotRepositoryInterface interface {
@@ -30,6 +34,26 @@ type SnapshotRepositoryInterface interface {
 
 type storageApp struct {
 	sr repository.StorageRepositoryInterface
+}
+
+func (s *storageApp) AttachDisk(arg *entity.DiskAttachArg) ([]*entity.DiskAttachResp, error) {
+	//TODO implement me
+	panic("implement me")
+}
+
+func (s *storageApp) DetachDisk(arg *entity.DiskDetachArg) ([]*entity.DiskDetachResp, error) {
+	//TODO implement me
+	panic("implement me")
+}
+
+func (s *storageApp) ResizeDisk(arg *entity.DiskResizeArg) ([]*entity.DiskResizeResp, error) {
+	//TODO implement me
+	panic("implement me")
+}
+
+func (s *storageApp) ResetDisk(arg *entity.DiskResetArg) ([]*entity.DiskResetResp, error) {
+	//TODO implement me
+	panic("implement me")
 }
 
 func (s *storageApp) CreateDisk(arg *entity.DiskCreateArg) (*entity.Disk, error) {

@@ -51,3 +51,5 @@ func (n *NetworkRepo) ListVSwitch(arg *entity.VSwitchListArg) (*entity.VSwitchLi
 	//TODO implement me
 	panic("implement me")
 }
+
+///////////////////////////// help functions /////////////

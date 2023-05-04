@@ -26,3 +26,5 @@ func (n *NetworkRepo) ListSlb(arg *entity.SlbListArg) (*entity.SlbListResp, erro
 	//TODO implement me
 	panic("implement me")
 }
+
+///////////////////////////// help functions /////////////

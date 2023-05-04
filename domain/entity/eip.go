@@ -45,6 +45,13 @@ type Eip struct {
 }
 
 type EipCreateArg struct {
+	EIPName   string // 分配名称
+	Bandwidth uint   // EIP的带宽峰值，取值范围：1~200，单位为Mbps。 默认值为5。
+
+	ProjectID *string
+
+	Description string         // 暂时只用于存运营商类型
+	MNO         common.MNOType // 运营商类型
 }
 
 type EipDeleteArg struct {
@@ -85,7 +92,10 @@ type EipListArg struct {
 	ServerID *string
 }
 
-type EipCreateResp struct{}
+type EipCreateResp struct {
+	EIPID      string
+	EIPAddress string
+}
 
 type EipDeleteResp struct{}
 

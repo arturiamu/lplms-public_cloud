@@ -182,3 +182,65 @@ type DiskGetResp struct {
 type DiskListResp struct {
 	Disks []Disk
 }
+
+type DiskAttachArg struct {
+	// 项目 ID
+	ProjectID string
+
+	// 待挂载的云盘 ID。云盘（DiskID）和实例（ServerID）必须在同一个可用区。
+	DiskID string
+
+	// 目标ECS实例的ID。
+	ServerID string
+
+	// 释放实例时，该云盘是否随实例一起释放。
+	// - true：释放。
+	// - false：不释放。云盘会转换成按量付费数据盘而被保留下来。
+	// 默认值：false
+	DeleteWithServer *bool
+
+	// 是否作为系统盘挂载。 默认值：false
+	//
+	// @GSD:NOTE 说明 设置为 `Bootable=true` 时，目标ECS实例必须处于无系统盘状态。
+	Bootable *bool
+
+	// 挂载系统盘时，设置实例的用户名密码，仅对administrator和root用户名生效，其他用户名不生效。
+	// 长度为8至30个字符，必须同时包含大小写英文字母、数字和特殊符号中的三类字符。特殊符号可以是：
+	// ```
+	// ()`~!@#$%^&*-_+=|{}[]:;'<>,.?/
+	// ```
+	// 其中，Windows实例不能以斜线号（/）为密码首字符。
+	//
+	// 默认值：保持不变。
+	//
+	// @GSD:NOTE 说明 如果传入Password参数，建议您使用HTTPS协议发送请求，避免密码泄露。
+	Password *string
+
+	// 密钥对名称。
+	// 挂载系统盘时，为Linux系统ECS实例绑定的SSH密钥对的名称。
+	//
+	// @GSD:NOTE 说明 Windows Server系统：不支持SSH密钥对。即使填写了该参数，只执行Password的配置。Linux系统：密码登录方式会被初始化成禁止。
+	KeyPairName *string
+}
+
+type DiskAttachResp struct{}
+
+type DiskDetachArg struct {
+	ProjectID string // 项目 ID
+	ServerID  string // 待卸载的ECS实例ID。
+	DiskID    string // 待卸载的云盘ID。
+}
+
+type DiskDetachResp struct{}
+
+type DiskResizeArg struct{}
+
+type DiskResizeResp struct{}
+
+type DiskResetArg struct {
+	ProjectID  string // 项目ID
+	DiskID     string // 指定的磁盘设备ID。
+	SnapshotID string // 需要恢复到某一磁盘阶段的历史快照ID。
+}
+
+type DiskResetResp struct{}

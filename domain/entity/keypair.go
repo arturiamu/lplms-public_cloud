@@ -23,9 +23,24 @@ type KeypairGetArg struct {
 }
 
 type KeypairListArg struct {
+	ProjectID string
+	// 密钥对名称。支持正则表达式模糊搜索，使用*匹配子表达式，示例：
+	// - *SshKey：查询以SshKey结尾的密钥对名称，包括SshKey。
+	// - SshKey*：查询以SshKey开头的密钥对名称，包括SshKey。
+	// - *SshKey*：查询名称中间有SshKey的密钥对，包括SshKey。
+	// - SshKey：精确匹配SshKey。
+	KeyPairName *string
 }
 
-type KeypairCreateResp struct{}
+type KeypairCreateResp struct {
+	KeyPairName string
+
+	// 密钥对的指纹。根据 `RFC4716` 定义的公钥指纹格式，采用MD5信息摘要算法。更多详情，请参见RFC4716。
+	FingerPrint string
+
+	// 密钥对的私钥。PEM编码的PKCS#8格式的私钥部分。如果是导入密钥对则不返回该参数。
+	PrivateKeyBody *string
+}
 
 type KeypairDeleteResp struct{}
 
@@ -33,4 +48,22 @@ type KeypairUpdateResp struct{}
 
 type KeypairGetResp struct{}
 
-type KeypairListResp struct{}
+type KeypairListResp struct {
+	KeyPairs []Keypair
+}
+
+type KeypairAttachArg struct {
+	ProjectID   string
+	KeyPairName string // SSH密钥对名称。
+	ServerID    string // 绑定SSH密钥对的实例ID。
+}
+
+type KeypairAttachResp struct{}
+
+type KeypairDetachArg struct {
+	KeyPairName string // SSH密钥对名称。
+	ServerID    string // 解绑SSH密钥对的实例ID。
+	ProjectID   string
+}
+
+type KeypairDetachResp struct{}

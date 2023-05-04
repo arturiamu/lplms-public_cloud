@@ -26,3 +26,5 @@ func (s *StorageRepo) ListSnapshot(arg *entity.SnapshotListArg) (*entity.Snapsho
 	//TODO implement me
 	panic("implement me")
 }
+
+///////////////////////////// help functions /////////////

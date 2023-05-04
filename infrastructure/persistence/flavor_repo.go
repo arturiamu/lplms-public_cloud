@@ -108,6 +108,8 @@ func (c *ComputeRepo) ListFlavor(arg *entity.FlavorListArg) (*entity.FlavorListR
 	panic("implement me")
 }
 
+///////////////////////////// help functions /////////////
+
 func getGUPSpec(gpus []corev1.GPU) string {
 	if gpus == nil || len(gpus) == 0 {
 		return ""

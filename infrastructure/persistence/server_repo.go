@@ -115,7 +115,7 @@ func (c *ComputeRepo) generateUserData(args *entity.ServerCreateArg) *string {
 	}
 
 	if args.KeyPairName != nil {
-		k, err := c.getPubkey(*args.KeyPairName, args.ProjectID)
+		k, err := c.getPubKey(*args.KeyPairName, args.ProjectID)
 		if err != nil {
 			return nil
 		}
@@ -447,6 +447,8 @@ func (c *ComputeRepo) createDisk(arg *entity.DiskCreateArg) (diskID string, err 
 
 	return
 }
+
+///////////////////////////// help functions /////////////
 
 func (c *ComputeRepo) kubevirtServerToStackServer(kubevirtInfo v1.VirtualMachine) (info *entity.Server, err error) {
 	var (

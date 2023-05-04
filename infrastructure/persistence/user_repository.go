@@ -37,3 +37,5 @@ func (u *UserRepo) GetUserBy(u2 uint64) (*entity.User, error) {
 	//TODO implement me
 	panic("implement me")
 }
+
+///////////////////////////// help functions /////////////

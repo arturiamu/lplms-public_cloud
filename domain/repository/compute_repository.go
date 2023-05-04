@@ -40,6 +40,8 @@ type KeypairRepositoryInterface interface {
 	UpdateKeypair(arg *entity.KeypairUpdateArg) (*entity.KeypairUpdateResp, error)
 	GetKeypair(arg *entity.KeypairGetArg) (*entity.KeypairGetResp, error)
 	ListKeypair(arg *entity.KeypairListArg) (*entity.KeypairListResp, error)
+	DetachKeyPair(args *entity.KeypairDetachArg) (*entity.KeypairDetachResp, error)
+	AttachKeyPair(arg *entity.KeypairAttachArg) (*entity.KeypairAttachResp, error)
 }
 
 type SecurityGroupRepositoryInterface interface {

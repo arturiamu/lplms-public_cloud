@@ -10,6 +10,7 @@ import (
 	corev1 "k8s.io/api/core/v1"
 	"k8s.io/apimachinery/pkg/api/resource"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	v1 "kubevirt.io/api/core/v1"
 	"kubevirt.io/containerized-data-importer-api/pkg/apis/core/v1beta1"
 )
 
@@ -246,6 +247,86 @@ func (s *StorageRepo) ListDisk(arg *entity.DiskListArg) (*entity.DiskListResp, e
 	return &res, nil
 }
 
+func (s *StorageRepo) AttachDisk(args *entity.DiskAttachArg) ([]*entity.DiskAttachResp, error) {
+	c := s.k8Virt.VirtualMachine(args.ProjectID)
+	err := c.AddVolume(args.ServerID, &v1.AddVolumeOptions{
+		Disk: &v1.Disk{
+			Name: args.DiskID,
+			DiskDevice: v1.DiskDevice{
+				Disk: &v1.DiskTarget{
+					Bus: v1.DiskBusSCSI,
+				},
+			},
+		},
+		VolumeSource: &v1.HotplugVolumeSource{
+			DataVolume: &v1.DataVolumeSource{
+				Name:         args.DiskID,
+				Hotpluggable: true,
+			},
+		},
+		Name: args.DiskID,
+	})
+	if err != nil {
+		return nil, err
+	}
+
+	err = s.AfterAttachDisk(AfterAttachDiskArgs{
+		PublicInfo: PublicInfo{
+			ProjectID: args.ProjectID,
+			DiskID:    args.DiskID,
+			ServerID:  args.ServerID,
+		},
+	})
+
+	if err != nil {
+		return nil, err
+	}
+
+	return nil, nil
+}
+
+func (s *StorageRepo) DetachDisk(arg *entity.DiskDetachArg) ([]*entity.DiskDetachResp, error) {
+	c := s.k8Virt.VirtualMachine(arg.ProjectID)
+	err := c.RemoveVolume(arg.ServerID, &v1.RemoveVolumeOptions{
+		Name: arg.DiskID,
+	})
+	if err != nil {
+		return nil, err
+	}
+	err = s.afterDetachDisk(
+		PublicInfo{ProjectID: arg.ProjectID, DiskID: arg.DiskID, ServerID: arg.ServerID},
+	)
+	if err != nil {
+		return nil, err
+	}
+
+	return nil, nil
+}
+
+func (s *StorageRepo) ResizeDisk(arg *entity.DiskResizeArg) ([]*entity.DiskResizeResp, error) {
+	//TODO implement me
+	panic("implement me")
+}
+
+func (s *StorageRepo) ResetDisk(arg *entity.DiskResetArg) ([]*entity.DiskResetResp, error) {
+	var (
+		d = s.k8Virt.CdiClient().CdiV1beta1().DataVolumes(arg.ProjectID)
+	)
+	oldDisk, err := d.Get(context.Background(), arg.DiskID, metav1.GetOptions{})
+	if err != nil {
+		return nil, err
+	}
+	newDisk := oldDisk.DeepCopy()
+	apigroup := "snapshot.storage.k8s.io"
+	newDisk.Spec.PVC.DataSource = &corev1.TypedLocalObjectReference{
+		Name:     arg.SnapshotID,
+		Kind:     "VolumeSnapshot",
+		APIGroup: &apigroup,
+	}
+	_, err = d.Update(context.Background(), newDisk, metav1.UpdateOptions{})
+	return nil, err
+}
+
 func (s *StorageRepo) AfterAttachDisk(args AfterAttachDiskArgs) (err error) {
 	d := s.k8Virt.CdiClient().CdiV1beta1().DataVolumes(args.ProjectID)
 	oldDisk, err := d.Get(context.Background(), args.DiskID, metav1.GetOptions{})
@@ -289,6 +370,8 @@ func (s *StorageRepo) afterDetachDisk(args PublicInfo) (err error) {
 
 	return
 }
+
+///////////////////////////// help functions /////////////
 
 func kubevirtStatusToStatckStatus(s v1beta1.DataVolumePhase) common.DiskStatusType {
 	switch s {

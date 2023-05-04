@@ -4,9 +4,11 @@ go 1.18
 
 require (
 	github.com/gin-gonic/gin v1.9.0
+	github.com/go-playground/validator/v10 v10.11.2
 	github.com/golang-jwt/jwt/v4 v4.0.0
 	github.com/kubeovn/kube-ovn v1.10.8
 	github.com/spf13/viper v1.12.0
+	golang.org/x/net v0.7.0
 	gorm.io/driver/mysql v1.5.0
 	gorm.io/driver/sqlite v1.5.0
 	gorm.io/gorm v1.24.7-0.20230306060331-85eaf9eeda11
@@ -15,12 +17,12 @@ require (
 
 require (
 	github.com/google/uuid v1.3.0
-	golang.org/x/crypto v0.6.0 // indirect
-	k8s.io/api v0.26.0 // indirect
+	golang.org/x/crypto v0.6.0
+	k8s.io/api v0.26.0
 	k8s.io/apimachinery v0.26.0
 	k8s.io/client-go v12.0.0+incompatible
-	kubevirt.io/api v0.58.0 // indirect
-	kubevirt.io/containerized-data-importer-api v1.55.2 // indirect
+	kubevirt.io/api v0.58.0
+	kubevirt.io/containerized-data-importer-api v1.55.2
 )
 
 require (
@@ -41,7 +43,6 @@ require (
 	github.com/go-openapi/swag v0.22.3 // indirect
 	github.com/go-playground/locales v0.14.1 // indirect
 	github.com/go-playground/universal-translator v0.18.1 // indirect
-	github.com/go-playground/validator/v10 v10.11.2 // indirect
 	github.com/go-sql-driver/mysql v1.7.0 // indirect
 	github.com/goccy/go-json v0.10.0 // indirect
 	github.com/gogo/protobuf v1.3.2 // indirect
@@ -86,7 +87,6 @@ require (
 	github.com/twitchyliquid64/golang-asm v0.15.1 // indirect
 	github.com/ugorji/go/codec v1.2.9 // indirect
 	golang.org/x/arch v0.0.0-20210923205945-b76863e36670 // indirect
-	golang.org/x/net v0.7.0 // indirect
 	golang.org/x/oauth2 v0.5.0 // indirect
 	golang.org/x/sys v0.5.0 // indirect
 	golang.org/x/term v0.5.0 // indirect

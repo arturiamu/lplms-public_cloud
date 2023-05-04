@@ -26,3 +26,5 @@ func (c *ComputeRepo) ListSecurityGroup(arg *entity.SecurityGroupListArg) (*enti
 	//TODO implement me
 	panic("implement me")
 }
+
+///////////////////////////// help functions /////////////
