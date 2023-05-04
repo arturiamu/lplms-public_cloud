@@ -25,5 +25,6 @@ const (
 )
 
 const (
-	LabelName = "name"
+	LabelName   = "name"
+	LabelDiskID = "label/disk"
 )

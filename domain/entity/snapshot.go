@@ -1,6 +1,23 @@
 package entity
 
+import "github.com/arturiamu/lplms-public_cloud/common"
+
 type Snapshot struct {
+}
+
+type SnapshotInfo struct {
+	SnapshotID       string                // 快照ID
+	SnapshotName     string                // 快照显示名称。如果创建时指定了快照显示名称，则返回。
+	Usage            common.UsageType      // 快照是否被用作创建镜像或云盘。可能值：`image`, `disk`, `image_disk`, `none`
+	Status           common.SnapshotStatus // 快照状态。可能值： `progressing`, `accomplished`, `failed`
+	Progress         string                // 快照创建进度，单位为百分比。
+	RemainTime       int64                 // 正在创建的快照剩余完成时间，单位为秒
+	Description      string                // 描述信息
+	SourceDiskID     string                // 源云盘ID。如果快照的源云盘已经被释放，该字段仍旧保留
+	SourceDiskSize   int64                 // 源云盘容量，单位：GiB
+	SourceDiskName   string                // 源云盘名称
+	SourceDiskStatus common.DiskStatusType // 硬盘状态
+	CreatedAt        int64                 // 创建时间。按照ISO8601标准表示，并使用UTC +0时间，格式为yyyy-MM-ddTHH:mm:ssZ。
 }
 
 type SnapshotCreateArg struct {
@@ -12,6 +29,7 @@ type SnapshotCreateArg struct {
 	DiskID string
 
 	// 快照的显示名称。长度为2~128个英文或中文字符。必须以大小字母或中文开头，不能以 `http://` 和 `https://` 开头。可以包含数字、半角冒号（:）、下划线（_）或者连字符（-）。
+	//
 	// 为防止和自动快照的名称冲突，不能以auto开头。
 	SnapshotName string
 
@@ -76,7 +94,9 @@ type SnapshotListArg struct {
 	IsAdmin bool
 }
 
-type SnapshotCreateResp struct{}
+type SnapshotCreateResp struct {
+	SnapshotID string // 快照ID
+}
 
 type SnapshotDeleteResp struct{}
 
