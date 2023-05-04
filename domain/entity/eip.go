@@ -55,6 +55,8 @@ type EipCreateArg struct {
 }
 
 type EipDeleteArg struct {
+	ProjectID string
+	EIPID     string // 要释放的弹性公网IP的ID。
 }
 
 type EipUpdateArg struct {

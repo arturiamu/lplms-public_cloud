@@ -16,6 +16,7 @@ type ServerRepositoryInterface interface {
 	UpdateServer(args *entity.ServerUpdateArg) (*entity.ServerUpdateResp, error)
 	GetServer(args *entity.ServerGetArg) (*entity.ServerGetResp, error)
 	ListServer(args *entity.ServerListArg) (*entity.ServerListResp, error)
+	GetServerDisks(args *entity.ServerDisksGetArg) (*entity.ServerDisksGetResp, error)
 }
 
 type ImageRepositoryInterface interface {

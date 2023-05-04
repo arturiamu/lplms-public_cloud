@@ -28,6 +28,17 @@ type Vpc struct {
 	CreatedAt int64
 }
 
+type VPCAttribute struct {
+	PrivateIPAddress string
+	Mac              string
+	VSwitchId        string
+	VPCId            string
+	VPCName          string
+	VSwitchName      string
+	Type             string
+	EipAddress       *EipAddress `json:"eip_address"`
+}
+
 type EipAddress struct {
 	Name         string `json:"name"`
 	AllocationID string `json:"allocation_id"`

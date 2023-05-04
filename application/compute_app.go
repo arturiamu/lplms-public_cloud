@@ -21,6 +21,7 @@ type ServerAppInterface interface {
 	UpdateServer(args *entity.ServerUpdateArg) (*entity.ServerUpdateResp, error)
 	GetServer(args *entity.ServerGetArg) (*entity.ServerGetResp, error)
 	ListServer(args *entity.ServerListArg) (*entity.ServerListResp, error)
+	GetServerDisks(args *entity.ServerDisksGetArg) (*entity.ServerDisksGetResp, error)
 }
 
 type FlavorAppInterface interface {
@@ -63,6 +64,10 @@ type SecurityGroupAppInterface interface {
 
 type computeApp struct {
 	cr repository.ComputeRepositoryInterface
+}
+
+func (c *computeApp) GetServerDisks(args *entity.ServerDisksGetArg) (*entity.ServerDisksGetResp, error) {
+	return c.cr.GetServerDisks(args)
 }
 
 func (c *computeApp) ListSecurityGroupRule(args *entity.SecurityGroupRuleListArg) (*entity.SecurityGroupRuleListResp, error) {

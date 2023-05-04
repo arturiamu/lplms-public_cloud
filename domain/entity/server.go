@@ -19,7 +19,7 @@ type Server struct {
 	InternetMaxBandwidthIn  int           // 公网入带宽最大值，单位为Mbit/s。
 	InternetMaxBandwidthOut int           // 公网出带宽最大值，单位为Mbit/s。
 
-	VPCAttributes      []*Vpc               // 专有网络VPC属性。
+	VPCAttributes      []*VPCAttribute      // 专有网络VPC属性。
 	DeviceAvailable    bool                 // 实例是否可以挂载数据盘。
 	SecurityGroupInfos []*SecurityGroupInfo // 实例所属安全组集合。
 	HostName           string               // 实例主机名。
@@ -109,9 +109,21 @@ type DiskArgs struct {
 }
 
 type ServerDeleteArg struct {
+	ServerID  string // 实例ID。N的取值范围：1~100
+	ProjectID string
+
+	// 是否强制释放运行中（Running）的ECS实例。
+	//
+	// - true：强制释放运行中（Running）的实例。强制释放相当于断电，实例内存以及存储中的临时数据都会被擦除，无法恢复。
+	// - false（默认值）：正常释放实例，此时实例必须处于已停止（Stopped）状态。
+	Force *bool
 }
 
 type ServerUpdateArg struct {
+	ProjectID   string
+	ServerID    string  // 指定的实例ID。
+	FlavorID    string  // 实例的目标规格。更多详情，请参见实例规格族，也可以调用DescribeServerTypes接口获得最新的规格表。
+	ClientToken *string // 保证请求幂等性。从您的客户端生成一个参数值，确保不同请求间该参数值唯一。
 }
 
 type ServerGetArg struct {
@@ -121,6 +133,18 @@ type ServerGetArg struct {
 }
 
 type ServerListArg struct {
+	ServerIDs          []string             // 实例 ID 列表。最多支持100个ID
+	VPCID              *string              // 专有网络VPC ID。
+	VSwitchID          *string              // 交换机 ID。
+	FlavorID           *string              // 实例的规格 ID。
+	PrivateIPAddresses []string             // VPC网络类型实例的私有IP。当ServerNetworkType=vpc时生效，取值可以由多个IP组成一个JSON数组，最多支持100个IP，IP之间用半角逗号（,）隔开。
+	PublicIPAddresses  []string             // 实例的公网IP列表。取值可以由多个IP组成一个JSON数组，最多支持100个IP，IP之间用半角逗号（,）隔开。
+	SecurityGroupID    *string              // 实例所属的安全组。
+	ServerName         *string              // 实例名称，支持使用通配符*进行模糊搜索。
+	ImageID            *string              // 镜像 ID。
+	Status             *common.ServerStatus // 实例状态。取值范围： - Pending：创建中 - Running：运行中 - Starting：启动中 - Stopping：停止中 - Stopped：已停止
+	SortKey            *string              // 排序字段, 前面+ -号表示排序顺序
+	ProjectID          string
 }
 
 type ServerCreateResp struct {
@@ -135,4 +159,15 @@ type ServerGetResp struct {
 	Server Server
 }
 
-type ServerListResp struct{}
+type ServerListResp struct {
+	Servers []*Server // 由 Servers 组成的数组格式，返回实例的信息。
+}
+
+type ServerDisksGetArg struct {
+	ProjectID string
+	ServerID  string // 实例 ID
+}
+
+type ServerDisksGetResp struct {
+	Disks []*DiskInfo
+}

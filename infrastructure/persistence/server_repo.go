@@ -133,6 +133,8 @@ func (c *ComputeRepo) generateUserData(args *entity.ServerCreateArg) *string {
 	return &s
 }
 
+// CreateServer
+// 调用 CreateServer 创建一台 Server 实例。
 func (c *ComputeRepo) CreateServer(args *entity.ServerCreateArg) (*entity.ServerCreateResp, error) {
 	var (
 		ns = args.ProjectID
@@ -275,15 +277,93 @@ func (c *ComputeRepo) CreateServer(args *entity.ServerCreateArg) (*entity.Server
 }
 
 func (c *ComputeRepo) DeleteServer(args *entity.ServerDeleteArg) (*entity.ServerDeleteResp, error) {
-	//TODO implement me
-	panic("implement me")
+	var (
+		ns = args.ProjectID
+		k  = c.k8Virt.VirtualMachine(ns)
+	)
+	//serverResp, err := c.GetServer(&entity.ServerGetArg{
+	//	ProjectID: args.ProjectID,
+	//	ServerID:  args.ServerID,
+	//})
+	//if err != nil {
+	//	return nil, err
+	//}
+	//for _, vpc := range serverResp.Server.VPCAttributes {
+	//	if vpc.EipAddress == nil {
+	//		continue
+	//	}
+	//	deleteEIPArgs := entity.EipDeleteArg{
+	//		EIPID:     vpc.EipAddress.AllocationID,
+	//		ProjectID: args.ProjectID,
+	//	}
+	//	_, err := stk.N.DeleteEip(&deleteEIPArgs)
+	//	if err != nil {
+	//		log.Println("DeleteEIP failed ", err)
+	//		err = nil
+	//	}
+	//}
+	err := k.Delete(args.ServerID, &metav1.DeleteOptions{})
+	if err != nil {
+		return nil, err
+	}
+
+	// 删除系统盘
+	disks, err := c.describeServerDisks(args.ProjectID, args.ServerID)
+	if err != nil {
+		log.Println("describeServerDisks failed ", err)
+		err = nil // 删除失败不处理
+	}
+
+	for _, disk := range disks {
+		if disk.DiskType != nil && *disk.DiskType == common.SystemDiskType {
+			stk.S.DeleteDisk(&entity.DiskDeleteArg{
+				ProjectID: args.ProjectID,
+				DiskID:    disk.DiskID,
+			})
+		}
+	}
+	return nil, nil
 }
 
+// UpdateServer
+// 调用 UpdateServer 调整一台 Server 实例的实例规格
 func (c *ComputeRepo) UpdateServer(args *entity.ServerUpdateArg) (*entity.ServerUpdateResp, error) {
-	//TODO implement me
-	panic("implement me")
+	var (
+		ns = args.ProjectID
+		k  = c.k8Virt.VirtualMachine(ns)
+	)
+	f, err := c.GetFlavor(&entity.FlavorGetArg{FlavorID: args.FlavorID})
+	if err != nil {
+		return nil, err
+	}
+	flavor := f.Flavor
+	oldServer, err := k.Get(args.ServerID, &metav1.GetOptions{})
+	if err != nil {
+		return nil, err
+	}
+
+	cpuQuantity, _ := resource.ParseQuantity(fmt.Sprint(flavor.CPU))
+	memQuantity, _ := resource.ParseQuantity(fmt.Sprintf("%dMi", flavor.Memory))
+	newServer := oldServer.DeepCopy()
+	newServer.ObjectMeta.Annotations[common.AnnotationFlavor] = args.FlavorID
+	newServer.Spec.Template.Spec.Domain.Resources.Limits = k8sv1.ResourceList{
+		k8sv1.ResourceCPU:    cpuQuantity,
+		k8sv1.ResourceMemory: memQuantity,
+	}
+	_, err = k.Update(newServer)
+	if err != nil {
+		return nil, err
+	}
+
+	err = k.ForceRestart(args.ServerID, &v1.RestartOptions{})
+	if err != nil {
+		return nil, err
+	}
+	return nil, nil
 }
 
+// GetServer
+// 调用 GetServer 获取一台 Server 实例的状态信息。
 func (c *ComputeRepo) GetServer(args *entity.ServerGetArg) (*entity.ServerGetResp, error) {
 	var (
 		ns = args.ProjectID
@@ -301,9 +381,55 @@ func (c *ComputeRepo) GetServer(args *entity.ServerGetArg) (*entity.ServerGetRes
 	return &entity.ServerGetResp{Server: *server}, nil
 }
 
+func (c *ComputeRepo) GetServerDisks(args *entity.ServerDisksGetArg) (*entity.ServerDisksGetResp, error) {
+	disks, err := c.describeServerDisks(args.ProjectID, args.ServerID)
+	if err != nil {
+		return nil, err
+	}
+
+	res := &entity.ServerDisksGetResp{
+		Disks: make([]*entity.DiskInfo, 0, len(disks)),
+	}
+
+	for _, v := range disks {
+		res.Disks = append(res.Disks, &entity.DiskInfo{
+			ID:           v.DiskID,
+			Size:         int(v.Size),
+			IsBoot:       v.Bootable,
+			DiskCategory: v.Category.String(),
+			DiskType:     v.DiskType,
+		})
+	}
+	return res, nil
+}
+
+// ListServer
+// 调用 DescribeServers 查询一台或多台 Server 实例的详细信息。
 func (c *ComputeRepo) ListServer(args *entity.ServerListArg) (*entity.ServerListResp, error) {
-	//TODO implement me
-	panic("implement me")
+	var (
+		ns = args.ProjectID
+		k  = c.k8Virt.VirtualMachine(ns)
+	)
+
+	resp, err := k.List(&metav1.ListOptions{})
+	if err != nil {
+		return nil, err
+	}
+
+	res := &entity.ServerListResp{
+		Servers: make([]*entity.Server, 0, len(resp.Items)),
+	}
+	for _, v := range resp.Items {
+		info, er := c.kubevirtServerToStackServer(v)
+		if er != nil {
+			err = er
+			return nil, err
+		}
+
+		res.Servers = append(res.Servers, info)
+	}
+
+	return res, nil
 }
 
 func (c *ComputeRepo) generateCreateServerDisks(args *entity.ServerCreateArg, serverID string) (disks []v1.Disk, volumes []v1.Volume, err error) {
@@ -457,7 +583,7 @@ func (c *ComputeRepo) kubevirtServerToStackServer(kubevirtInfo v1.VirtualMachine
 		systemDisk entity.Disk
 	)
 
-	networkInfo, err := c.getNetworkfInfo(getNetworkfInfoArgs{
+	networkInfo, err := c.getNetworkInfo(getNetworkfInfoArgs{
 		VPCID:     annotation[common.AnnotationVPCID],
 		VswitchID: annotation[common.AnnotationVSwitchID],
 		ServerID:  meta.Name,
@@ -507,7 +633,7 @@ func (c *ComputeRepo) kubevirtServerToStackServer(kubevirtInfo v1.VirtualMachine
 		CreatedAt:          meta.CreationTimestamp.Unix() * 1000,
 		HostName:           kubevirtInfo.Spec.Template.Spec.Hostname,
 		Status:             kubevirtStatusToStack(kubevirtInfo.Status.PrintableStatus),
-		VPCAttributes:      []*entity.Vpc{networkInfo},
+		VPCAttributes:      []*entity.VPCAttribute{networkInfo},
 		SecurityGroupInfos: securityGroupInfos,
 		Disks:              diskInfos,
 		ImageID:            systemDisk.ImageID,
@@ -583,10 +709,10 @@ type getNetworkfInfoArgs struct {
 	ServerID  string
 }
 
-func (c *ComputeRepo) getNetworkfInfo(args getNetworkfInfoArgs) (networkInfo *entity.Vpc, err error) {
+func (c *ComputeRepo) getNetworkInfo(args getNetworkfInfoArgs) (networkInfo *entity.VPCAttribute, err error) {
 	net := stk.N
 
-	networkInfo = &entity.Vpc{}
+	networkInfo = &entity.VPCAttribute{}
 	vswitch, err := net.ListVSwitch(&entity.VSwitchListArg{
 		VPCID:      &args.VPCID,
 		VSwitchIDs: []string{args.VswitchID},

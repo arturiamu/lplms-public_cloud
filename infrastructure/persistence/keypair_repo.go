@@ -66,6 +66,12 @@ func (c *ComputeRepo) CreateKeypair(args *entity.KeypairCreateArg) (*entity.Keyp
 	}, nil
 }
 
+// DeleteKeypair
+// 删除SSH密钥对后，您需要注意：
+// - 无法通过DescribeKeyPairs查询该SSH密钥对。
+// - 若已有ECS实例绑定了该SSH密钥对：
+// - LPLMS不再为您保存该SSH密钥对，但是实例可以正常使用该SSH密钥对。
+// - 查询实例信息时（DescribeServers），会显示SSH密钥对名称（KeyPairName），但不再显示其他相关信息。
 func (c *ComputeRepo) DeleteKeypair(args *entity.KeypairDeleteArg) (*entity.KeypairDeleteResp, error) {
 	err := c.k8Virt.CoreV1().Secrets(args.ProjectID).Delete(context.Background(), args.KeyPairName, v1.DeleteOptions{})
 	return nil, err
@@ -264,7 +270,7 @@ func generatePublicKey(privatekey *rsa.PublicKey) ([]byte, error) {
 }
 
 // generatePrivateKey
-// creates a RSA Private Key of specified byte size
+// creates an RSA Private Key of specified byte size
 func generatePrivateKey(bitSize int) (*rsa.PrivateKey, error) {
 	// Private Key generation
 	privateKey, err := rsa.GenerateKey(rand.Reader, bitSize)
