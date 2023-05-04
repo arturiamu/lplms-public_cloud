@@ -5,12 +5,12 @@ import (
 	"github.com/arturiamu/lplms-public_cloud/domain/entity"
 )
 
-type imageInfo struct {
+type ImageInfo struct {
 	*entity.Image
 	Addr string `json:"-"`
 }
 
-var imageMap = map[string]imageInfo{
+var imageMap = map[string]ImageInfo{
 	"45fdcaa4-ec8f-499e-96e1-7b5b44a82e2f": {
 		Image: &entity.Image{
 			ImageID:            "45fdcaa4-ec8f-499e-96e1-7b5b44a82e2f",
@@ -62,7 +62,7 @@ var imageMap = map[string]imageInfo{
 }
 
 // GetImageInfo ..
-func GetImageInfo(imageID string) imageInfo {
+func GetImageInfo(imageID string) ImageInfo {
 	return imageMap[imageID]
 }
 

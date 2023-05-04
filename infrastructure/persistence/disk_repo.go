@@ -153,7 +153,7 @@ func (s *StorageRepo) GetDisk(args *entity.DiskGetArg) (*entity.DiskGetResp, err
 	size, _ := quantity.AsInt64()
 	status := common.DiskStatusType(resp.GetObjectMeta().GetAnnotations()[diskAnnotationStatus])
 	if resp.Status.Phase != v1beta1.Succeeded {
-		status = kubevirtStatusToStatckStatus(resp.Status.Phase)
+		status = kubevirtStatusToStackStatus(resp.Status.Phase)
 	}
 
 	if len(status) == 0 {
@@ -213,7 +213,7 @@ func (s *StorageRepo) ListDisk(args *entity.DiskListArg) (*entity.DiskListResp, 
 		size, _ := quantity.AsInt64()
 		status := common.DiskStatusType(v.GetObjectMeta().GetAnnotations()[diskAnnotationStatus])
 		if v.Status.Phase != v1beta1.Succeeded {
-			status = kubevirtStatusToStatckStatus(v.Status.Phase)
+			status = kubevirtStatusToStackStatus(v.Status.Phase)
 		}
 
 		if len(status) == 0 {
@@ -373,7 +373,7 @@ func (s *StorageRepo) afterDetachDisk(argss PublicInfo) (err error) {
 
 ///////////////////////////// help functions /////////////
 
-func kubevirtStatusToStatckStatus(s v1beta1.DataVolumePhase) common.DiskStatusType {
+func kubevirtStatusToStackStatus(s v1beta1.DataVolumePhase) common.DiskStatusType {
 	switch s {
 	case v1beta1.Pending,
 		v1beta1.ImportInProgress,

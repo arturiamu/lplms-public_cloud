@@ -164,10 +164,10 @@ func (c *ComputeRepo) AttachKeyPair(args *entity.KeypairAttachArg) (*entity.Keyp
 
 // DetachKeyPair
 // 删除SSH密钥对后，您需要注意：
-// - 无法通过DescribeKeyPairs查询该SSH密钥对。
+// - 无法通过GetKeyPairs查询该SSH密钥对。
 // - 若已有ECS实例绑定了该SSH密钥对：
-// - 七牛云不再为您保存该SSH密钥对，但是实例可以正常使用该SSH密钥对。
-// - 查询实例信息时（DescribeServers），会显示SSH密钥对名称（KeyPairName），但不再显示其他相关信息。
+// - LPLMS不再为您保存该SSH密钥对，但是实例可以正常使用该SSH密钥对。
+// - 查询实例信息时（GetServers），会显示SSH密钥对名称（KeyPairName），但不再显示其他相关信息。
 func (c *ComputeRepo) DetachKeyPair(args *entity.KeypairDetachArg) (*entity.KeypairDetachResp, error) {
 	var (
 		ns = args.ProjectID
