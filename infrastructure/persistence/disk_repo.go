@@ -34,6 +34,8 @@ type AfterAttachDiskArgs struct {
 	ImageID    string `json:"image_id"`
 }
 
+// CreateDisk
+// 调用 CreateDisk 创建一块按量付费或包年包月数据盘。云盘类型包括普通云盘、高效云盘、SSD 云盘和 ESSD 云盘。
 func (s *StorageRepo) CreateDisk(args *entity.DiskCreateArg) (*entity.DiskCreateResp, error) {
 	var (
 		ns = args.ProjectID
@@ -107,6 +109,8 @@ func (s *StorageRepo) DeleteDisk(args *entity.DiskDeleteArg) (*entity.DiskDelete
 	return nil, err
 }
 
+// UpdateDisk
+// 调用 UpdateDisk 修改一个或多个块存储的名称、描述、是否随实例释放等属性。
 func (s *StorageRepo) UpdateDisk(args *entity.DiskUpdateArg) (*entity.DiskUpdateResp, error) {
 	var (
 		ns = args.ProjectID
@@ -139,6 +143,8 @@ func (s *StorageRepo) UpdateDisk(args *entity.DiskUpdateArg) (*entity.DiskUpdate
 	return nil, err
 }
 
+// GetDisk
+// 调用 GetDisk 查询云硬盘详情
 func (s *StorageRepo) GetDisk(args *entity.DiskGetArg) (*entity.DiskGetResp, error) {
 	var (
 		ns = args.ProjectID
@@ -184,6 +190,8 @@ func (s *StorageRepo) GetDisk(args *entity.DiskGetArg) (*entity.DiskGetResp, err
 	return &entity.DiskGetResp{Disk: diskInfo}, nil
 }
 
+// ListDisk
+// 调用 ListDisk 查询云盘列表
 func (s *StorageRepo) ListDisk(args *entity.DiskListArg) (*entity.DiskListResp, error) {
 	var (
 		ns = args.ProjectID
@@ -247,6 +255,8 @@ func (s *StorageRepo) ListDisk(args *entity.DiskListArg) (*entity.DiskListResp, 
 	return &res, nil
 }
 
+// AttachDisk
+// 调用 AttachDisk 为一台 ECS 实例挂载一块按量付费数据盘，或者挂载一块系统盘。实例和云盘必须在同一个可用区。
 func (s *StorageRepo) AttachDisk(args *entity.DiskAttachArg) (*entity.DiskAttachResp, error) {
 	c := s.k8Virt.VirtualMachine(args.ProjectID)
 	err := c.AddVolume(args.ServerID, &v1.AddVolumeOptions{
@@ -285,6 +295,8 @@ func (s *StorageRepo) AttachDisk(args *entity.DiskAttachArg) (*entity.DiskAttach
 	return nil, nil
 }
 
+// DetachDisk
+// 调用 DetachDisk 从一台ECS实例上卸载一块按量付费数据盘，或者卸载一块系统盘。
 func (s *StorageRepo) DetachDisk(args *entity.DiskDetachArg) (*entity.DiskDetachResp, error) {
 	c := s.k8Virt.VirtualMachine(args.ProjectID)
 	err := c.RemoveVolume(args.ServerID, &v1.RemoveVolumeOptions{
@@ -303,11 +315,15 @@ func (s *StorageRepo) DetachDisk(args *entity.DiskDetachArg) (*entity.DiskDetach
 	return nil, nil
 }
 
+// ResizeDisk
+// 调用 ResizeDisk 扩容一块云盘，支持扩容系统盘和数据盘。
 func (s *StorageRepo) ResizeDisk(args *entity.DiskResizeArg) (*entity.DiskResizeResp, error) {
 	//TODO implement me
 	panic("implement me")
 }
 
+// ResetDisk
+// 调用 ResetDisk 使用磁盘的历史快照回滚至某一阶段的磁盘状态。
 func (s *StorageRepo) ResetDisk(args *entity.DiskResetArg) (*entity.DiskResetResp, error) {
 	var (
 		d = s.k8Virt.CdiClient().CdiV1beta1().DataVolumes(args.ProjectID)

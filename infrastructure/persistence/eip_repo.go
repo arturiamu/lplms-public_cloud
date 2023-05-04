@@ -2,6 +2,8 @@ package persistence
 
 import "github.com/arturiamu/lplms-public_cloud/domain/entity"
 
+//TODO EIP 功能需要配合营运商使用
+
 func (n *NetworkRepo) CreateEip(args *entity.EipCreateArg) (*entity.EipCreateResp, error) {
 	//TODO implement me
 	panic("implement me")

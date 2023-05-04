@@ -121,6 +121,8 @@ func (s *StorageRepo) DeleteSnapshot(args *entity.SnapshotDeleteArg) (*entity.Sn
 	return nil, err
 }
 
+// UpdateSnapshot
+// 调用 UpdateSnapshot 修改快照信息
 func (s *StorageRepo) UpdateSnapshot(args *entity.SnapshotUpdateArg) (*entity.SnapshotUpdateResp, error) {
 	var (
 		ns = args.ProjectID
@@ -155,6 +157,13 @@ func (s *StorageRepo) GetSnapshot(args *entity.SnapshotGetArg) (*entity.Snapshot
 }
 
 func (s *StorageRepo) ListSnapshot(args *entity.SnapshotListArg) (*entity.SnapshotListResp, error) {
+	//TODO implement me
+	panic("implement me")
+}
+
+// GetSnapshotUsage
+// 调用 GetSnapshotUsage 查询您在一个地域下的快照数量以及快照容量。
+func (s *StorageRepo) GetSnapshotUsage(args *entity.SnapshotListArg) (*entity.SnapshotListResp, error) {
 	//TODO implement me
 	panic("implement me")
 }
