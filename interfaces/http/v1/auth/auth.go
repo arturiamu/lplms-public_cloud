@@ -11,7 +11,7 @@ type UserRouter struct {
 	ui application.UserAppInterface
 }
 
-func NewUser(ui application.UserAppInterface) *UserRouter {
+func NewUserRouter(ui application.UserAppInterface) *UserRouter {
 	return &UserRouter{
 		ui: ui,
 	}

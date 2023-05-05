@@ -276,6 +276,53 @@ func (c *ComputeRepo) CreateServer(args *entity.ServerCreateArg) (*entity.Server
 	return &entity.ServerCreateResp{ServerID: id}, nil
 }
 
+func (c *ComputeRepo) StartServer(args *entity.ServerStartArgs) (*entity.ServerStartResp, error) {
+	var (
+		ns = args.ProjectID
+		k  = c.k8Virt.VirtualMachine(ns)
+	)
+	err := k.Start(args.ServerID, &v1.StartOptions{})
+	if err != nil {
+		return nil, err
+	}
+
+	return nil, nil
+}
+
+func (c *ComputeRepo) StopServer(args *entity.ServerStopArgs) (*entity.ServerStopResp, error) {
+	var (
+		ns  = args.ProjectID
+		k   = c.k8Virt.VirtualMachine(ns)
+		err error
+	)
+
+	// 由于关机后 vmi 会被释放，从而导致拿不到 private_ip_address,
+	// 所以在关机前先把 private_ip 写到 annotation 里面
+	c.setPrivateIPAddrAndMacToAnnotation(args.ProjectID, args.ServerID)
+
+	if args.ForceStop != nil && *args.ForceStop {
+		err = k.ForceStop(args.ServerID, &v1.StopOptions{})
+	} else {
+		err = k.Stop(args.ServerID, &v1.StopOptions{})
+	}
+	return nil, err
+}
+
+func (c *ComputeRepo) RestartServer(args *entity.ServerRestartArgs) (*entity.ServerRestartResp, error) {
+	var (
+		ns  = args.ProjectID
+		k   = c.k8Virt.VirtualMachine(ns)
+		err error
+	)
+
+	if args.ForceRestart != nil && *args.ForceRestart {
+		err = k.ForceRestart(args.ServerID, &v1.RestartOptions{})
+	} else {
+		err = k.Restart(args.ServerID, &v1.RestartOptions{})
+	}
+	return nil, err
+}
+
 func (c *ComputeRepo) DeleteServer(args *entity.ServerDeleteArg) (*entity.ServerDeleteResp, error) {
 	var (
 		ns = args.ProjectID
@@ -571,6 +618,40 @@ func (c *ComputeRepo) createDisk(args *entity.DiskCreateArg) (diskID string, err
 		time.Sleep(time.Millisecond * 500)
 	}
 
+	return
+}
+
+func (c *ComputeRepo) setPrivateIPAddrAndMacToAnnotation(projectID, serverID string) (err error) {
+	k := c.k8Virt.VirtualMachine(projectID)
+	oldServer, err := k.Get(serverID, &metav1.GetOptions{})
+	if err != nil {
+		return
+	}
+
+	// newServer := oldServer.DeepCopy()
+	annotation := oldServer.ObjectMeta.Annotations
+	if ip, ok := annotation[common.AnnotationPrivateIPAddress]; ok && len(ip) > 0 {
+		return
+	}
+
+	privateIP, mac := c.getPrivateIPAddrAndMac(projectID, serverID)
+	if len(privateIP) > 0 {
+		annotation[common.AnnotationPrivateIPAddress] = privateIP
+		annotation[common.AnnotationMacAddress] = mac
+		newServer := oldServer.DeepCopy()
+		newServer.ObjectMeta.Annotations = annotation
+		_, err = k.Update(newServer)
+	}
+
+	return
+}
+
+func (c *ComputeRepo) getPrivateIPAddrAndMac(projectID, serverID string) (privateIPAddr, mac string) {
+	vmi, err := c.k8Virt.VirtualMachineInstance(projectID).Get(serverID, &metav1.GetOptions{})
+	if err == nil && vmi != nil && len(vmi.Status.Interfaces) > 0 {
+		privateIPAddr = vmi.Status.Interfaces[0].IP
+		mac = vmi.Status.Interfaces[0].MAC
+	}
 	return
 }
 

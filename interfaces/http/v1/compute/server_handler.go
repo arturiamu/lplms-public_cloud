@@ -362,3 +362,71 @@ func (args *GetServerDisksArgs) toEntityArgs(u *entity.User) *entity.ServerDisks
 func (rc *RouterCompute) GetServerDisks(c *gin.Context) {
 
 }
+
+func (rc *RouterCompute) StartServer(c *gin.Context) {
+	var (
+		id = c.Param("id")
+		u  = common.GetUser(c)
+	)
+	_, err := rc.ci.StartServer(&entity.ServerStartArgs{
+		ServerID:  id,
+		ProjectID: u.ProjectID,
+	})
+	if err != nil {
+		c.JSON(http.StatusBadRequest, common.FailWith(err.Error(), nil))
+		return
+	}
+	c.JSON(http.StatusOK, common.Success())
+}
+
+type StopServerArgs struct {
+	ForceStop *bool `json:"force_stop"`
+}
+
+func (rc *RouterCompute) StopServer(c *gin.Context) {
+	var (
+		id   = c.Param("id")
+		u    = common.GetUser(c)
+		args StopServerArgs
+	)
+	if err := c.BindJSON(&args); err != nil {
+		c.JSON(http.StatusBadRequest, common.FailWith(err.Error(), nil))
+		return
+	}
+	_, err := rc.ci.StopServer(&entity.ServerStopArgs{
+		ServerID:  id,
+		ProjectID: u.ProjectID,
+		ForceStop: args.ForceStop,
+	})
+	if err != nil {
+		c.JSON(http.StatusBadRequest, common.FailWith(err.Error(), nil))
+		return
+	}
+	c.JSON(http.StatusOK, common.Success())
+}
+
+type RestartServerArgs struct {
+	ForceRestart *bool `json:"force_restart"`
+}
+
+func (rc *RouterCompute) RestartServer(c *gin.Context) {
+	var (
+		id   = c.Param("id")
+		u    = common.GetUser(c)
+		args RestartServerArgs
+	)
+	if err := c.BindJSON(&args); err != nil {
+		c.JSON(http.StatusBadRequest, common.FailWith(err.Error(), nil))
+		return
+	}
+	_, err := rc.ci.RestartServer(&entity.ServerRestartArgs{
+		ServerID:     id,
+		ProjectID:    u.ProjectID,
+		ForceRestart: args.ForceRestart,
+	})
+	if err != nil {
+		c.JSON(http.StatusBadRequest, common.FailWith(err.Error(), nil))
+		return
+	}
+	c.JSON(http.StatusOK, common.Success())
+}

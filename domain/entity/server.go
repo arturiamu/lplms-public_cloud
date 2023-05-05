@@ -195,3 +195,35 @@ type ServerDisksGetArg struct {
 type ServerDisksGetResp struct {
 	Disks []*DiskInfo
 }
+
+type ServerStartArgs struct {
+	ProjectID string
+	ServerID  string // 实例 ID
+}
+
+type ServerStartResp struct {
+}
+
+type ServerStopArgs struct {
+	ProjectID string
+	ServerID  string // 实例 ID
+	// 停止实例时的是否强制关机策略。取值范围：
+	// - true：强制关机。
+	// - false（默认）：正常关机流程
+	ForceStop *bool
+}
+
+type ServerStopResp struct {
+}
+
+type ServerRestartArgs struct {
+	ProjectID string
+	ServerID  string // 实例 ID
+	// 重启ECS实例前，是否强制关机。取值范围：
+	// - true：强制关机。相当于典型的断电操作，所有未写入存储设备的缓存数据会丢失。
+	// - false（默认）：正常关机。
+	ForceRestart *bool
+}
+
+type ServerRestartResp struct {
+}

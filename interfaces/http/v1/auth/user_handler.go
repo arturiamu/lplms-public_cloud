@@ -20,6 +20,7 @@ type RegisterArgs struct {
 	Birthday   *time.Time `json:"birthday" validate:"omitempty,datetime"`
 }
 
+// Register 注册服务
 func (ur *UserRouter) Register(c *gin.Context) {
 	var (
 		args RegisterArgs
@@ -55,6 +56,7 @@ type LoginArgs struct {
 	VerificationCode string `json:"verification_code"`
 }
 
+// Login 登录服务
 func (ur *UserRouter) Login(c *gin.Context) {
 	var (
 		args LoginArgs
@@ -84,6 +86,7 @@ func (ur *UserRouter) Login(c *gin.Context) {
 	c.JSON(http.StatusOK, common.SuccessWith("", tk))
 }
 
+// Logout 登出
 func (ur *UserRouter) Logout(c *gin.Context) {
 	// TODO clear redis、session
 	c.JSON(http.StatusOK, common.Success())
@@ -98,6 +101,7 @@ type UpdateInfoArgs struct {
 	Birthday   *time.Time `json:"birthday" validate:"omitempty,datetime"`
 }
 
+// UpdateInfo 修改用户信息
 func (ur *UserRouter) UpdateInfo(c *gin.Context) {
 	var (
 		args UpdateInfoArgs

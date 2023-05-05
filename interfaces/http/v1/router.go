@@ -25,7 +25,7 @@ func InitRouter(stack application.StackInterface, engine *gin.Engine) {
 
 func RegisterUserGroup(rg *gin.RouterGroup, ui application.UserAppInterface) {
 	rg.Any("/ping", ping)
-	userRouter := auth.NewUser(ui)
+	userRouter := auth.NewUserRouter(ui)
 	rg.POST("/register", userRouter.Register)
 	rg.POST("/login", userRouter.Login)
 	rg.PUT("/info", middleware.AuthMiddleware(), userRouter.UpdateInfo)
@@ -41,6 +41,9 @@ func RegisterComputeGroup(rg *gin.RouterGroup, ci application.ComputeAppInterfac
 	rg.GET("/server/:id", routerCompute.GetServer)
 	rg.GET("/server", routerCompute.ListServer)
 	rg.GET("/server/:id/disks", routerCompute.GetServerDisks)
+	rg.POST("/server/:id/start", routerCompute.StartServer)
+	rg.POST("/server/:id/stop", routerCompute.StopServer)
+	rg.POST("/server/:id/restart", routerCompute.RestartServer)
 
 	rg.POST("/flavor", routerCompute.CreateFlavor)
 	rg.DELETE("/flavor/:id", routerCompute.DeleteFlavor)

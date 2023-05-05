@@ -7,6 +7,8 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+// GetUser
+// 只包含 uid 和 project_id 信息
 func GetUser(c *gin.Context) *entity.User {
 	if c == nil {
 		return nil
