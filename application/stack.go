@@ -2,10 +2,12 @@ package application
 
 import (
 	"github.com/arturiamu/lplms-public_cloud/config"
+	"github.com/arturiamu/lplms-public_cloud/domain/entity"
 	"github.com/arturiamu/lplms-public_cloud/infrastructure/persistence"
 	"gorm.io/driver/mysql"
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
+	"log"
 )
 
 type StackInterface interface {
@@ -40,6 +42,7 @@ func NewStack(path *string) (stack StackInterface, err error) {
 			return nil, err
 		}
 	}
+	autoMigrate(db)
 
 	return stk{
 		userRepo:    persistence.NewUserRepository(db),
@@ -47,6 +50,13 @@ func NewStack(path *string) (stack StackInterface, err error) {
 		storageRepo: persistence.NewStorageRepo(path),
 		networkRepo: persistence.NewNetworkRepo(path),
 	}, nil
+}
+
+func autoMigrate(db *gorm.DB) {
+	err := db.AutoMigrate(entity.User{})
+	if err != nil {
+		log.Println("autoMigrate err : ", err)
+	}
 }
 
 func (s stk) User() UserAppInterface {

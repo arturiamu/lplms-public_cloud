@@ -12,9 +12,9 @@ import (
 
 func InitRouter(stack application.StackInterface, engine *gin.Engine) {
 	engine.Use(gin.Logger(), gin.Recovery())
-	engine.Use(middleware.CORSMiddleware(), middleware.AuthMiddleware())
+	engine.Use(middleware.CORSMiddleware())
 
-	v1 := engine.Group("lplms/api/v1", middleware.CORSMiddleware())
+	v1 := engine.Group("/lplms/api/v1")
 	RegisterUserGroup(v1.Group("/auth"), stack.User())
 	RegisterComputeGroup(v1.Group("/compute", middleware.AuthMiddleware()), stack.Compute())
 	RegisterStorageGroup(v1.Group("/storage", middleware.AuthMiddleware()), stack.Storage())
@@ -25,8 +25,8 @@ func RegisterUserGroup(rg *gin.RouterGroup, ui application.UserAppInterface) {
 	user := auth.NewUser(ui)
 	rg.POST("/register", user.Register)
 	rg.POST("/login", user.Login)
-	rg.PUT("/user", middleware.AuthMiddleware(), user.UpdateInfo)
-	rg.GET("/logout", user.Logout)
+	rg.PUT("/info", middleware.AuthMiddleware(), user.UpdateInfo)
+	rg.GET("/logout", middleware.AuthMiddleware(), user.Logout)
 }
 
 func RegisterComputeGroup(rg *gin.RouterGroup, ci application.ComputeAppInterface) {
