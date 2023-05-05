@@ -4,10 +4,10 @@ import (
 	"github.com/arturiamu/lplms-public_cloud/application"
 )
 
-type Network struct {
+type RouterNetwork struct {
 	ni application.NetworkAppInterface
 }
 
-func NewNetwork(ni application.NetworkAppInterface) *Network {
-	return &Network{ni: ni}
+func NewNetwork(ni application.NetworkAppInterface) *RouterNetwork {
+	return &RouterNetwork{ni: ni}
 }

@@ -16,8 +16,13 @@ const (
 var AuthSecret = []byte(_secret)
 
 type AuthClaims struct {
-	User entity.User
+	User AuthUser
 	jwt.StandardClaims
+}
+
+type AuthUser struct {
+	UID       string
+	ProjectID string
 }
 
 func GenerateToken(u *entity.User) (string, error) {
@@ -26,7 +31,10 @@ func GenerateToken(u *entity.User) (string, error) {
 	}
 	expirationTime := time.Now().Add(ExpireDuration)
 	claims := &AuthClaims{
-		User: *u,
+		User: AuthUser{
+			UID:       u.UID,
+			ProjectID: u.ProjectID,
+		},
 		StandardClaims: jwt.StandardClaims{
 			ExpiresAt: expirationTime.Unix(),
 			Issuer:    _issuer,

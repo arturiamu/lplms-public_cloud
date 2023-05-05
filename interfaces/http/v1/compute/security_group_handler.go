@@ -12,7 +12,7 @@ func (args *CreateSecurityGroupArgs) toEntityArgs(u *entity.User) *entity.Securi
 	return nil
 }
 
-func (co *Compute) CreateSecurityGroup(c *gin.Context) {
+func (rc *RouterCompute) CreateSecurityGroup(c *gin.Context) {
 
 }
 
@@ -23,7 +23,7 @@ func (args *DeleteSecurityGroupArgs) toEntityArgs(u *entity.User) *entity.Securi
 	return nil
 }
 
-func (co *Compute) DeleteSecurityGroup(c *gin.Context) {
+func (rc *RouterCompute) DeleteSecurityGroup(c *gin.Context) {
 
 }
 
@@ -34,7 +34,7 @@ func (args *UpdateSecurityGroupArgs) toEntityArgs(u *entity.User) *entity.Securi
 	return nil
 }
 
-func (co *Compute) UpdateSecurityGroup(c *gin.Context) {
+func (rc *RouterCompute) UpdateSecurityGroup(c *gin.Context) {
 
 }
 
@@ -45,7 +45,7 @@ func (args *GetSecurityGroupArgs) toEntityArgs(u *entity.User) *entity.SecurityG
 	return nil
 }
 
-func (co *Compute) GetSecurityGroup(c *gin.Context) {
+func (rc *RouterCompute) GetSecurityGroup(c *gin.Context) {
 
 }
 
@@ -56,7 +56,7 @@ func (args *ListSecurityGroupArgs) toEntityArgs(u *entity.User) *entity.Security
 	return nil
 }
 
-func (co *Compute) ListSecurityGroup(c *gin.Context) {
+func (rc *RouterCompute) ListSecurityGroup(c *gin.Context) {
 
 }
 
@@ -67,7 +67,7 @@ func (args *CreateSecurityGroupRuleArgs) toEntityArgs(u *entity.User) *entity.Se
 	return nil
 }
 
-func (co *Compute) CreateSecurityGroupRule(c *gin.Context) {
+func (rc *RouterCompute) CreateSecurityGroupRule(c *gin.Context) {
 
 }
 
@@ -78,7 +78,7 @@ func (args *DeleteSecurityGroupRuleArgs) toEntityArgs(u *entity.User) *entity.Se
 	return nil
 }
 
-func (co *Compute) DeleteSecurityGroupRule(c *gin.Context) {
+func (rc *RouterCompute) DeleteSecurityGroupRule(c *gin.Context) {
 
 }
 
@@ -89,7 +89,7 @@ func (args *GetSecurityGroupRuleArgs) toEntityArgs(u *entity.User) *entity.Secur
 	return nil
 }
 
-func (co *Compute) GetSecurityGroupRule(c *gin.Context) {
+func (rc *RouterCompute) GetSecurityGroupRule(c *gin.Context) {
 
 }
 
@@ -100,6 +100,6 @@ func (args *ListSecurityGroupRuleArgs) toEntityArgs(u *entity.User) *entity.Secu
 	return nil
 }
 
-func (co *Compute) ListSecurityGroupRule(c *gin.Context) {
+func (rc *RouterCompute) ListSecurityGroupRule(c *gin.Context) {
 
 }

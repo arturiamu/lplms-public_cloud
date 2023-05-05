@@ -12,7 +12,7 @@ func (args *CreateSnapshotArgs) toEntityArgs(u *entity.User) *entity.SnapshotCre
 	return nil
 }
 
-func (s *Storage) CreateSnapshot(c *gin.Context) {
+func (rs *RouterStorage) CreateSnapshot(c *gin.Context) {
 
 }
 
@@ -23,7 +23,7 @@ func (args *DeleteSnapshotArgs) toEntityArgs(u *entity.User) *entity.SnapshotDel
 	return nil
 }
 
-func (s *Storage) DeleteSnapshot(c *gin.Context) {
+func (rs *RouterStorage) DeleteSnapshot(c *gin.Context) {
 
 }
 
@@ -34,7 +34,7 @@ func (args *UpdateSnapshotArgs) toEntityArgs(u *entity.User) *entity.SnapshotUpd
 	return nil
 }
 
-func (s *Storage) UpdateSnapshot(c *gin.Context) {
+func (rs *RouterStorage) UpdateSnapshot(c *gin.Context) {
 
 }
 
@@ -45,7 +45,7 @@ func (args *GetSnapshotArgs) toEntityArgs(u *entity.User) *entity.SnapshotGetArg
 	return nil
 }
 
-func (s *Storage) GetSnapshot(c *gin.Context) {
+func (rs *RouterStorage) GetSnapshot(c *gin.Context) {
 
 }
 
@@ -56,6 +56,6 @@ func (args *ListSnapshotArgs) toEntityArgs(u *entity.User) *entity.SnapshotListA
 	return nil
 }
 
-func (s *Storage) ListSnapshot(c *gin.Context) {
+func (rs *RouterStorage) ListSnapshot(c *gin.Context) {
 
 }

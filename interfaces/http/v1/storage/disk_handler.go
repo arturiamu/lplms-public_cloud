@@ -12,7 +12,7 @@ func (args *CreateDiskArgs) toEntityArgs(u *entity.User) *entity.DiskCreateArg {
 	return nil
 }
 
-func (s *Storage) CreateDisk(c *gin.Context) {
+func (rs *RouterStorage) CreateDisk(c *gin.Context) {
 
 }
 
@@ -23,7 +23,7 @@ func (args *DeleteDiskArgs) toEntityArgs(u *entity.User) *entity.DiskDeleteArg {
 	return nil
 }
 
-func (s *Storage) DeleteDisk(c *gin.Context) {
+func (rs *RouterStorage) DeleteDisk(c *gin.Context) {
 
 }
 
@@ -34,7 +34,7 @@ func (args *UpdateDiskArgs) toEntityArgs(u *entity.User) *entity.DiskUpdateArg {
 	return nil
 }
 
-func (s *Storage) UpdateDisk(c *gin.Context) {
+func (rs *RouterStorage) UpdateDisk(c *gin.Context) {
 
 }
 
@@ -45,7 +45,7 @@ func (args *GetDiskArgs) toEntityArgs(u *entity.User) *entity.DiskGetArg {
 	return nil
 }
 
-func (s *Storage) GetDisk(c *gin.Context) {
+func (rs *RouterStorage) GetDisk(c *gin.Context) {
 
 }
 
@@ -56,7 +56,7 @@ func (args *ListDiskArgs) toEntityArgs(u *entity.User) *entity.DiskListArg {
 	return nil
 }
 
-func (s *Storage) ListDisk(c *gin.Context) {
+func (rs *RouterStorage) ListDisk(c *gin.Context) {
 
 }
 
@@ -67,7 +67,7 @@ func (args *DetachDiskArgs) toEntityArgs(u *entity.User) *entity.DiskDetachArg {
 	return nil
 }
 
-func (s *Storage) DetachDisk(c *gin.Context) {
+func (rs *RouterStorage) DetachDisk(c *gin.Context) {
 
 }
 
@@ -78,7 +78,7 @@ func (args *AttachDiskArgs) toEntityArgs(u *entity.User) *entity.DiskAttachArg {
 	return nil
 }
 
-func (s *Storage) AttachDisk(c *gin.Context) {
+func (rs *RouterStorage) AttachDisk(c *gin.Context) {
 
 }
 
@@ -89,7 +89,7 @@ func (args *ResizeDiskArgs) toEntityArgs(u *entity.User) *entity.DiskResizeArg {
 	return nil
 }
 
-func (s *Storage) ResizeDisk(c *gin.Context) {
+func (rs *RouterStorage) ResizeDisk(c *gin.Context) {
 
 }
 
@@ -100,6 +100,6 @@ func (args *ResetDiskArgs) toEntityArgs(u *entity.User) *entity.DiskResetArg {
 	return nil
 }
 
-func (s *Storage) ResetDisk(c *gin.Context) {
+func (rs *RouterStorage) ResetDisk(c *gin.Context) {
 
 }

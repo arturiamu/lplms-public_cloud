@@ -20,7 +20,7 @@ type RegisterArgs struct {
 	Birthday   *time.Time `json:"birthday" validate:"omitempty,datetime"`
 }
 
-func (u *User) Register(c *gin.Context) {
+func (ur *UserRouter) Register(c *gin.Context) {
 	var (
 		args RegisterArgs
 	)
@@ -41,7 +41,7 @@ func (u *User) Register(c *gin.Context) {
 		Telephone: args.Telephone,
 		Birthday:  args.Birthday,
 	}
-	_, err := u.ui.SaveUser(&entity.UserCreateArg{User: user})
+	_, err := ur.ui.SaveUser(&entity.UserCreateArg{User: user})
 	if err != nil {
 		c.JSON(http.StatusBadRequest, common.FailWith(err.Error(), nil))
 		return
@@ -55,7 +55,7 @@ type LoginArgs struct {
 	VerificationCode string `json:"verification_code"`
 }
 
-func (u *User) Login(c *gin.Context) {
+func (ur *UserRouter) Login(c *gin.Context) {
 	var (
 		args LoginArgs
 	)
@@ -67,7 +67,7 @@ func (u *User) Login(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, common.FailWith(err.Error(), nil))
 		return
 	}
-	resp, err := u.ui.GetUserBy(&entity.UserGetByArgs{Email: args.Email})
+	resp, err := ur.ui.GetUserBy(&entity.UserGetByArgs{Email: args.Email})
 	if err != nil {
 		c.JSON(http.StatusBadRequest, common.FailWith(err.Error(), nil))
 		return
@@ -84,7 +84,7 @@ func (u *User) Login(c *gin.Context) {
 	c.JSON(http.StatusOK, common.SuccessWith("", tk))
 }
 
-func (u *User) Logout(c *gin.Context) {
+func (ur *UserRouter) Logout(c *gin.Context) {
 	// TODO clear redis、session
 	c.JSON(http.StatusOK, common.Success())
 }
@@ -98,10 +98,10 @@ type UpdateInfoArgs struct {
 	Birthday   *time.Time `json:"birthday" validate:"omitempty,datetime"`
 }
 
-func (u *User) UpdateInfo(c *gin.Context) {
+func (ur *UserRouter) UpdateInfo(c *gin.Context) {
 	var (
 		args UpdateInfoArgs
-		user = common.GetUser(c)
+		u    = common.GetUser(c)
 	)
 	if err := c.BindJSON(&args); err != nil {
 		c.JSON(http.StatusBadRequest, common.FailWith(err.Error(), nil))
@@ -111,6 +111,12 @@ func (u *User) UpdateInfo(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, common.FailWith(err.Error(), nil))
 		return
 	}
+	resp, err := ur.ui.GetUser(&entity.UserGetArg{UID: u.UID})
+	if err != nil {
+		c.JSON(http.StatusBadRequest, common.FailWith(err.Error(), nil))
+		return
+	}
+	user := resp.User
 	if args.Username != nil {
 		user.Username = *args.Username
 	}
@@ -127,7 +133,7 @@ func (u *User) UpdateInfo(c *gin.Context) {
 		user.Birthday = args.Birthday
 	}
 
-	_, err := u.ui.UpdateUser(&entity.UserUpdateArg{User: *user})
+	_, err = ur.ui.UpdateUser(&entity.UserUpdateArg{User: user})
 	if err != nil {
 		c.JSON(http.StatusBadRequest, common.FailWith(err.Error(), nil))
 		return

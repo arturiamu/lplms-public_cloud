@@ -12,7 +12,7 @@ func (args *CreateKeypairArgs) toEntityArgs(u *entity.User) *entity.KeypairCreat
 	return nil
 }
 
-func (co *Compute) CreateKeypair(c *gin.Context) {
+func (rc *RouterCompute) CreateKeypair(c *gin.Context) {
 
 }
 
@@ -23,7 +23,7 @@ func (args *DeleteKeypairArgs) toEntityArgs(u *entity.User) *entity.KeypairDelet
 	return nil
 }
 
-func (co *Compute) DeleteKeypair(c *gin.Context) {
+func (rc *RouterCompute) DeleteKeypair(c *gin.Context) {
 
 }
 
@@ -34,7 +34,7 @@ func (args *UpdateKeypairArgs) toEntityArgs(u *entity.User) *entity.KeypairUpdat
 	return nil
 }
 
-func (co *Compute) UpdateKeypair(c *gin.Context) {
+func (rc *RouterCompute) UpdateKeypair(c *gin.Context) {
 
 }
 
@@ -45,7 +45,7 @@ func (args *GetKeypairArgs) toEntityArgs(u *entity.User) *entity.KeypairGetArg {
 	return nil
 }
 
-func (co *Compute) GetKeypair(c *gin.Context) {
+func (rc *RouterCompute) GetKeypair(c *gin.Context) {
 
 }
 
@@ -56,7 +56,7 @@ func (args *ListKeypairArgs) toEntityArgs(u *entity.User) *entity.KeypairListArg
 	return nil
 }
 
-func (co *Compute) ListKeypair(c *gin.Context) {
+func (rc *RouterCompute) ListKeypair(c *gin.Context) {
 
 }
 
@@ -67,7 +67,7 @@ func (args *DetachKeyPairArgs) toEntityArgs(u *entity.User) *entity.KeypairDetac
 	return nil
 }
 
-func (co *Compute) DetachKeyPair(c *gin.Context) {
+func (rc *RouterCompute) DetachKeyPair(c *gin.Context) {
 
 }
 
@@ -78,6 +78,6 @@ func (args *AttachKeyPairArgs) toEntityArgs(u *entity.User) *entity.KeypairAttac
 	return nil
 }
 
-func (co *Compute) AttachKeyPair(c *gin.Context) {
+func (rc *RouterCompute) AttachKeyPair(c *gin.Context) {
 
 }

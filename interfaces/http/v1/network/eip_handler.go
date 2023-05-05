@@ -12,7 +12,7 @@ func (args *CreateEipArgs) toEntityArgs(u *entity.User) *entity.EipCreateArg {
 	return nil
 }
 
-func (ne *Network) CreateEip(c *gin.Context) {
+func (rn *RouterNetwork) CreateEip(c *gin.Context) {
 
 }
 
@@ -23,7 +23,7 @@ func (args *DeleteEipArgs) toEntityArgs(u *entity.User) *entity.EipDeleteArg {
 	return nil
 }
 
-func (ne *Network) DeleteEip(c *gin.Context) {
+func (rn *RouterNetwork) DeleteEip(c *gin.Context) {
 
 }
 
@@ -34,7 +34,7 @@ func (args *UpdateEipArgs) toEntityArgs(u *entity.User) *entity.EipUpdateArg {
 	return nil
 }
 
-func (ne *Network) UpdateEip(c *gin.Context) {
+func (rn *RouterNetwork) UpdateEip(c *gin.Context) {
 
 }
 
@@ -45,7 +45,7 @@ func (args *GetEipArgs) toEntityArgs(u *entity.User) *entity.EipGetArg {
 	return nil
 }
 
-func (ne *Network) GetEip(c *gin.Context) {
+func (rn *RouterNetwork) GetEip(c *gin.Context) {
 
 }
 
@@ -56,6 +56,6 @@ func (args *ListEipArgs) toEntityArgs(u *entity.User) *entity.EipListArg {
 	return nil
 }
 
-func (ne *Network) ListEip(c *gin.Context) {
+func (rn *RouterNetwork) ListEip(c *gin.Context) {
 
 }

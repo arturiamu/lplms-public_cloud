@@ -3,6 +3,7 @@ package common
 import (
 	"github.com/arturiamu/lplms-public_cloud/domain/entity"
 	"github.com/arturiamu/lplms-public_cloud/interfaces/middleware"
+	"github.com/arturiamu/lplms-public_cloud/utils/token"
 	"github.com/gin-gonic/gin"
 )
 
@@ -14,9 +15,12 @@ func GetUser(c *gin.Context) *entity.User {
 	if !ok {
 		return nil
 	}
-	user, ok := u.(entity.User)
+	user, ok := u.(token.AuthUser)
 	if ok {
-		return &user
+		return &entity.User{
+			UID:       user.UID,
+			ProjectID: user.ProjectID,
+		}
 	}
 	return nil
 }

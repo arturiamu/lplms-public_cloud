@@ -12,7 +12,7 @@ func (args *CreateVpcArgs) toEntityArgs(u *entity.User) *entity.VpcCreateArg {
 	return nil
 }
 
-func (ne *Network) CreateVpc(c *gin.Context) {
+func (rn *RouterNetwork) CreateVpc(c *gin.Context) {
 
 }
 
@@ -23,7 +23,7 @@ func (args *DeleteVpcArgs) toEntityArgs(u *entity.User) *entity.VpcDeleteArg {
 	return nil
 }
 
-func (ne *Network) DeleteVpc(c *gin.Context) {
+func (rn *RouterNetwork) DeleteVpc(c *gin.Context) {
 
 }
 
@@ -34,7 +34,7 @@ func (args *UpdateVpcArgs) toEntityArgs(u *entity.User) *entity.VpcUpdateArg {
 	return nil
 }
 
-func (ne *Network) UpdateVpc(c *gin.Context) {
+func (rn *RouterNetwork) UpdateVpc(c *gin.Context) {
 
 }
 
@@ -45,7 +45,7 @@ func (args *GetVpcArgs) toEntityArgs(u *entity.User) *entity.VpcGetArg {
 	return nil
 }
 
-func (ne *Network) GetVpc(c *gin.Context) {
+func (rn *RouterNetwork) GetVpc(c *gin.Context) {
 
 }
 
@@ -56,6 +56,6 @@ func (args *ListVpcArgs) toEntityArgs(u *entity.User) *entity.VpcListArg {
 	return nil
 }
 
-func (ne *Network) ListVpc(c *gin.Context) {
+func (rn *RouterNetwork) ListVpc(c *gin.Context) {
 
 }

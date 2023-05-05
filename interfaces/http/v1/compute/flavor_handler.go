@@ -12,7 +12,7 @@ func (args *CreateFlavorArgs) toEntityArgs(u *entity.User) *entity.FlavorCreateA
 	return nil
 }
 
-func (co *Compute) CreateFlavor(c *gin.Context) {
+func (rc *RouterCompute) CreateFlavor(c *gin.Context) {
 
 }
 
@@ -23,7 +23,7 @@ func (args *DeleteFlavorArgs) toEntityArgs(u *entity.User) *entity.FlavorDeleteA
 	return nil
 }
 
-func (co *Compute) DeleteFlavor(c *gin.Context) {
+func (rc *RouterCompute) DeleteFlavor(c *gin.Context) {
 
 }
 
@@ -34,7 +34,7 @@ func (args *UpdateFlavorArgs) toEntityArgs(u *entity.User) *entity.FlavorUpdateA
 	return nil
 }
 
-func (co *Compute) UpdateFlavor(c *gin.Context) {
+func (rc *RouterCompute) UpdateFlavor(c *gin.Context) {
 
 }
 
@@ -45,7 +45,7 @@ func (args *GetFlavorArgs) toEntityArgs(u *entity.User) *entity.FlavorGetArg {
 	return nil
 }
 
-func (co *Compute) GetFlavor(c *gin.Context) {
+func (rc *RouterCompute) GetFlavor(c *gin.Context) {
 
 }
 
@@ -56,6 +56,6 @@ func (args *ListFlavorArgs) toEntityArgs(u *entity.User) *entity.FlavorListArg {
 	return nil
 }
 
-func (co *Compute) ListFlavor(c *gin.Context) {
+func (rc *RouterCompute) ListFlavor(c *gin.Context) {
 
 }

@@ -12,7 +12,7 @@ func (args *CreateImageArgs) toEntityArgs(u *entity.User) *entity.ImageCreateArg
 	return nil
 }
 
-func (co *Compute) CreateImage(c *gin.Context) {
+func (rc *RouterCompute) CreateImage(c *gin.Context) {
 
 }
 
@@ -23,7 +23,7 @@ func (args *DeleteImageArgs) toEntityArgs(u *entity.User) *entity.ImageDeleteArg
 	return nil
 }
 
-func (co *Compute) DeleteImage(c *gin.Context) {
+func (rc *RouterCompute) DeleteImage(c *gin.Context) {
 
 }
 
@@ -34,7 +34,7 @@ func (args *UpdateImageArgs) toEntityArgs(u *entity.User) *entity.ImageUpdateArg
 	return nil
 }
 
-func (co *Compute) UpdateImage(c *gin.Context) {
+func (rc *RouterCompute) UpdateImage(c *gin.Context) {
 
 }
 
@@ -45,7 +45,7 @@ func (args *GetImageArgs) toEntityArgs(u *entity.User) *entity.ImageGetArg {
 	return nil
 }
 
-func (co *Compute) GetImage(c *gin.Context) {
+func (rc *RouterCompute) GetImage(c *gin.Context) {
 
 }
 
@@ -56,6 +56,6 @@ func (args *ListImageArgs) toEntityArgs(u *entity.User) *entity.ImageListArg {
 	return nil
 }
 
-func (co *Compute) ListImage(c *gin.Context) {
+func (rc *RouterCompute) ListImage(c *gin.Context) {
 
 }

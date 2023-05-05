@@ -7,12 +7,12 @@ import (
 
 var validate = validator.New()
 
-type Compute struct {
+type RouterCompute struct {
 	ci application.ComputeAppInterface
 }
 
-func NewCompute(ci application.ComputeAppInterface) *Compute {
-	return &Compute{
+func NewCompute(ci application.ComputeAppInterface) *RouterCompute {
+	return &RouterCompute{
 		ci: ci,
 	}
 }

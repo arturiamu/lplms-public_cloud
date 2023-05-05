@@ -7,12 +7,12 @@ import (
 
 var validate = validator.New()
 
-type User struct {
+type UserRouter struct {
 	ui application.UserAppInterface
 }
 
-func NewUser(ui application.UserAppInterface) *User {
-	return &User{
+func NewUser(ui application.UserAppInterface) *UserRouter {
+	return &UserRouter{
 		ui: ui,
 	}
 }

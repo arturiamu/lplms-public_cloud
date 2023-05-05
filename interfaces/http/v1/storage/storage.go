@@ -4,12 +4,12 @@ import (
 	"github.com/arturiamu/lplms-public_cloud/application"
 )
 
-type Storage struct {
+type RouterStorage struct {
 	si application.StorageAppInterface
 }
 
-func NewStorage(si application.StorageAppInterface) *Storage {
-	return &Storage{si: si}
+func NewStorage(si application.StorageAppInterface) *RouterStorage {
+	return &RouterStorage{si: si}
 }
 
 type CreateDiskArg struct {

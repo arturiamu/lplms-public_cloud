@@ -12,7 +12,7 @@ func (args *CreateVSwitchArgs) toEntityArgs(u *entity.User) *entity.VSwitchCreat
 	return nil
 }
 
-func (ne *Network) CreateVSwitch(c *gin.Context) {
+func (rn *RouterNetwork) CreateVSwitch(c *gin.Context) {
 
 }
 
@@ -23,7 +23,7 @@ func (args *DeleteVSwitchArgs) toEntityArgs(u *entity.User) *entity.VSwitchDelet
 	return nil
 }
 
-func (ne *Network) DeleteVSwitch(c *gin.Context) {
+func (rn *RouterNetwork) DeleteVSwitch(c *gin.Context) {
 
 }
 
@@ -34,7 +34,7 @@ func (args *UpdateVSwitchArgs) toEntityArgs(u *entity.User) *entity.VSwitchUpdat
 	return nil
 }
 
-func (ne *Network) UpdateVSwitch(c *gin.Context) {
+func (rn *RouterNetwork) UpdateVSwitch(c *gin.Context) {
 
 }
 
@@ -45,7 +45,7 @@ func (args *GetVSwitchArgs) toEntityArgs(u *entity.User) *entity.VSwitchGetArg {
 	return nil
 }
 
-func (ne *Network) GetVSwitch(c *gin.Context) {
+func (rn *RouterNetwork) GetVSwitch(c *gin.Context) {
 
 }
 
@@ -56,6 +56,6 @@ func (args *ListVSwitchArgs) toEntityArgs(u *entity.User) *entity.VSwitchListArg
 	return nil
 }
 
-func (ne *Network) ListVSwitch(c *gin.Context) {
+func (rn *RouterNetwork) ListVSwitch(c *gin.Context) {
 
 }

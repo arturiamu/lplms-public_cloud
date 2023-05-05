@@ -164,7 +164,7 @@ func (a *CreateServerArg) serverCreateBaseCheck() error {
 	return nil
 }
 
-func (co *Compute) CreateServer(c *gin.Context) {
+func (rc *RouterCompute) CreateServer(c *gin.Context) {
 	var (
 		arg CreateServerArg
 		u   = common.GetUser(c)
@@ -186,7 +186,7 @@ func (co *Compute) CreateServer(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, common.FailWith(err.Error(), nil))
 		return
 	}
-	resp, err := co.ci.CreateServer(entityArgs)
+	resp, err := rc.ci.CreateServer(entityArgs)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, common.FailWith(err.Error(), nil))
 		return
@@ -206,7 +206,7 @@ func (args *DeleteServerArgs) toEntityArgs(u *entity.User) *entity.ServerDeleteA
 		Force:     args.Force,
 	}
 }
-func (co *Compute) DeleteServer(c *gin.Context) {
+func (rc *RouterCompute) DeleteServer(c *gin.Context) {
 	var (
 		arg DeleteServerArgs
 		u   = common.GetUser(c)
@@ -215,7 +215,7 @@ func (co *Compute) DeleteServer(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, common.FailWith(err.Error(), nil))
 		return
 	}
-	_, err := co.ci.DeleteServer(arg.toEntityArgs(u))
+	_, err := rc.ci.DeleteServer(arg.toEntityArgs(u))
 	if err != nil {
 		c.JSON(http.StatusBadRequest, common.FailWith(err.Error(), nil))
 		return
@@ -265,7 +265,7 @@ func (args *UpdateServerArgs) toEntityArgs(u *entity.User) *entity.ServerUpdateA
 	return entityArg
 }
 
-func (co *Compute) UpdateServer(c *gin.Context) {
+func (rc *RouterCompute) UpdateServer(c *gin.Context) {
 	var (
 		id  = c.Param("id")
 		arg UpdateServerArgs
@@ -277,7 +277,7 @@ func (co *Compute) UpdateServer(c *gin.Context) {
 		return
 	}
 	arg.ServerID = id
-	_, err := co.ci.UpdateServer(arg.toEntityArgs(u))
+	_, err := rc.ci.UpdateServer(arg.toEntityArgs(u))
 	if err != nil {
 		c.JSON(http.StatusBadRequest, common.FailWith(err.Error(), nil))
 		return
@@ -299,7 +299,7 @@ func (args *GetServerArgs) toEntityArgs(u *entity.User) *entity.ServerGetArg {
 	return entityArg
 }
 
-func (co *Compute) GetServer(c *gin.Context) {
+func (rc *RouterCompute) GetServer(c *gin.Context) {
 	var (
 		id  = c.Param("id")
 		arg GetServerArgs
@@ -311,7 +311,7 @@ func (co *Compute) GetServer(c *gin.Context) {
 		return
 	}
 	arg.ServerID = id
-	_, err := co.ci.GetServer(arg.toEntityArgs(u))
+	_, err := rc.ci.GetServer(arg.toEntityArgs(u))
 	if err != nil {
 		c.JSON(http.StatusBadRequest, common.FailWith(err.Error(), nil))
 		return
@@ -332,7 +332,7 @@ func (args *ListServerArgs) toEntityArgs(u *entity.User) *entity.ServerListArg {
 	return entityArg
 }
 
-func (co *Compute) ListServer(c *gin.Context) {
+func (rc *RouterCompute) ListServer(c *gin.Context) {
 	var (
 		id  = c.Param("id")
 		arg ListServerArgs
@@ -344,7 +344,7 @@ func (co *Compute) ListServer(c *gin.Context) {
 		return
 	}
 	arg.ServerID = id
-	_, err := co.ci.ListServer(arg.toEntityArgs(u))
+	_, err := rc.ci.ListServer(arg.toEntityArgs(u))
 	if err != nil {
 		c.JSON(http.StatusBadRequest, common.FailWith(err.Error(), nil))
 		return
@@ -359,6 +359,6 @@ func (args *GetServerDisksArgs) toEntityArgs(u *entity.User) *entity.ServerDisks
 	return nil
 }
 
-func (co *Compute) GetServerDisks(c *gin.Context) {
+func (rc *RouterCompute) GetServerDisks(c *gin.Context) {
 
 }
