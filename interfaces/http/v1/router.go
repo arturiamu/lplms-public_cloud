@@ -33,14 +33,80 @@ func RegisterComputeGroup(rg *gin.RouterGroup, ci application.ComputeAppInterfac
 	c := compute.NewCompute(ci)
 	rg.POST("/server", c.CreateServer)
 	rg.DELETE("/server/:id", c.DeleteServer)
+	rg.PATCH("/server/:id", c.UpdateServer)
+	rg.GET("/server/:id", c.GetServer)
+	rg.GET("/server", c.ListServer)
+	rg.GET("/server/:id/disks", c.GetServerDisks)
+
+	rg.POST("/flavor", c.CreateFlavor)
+	rg.DELETE("/flavor/:id", c.DeleteFlavor)
+	rg.PATCH("/flavor/:id", c.UpdateFlavor)
+	rg.GET("/flavor/:id", c.GetFlavor)
+	rg.GET("/flavor", c.ListFlavor)
+
+	rg.POST("/image", c.CreateImage)
+	rg.DELETE("/image/:id", c.DeleteImage)
+	rg.PATCH("/image/:id", c.UpdateImage)
+	rg.GET("/image/:id", c.GetImage)
+	rg.GET("/image", c.ListImage)
+
+	rg.POST("/keypair", c.CreateKeypair)
+	rg.DELETE("/keypair/:id", c.DeleteKeypair)
+	rg.PATCH("/keypair/:id", c.UpdateKeypair)
+	rg.GET("/keypair/:id", c.GetKeypair)
+	rg.GET("/keypair", c.ListKeypair)
+	rg.GET("/keypair/:id/attach", c.AttachKeyPair)
+	rg.GET("/keypair/:id/detach", c.DetachKeyPair)
+
+	rg.POST("/security_group", c.CreateSecurityGroup)
+	rg.DELETE("/security_group/:id", c.DeleteSecurityGroup)
+	rg.PATCH("/security_group/:id", c.UpdateSecurityGroup)
+	rg.GET("/security_group/:id", c.GetSecurityGroup)
+	rg.GET("/security_group", c.ListSecurityGroup)
+
+	rg.POST("/security_group/:id/role", c.CreateSecurityGroupRule)
+	rg.DELETE("/security_group/:id/role/:id", c.DeleteSecurityGroupRule)
+	rg.GET("/security_group/:id/role/:id", c.GetSecurityGroupRule)
+	rg.GET("/security_group/:id/role", c.ListSecurityGroupRule)
 }
 
 func RegisterStorageGroup(rg *gin.RouterGroup, si application.StorageAppInterface) {
 	s := storage.NewStorage(si)
-	rg.POST("/storage", s.CreateDisk)
+	rg.POST("/disk", s.CreateDisk)
+	rg.DELETE("/disk/:id", s.DeleteDisk)
+	rg.PATCH("/disk/:id", s.UpdateDisk)
+	rg.GET("/disk/:id", s.GetDisk)
+	rg.GET("/disk", s.ListDisk)
+
+	rg.POST("/disk/:id/attach", s.AttachDisk)
+	rg.POST("/disk/:id/detach", s.DetachDisk)
+	rg.POST("/disk/:id/resize", s.ResizeDisk)
+	rg.POST("/disk/:id/reset", s.ResetDisk)
+
+	rg.POST("/snapshot", s.CreateSnapshot)
+	rg.DELETE("/snapshot/:id", s.DeleteSnapshot)
+	rg.PATCH("/snapshot/:id", s.UpdateSnapshot)
+	rg.GET("/snapshot/:id", s.GetSnapshot)
+	rg.GET("/snapshot", s.ListSnapshot)
 }
 
 func RegisterNetworkGroup(rg *gin.RouterGroup, ni application.NetworkAppInterface) {
 	n := network.NewNetwork(ni)
-	rg.POST("/network", n.CreateVpc)
+	rg.POST("/eip", n.CreateEip)
+	rg.DELETE("/eip/:id", n.DeleteEip)
+	rg.PATCH("/eip/:id", n.UpdateEip)
+	rg.GET("/eip/:id", n.GetEip)
+	rg.GET("/eip", n.ListEip)
+
+	rg.POST("/vpc", n.CreateVpc)
+	rg.DELETE("/vpc/:id", n.DeleteVpc)
+	rg.PATCH("/vpc/:id", n.UpdateVpc)
+	rg.GET("/vpc/:id", n.GetVpc)
+	rg.GET("/vpc", n.ListVpc)
+
+	//rg.POST("/slb", n.CreateSlb)
+	//rg.DELETE("/slb/:id", n.DeleteSlb)
+	//rg.PATCH("/slb/:id", n.UpdateSlb)
+	//rg.GET("/slb/:id", n.GetSlb)
+	//rg.GET("/slb", n.ListSlb)
 }
