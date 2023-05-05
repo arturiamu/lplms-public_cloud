@@ -77,7 +77,7 @@ type ServerCreateArg struct {
 
 	VPCID *string // VPC ID
 
-	Host *string // 指定云主机创建在哪台物理机 这个 host 必须是浪潮平台上的物理节点
+	//Host *string // 指定云主机创建在哪台物理机 这个 host 必须是浪潮平台上的物理节点
 
 	SystemDisk *DiskArgs   // 系统盘
 	DataDisks  []*DiskArgs // 数据盘
@@ -120,10 +120,33 @@ type ServerDeleteArg struct {
 }
 
 type ServerUpdateArg struct {
-	ProjectID   string
-	ServerID    string  // 指定的实例ID。
-	FlavorID    string  // 实例的目标规格。更多详情，请参见实例规格族，也可以调用DescribeServerTypes接口获得最新的规格表。
-	ClientToken *string // 保证请求幂等性。从您的客户端生成一个参数值，确保不同请求间该参数值唯一。
+	ServerID  string // 实例ID。
+	ProjectID string
+
+	// 实例名称。长度为2~128个英文或中文字符。必须以大小字母或中文开头，不能以 http:// 和 https:// 开头。可以包含数字、半角冒号（:）、下划线（_）或者连字符（-）。
+	ServerName *string
+
+	// 实例描述。长度为2~256个英文或中文字符，不能以 http:// 和 https:// 开头。
+	Description *string
+
+	// 实例的密码。支持长度为8至30个字符，必须同时包含大小写英文字母、数字和特殊符号中的三类字符。特殊符号可以是：
+	//
+	// ```
+	// ()`~!@#$%^&*-_+=|{}[]:;'<>,.?/
+	// ````
+	// 其中，Windows实例不能以斜线号（/）为密码首字符。
+	//
+	// @GSD:NOTE 说明 如果传入Password参数，建议您使用HTTPS协议发送请求，避免密码泄露。
+	Password *string
+
+	// 操作系统的主机名。修改主机名后，请调用RebootServer使修改生效。
+	// - Windows Server系统：长度为2-15个字符，允许使用大小写字母、数字或连字符（-）。不能以连字符（-）开头或结尾，不能连续使用连字符（-），也不能仅使用数字。
+	// - 其他类型实例（Linux等）：长度为2-64个字符，允许使用点号（.）分隔字符成多段，每段允许使用大小写字母、数字或连字符（-），但不能连续使用点号（.）或连字符（-）。不能以点号（.）或连字符（-）开头或结尾。
+	HostName *string
+
+	// 实例自定义数据，需要以Base64编码。
+	// 编码前，原始数据不能超过16KB。建议不要明文传入敏感信息，例如密码和私钥等。如果必须传入敏感信息，建议您加密后再以Base64编码传入，在实例内部以同样的方式解密。
+	UserData *string
 }
 
 type ServerGetArg struct {

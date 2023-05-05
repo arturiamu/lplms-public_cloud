@@ -1,7 +1,6 @@
 package auth
 
 import (
-	"github.com/arturiamu/lplms-public_cloud/application"
 	"github.com/arturiamu/lplms-public_cloud/common"
 	"github.com/arturiamu/lplms-public_cloud/domain/entity"
 	"github.com/arturiamu/lplms-public_cloud/utils/ctx"
@@ -9,22 +8,9 @@ import (
 	"github.com/arturiamu/lplms-public_cloud/utils/token"
 	"github.com/arturiamu/lplms-public_cloud/utils/uuid"
 	"github.com/gin-gonic/gin"
-	"github.com/go-playground/validator/v10"
 	"net/http"
 	"time"
 )
-
-var validate = validator.New()
-
-type User struct {
-	ui application.UserAppInterface
-}
-
-func NewUser(ui application.UserAppInterface) *User {
-	return &User{
-		ui: ui,
-	}
-}
 
 type RegisterArgs struct {
 	Username   string     `json:"username" validate:"required"`
