@@ -352,3 +352,14 @@ func (co *Compute) ListServer(c *gin.Context) {
 	}
 	c.JSON(http.StatusOK, common.Success())
 }
+
+type GetServerDisksArgs struct {
+}
+
+func (args *GetServerDisksArgs) toEntityArgs(u *entity.User) *entity.ServerDisksGetArg {
+	return nil
+}
+
+func (co *Compute) GetServerDisks(c *gin.Context) {
+
+}

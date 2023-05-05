@@ -51,6 +51,7 @@ type SecurityGroupRepositoryInterface interface {
 	UpdateSecurityGroup(args *entity.SecurityGroupUpdateArg) (*entity.SecurityGroupUpdateResp, error)
 	GetSecurityGroup(args *entity.SecurityGroupGetArg) (*entity.SecurityGroupGetResp, error)
 	ListSecurityGroup(args *entity.SecurityGroupListArg) (*entity.SecurityGroupListResp, error)
+
 	CreateSecurityGroupRule(args *entity.SecurityGroupRuleCreateArg) (*entity.SecurityGroupRuleCreateResp, error)
 	DeleteSecurityGroupRule(args *entity.SecurityGroupRuleDeleteArg) (*entity.SecurityGroupRuleDeleteResp, error)
 	GetSecurityGroupRule(args *entity.SecurityGroupRuleGetArg) (*entity.SecurityGroupRuleGetResp, error)
