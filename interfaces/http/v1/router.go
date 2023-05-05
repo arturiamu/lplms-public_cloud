@@ -8,13 +8,15 @@ import (
 	"github.com/arturiamu/lplms-public_cloud/interfaces/http/v1/storage"
 	"github.com/arturiamu/lplms-public_cloud/interfaces/middleware"
 	"github.com/gin-gonic/gin"
+	"net/http"
 )
 
 func InitRouter(stack application.StackInterface, engine *gin.Engine) {
 	engine.Use(gin.Logger(), gin.Recovery())
 	engine.Use(middleware.CORSMiddleware())
-
+	engine.NoRoute(noRoute)
 	v1 := engine.Group("/lplms/api/v1")
+	v1.Any("/ping", ping)
 	RegisterUserGroup(v1.Group("/auth"), stack.User())
 	RegisterComputeGroup(v1.Group("/compute", middleware.AuthMiddleware()), stack.Compute())
 	RegisterStorageGroup(v1.Group("/storage", middleware.AuthMiddleware()), stack.Storage())
@@ -22,6 +24,7 @@ func InitRouter(stack application.StackInterface, engine *gin.Engine) {
 }
 
 func RegisterUserGroup(rg *gin.RouterGroup, ui application.UserAppInterface) {
+	rg.Any("/ping", ping)
 	user := auth.NewUser(ui)
 	rg.POST("/register", user.Register)
 	rg.POST("/login", user.Login)
@@ -30,6 +33,7 @@ func RegisterUserGroup(rg *gin.RouterGroup, ui application.UserAppInterface) {
 }
 
 func RegisterComputeGroup(rg *gin.RouterGroup, ci application.ComputeAppInterface) {
+	rg.Any("/ping", ping)
 	c := compute.NewCompute(ci)
 	rg.POST("/server", c.CreateServer)
 	rg.DELETE("/server/:id", c.DeleteServer)
@@ -71,6 +75,7 @@ func RegisterComputeGroup(rg *gin.RouterGroup, ci application.ComputeAppInterfac
 }
 
 func RegisterStorageGroup(rg *gin.RouterGroup, si application.StorageAppInterface) {
+	rg.Any("/ping", ping)
 	s := storage.NewStorage(si)
 	rg.POST("/disk", s.CreateDisk)
 	rg.DELETE("/disk/:id", s.DeleteDisk)
@@ -91,6 +96,7 @@ func RegisterStorageGroup(rg *gin.RouterGroup, si application.StorageAppInterfac
 }
 
 func RegisterNetworkGroup(rg *gin.RouterGroup, ni application.NetworkAppInterface) {
+	rg.Any("/ping", ping)
 	n := network.NewNetwork(ni)
 	rg.POST("/eip", n.CreateEip)
 	rg.DELETE("/eip/:id", n.DeleteEip)
@@ -109,4 +115,12 @@ func RegisterNetworkGroup(rg *gin.RouterGroup, ni application.NetworkAppInterfac
 	//rg.PATCH("/slb/:id", n.UpdateSlb)
 	//rg.GET("/slb/:id", n.GetSlb)
 	//rg.GET("/slb", n.ListSlb)
+}
+
+func ping(c *gin.Context) {
+	c.JSON(http.StatusOK, gin.H{"ping": "pong"})
+}
+
+func noRoute(c *gin.Context) {
+	c.JSON(http.StatusOK, gin.H{"err": "no route"})
 }
