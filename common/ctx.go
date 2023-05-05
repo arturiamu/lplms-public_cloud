@@ -1,4 +1,4 @@
-package ctx
+package common
 
 import (
 	"github.com/arturiamu/lplms-public_cloud/domain/entity"

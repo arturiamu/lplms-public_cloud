@@ -6,7 +6,6 @@ import (
 	"fmt"
 	"github.com/arturiamu/lplms-public_cloud/common"
 	"github.com/arturiamu/lplms-public_cloud/domain/entity"
-	"github.com/arturiamu/lplms-public_cloud/utils/k8sutils"
 	"github.com/arturiamu/lplms-public_cloud/utils/uuid"
 	ovnv1 "github.com/kubeovn/kube-ovn/pkg/apis/kubeovn/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
@@ -54,8 +53,8 @@ func (c *ComputeRepo) CreateSecurityGroup(args *entity.SecurityGroupCreateArg) (
 	return &entity.SecurityGroupCreateResp{
 		SecurityGroup: &entity.SecurityGroup{
 			SecurityGroupID:    id,
-			SecurityGroupName:  k8sutils.GetBizName(&obj.ObjectMeta),
-			Description:        k8sutils.GetDesc(&obj.ObjectMeta),
+			SecurityGroupName:  common.GetBizName(&obj.ObjectMeta),
+			Description:        common.GetDesc(&obj.ObjectMeta),
 			SecurityGroupRules: []entity.SecurityGroupRule{},
 		},
 	}, nil
@@ -90,8 +89,8 @@ func (c *ComputeRepo) UpdateSecurityGroup(args *entity.SecurityGroupUpdateArg) (
 		toUpdate.Annotations[common.AnnotationDescription] = *args.Description
 	}
 
-	if k8sutils.GetBizName(&toUpdate.ObjectMeta) != k8sutils.GetBizName(&group.ObjectMeta) ||
-		k8sutils.GetDesc(&toUpdate.ObjectMeta) != k8sutils.GetDesc(&group.ObjectMeta) {
+	if common.GetBizName(&toUpdate.ObjectMeta) != common.GetBizName(&group.ObjectMeta) ||
+		common.GetDesc(&toUpdate.ObjectMeta) != common.GetDesc(&group.ObjectMeta) {
 		_, err = k.Update(context.Background(), toUpdate, metav1.UpdateOptions{})
 		if err != nil {
 			return nil, err
@@ -303,8 +302,8 @@ func makeStkSecurityGroup(group *ovnv1.SecurityGroup) *entity.SecurityGroup {
 
 	return &entity.SecurityGroup{
 		SecurityGroupID:    group.Name,
-		SecurityGroupName:  k8sutils.GetBizName(&group.ObjectMeta),
-		Description:        k8sutils.GetDesc(&group.ObjectMeta),
+		SecurityGroupName:  common.GetBizName(&group.ObjectMeta),
+		Description:        common.GetDesc(&group.ObjectMeta),
 		SecurityGroupRules: append(inRules, outRules...),
 	}
 }

@@ -4,7 +4,6 @@ import (
 	"errors"
 	"github.com/arturiamu/lplms-public_cloud/common"
 	"github.com/arturiamu/lplms-public_cloud/domain/entity"
-	"github.com/arturiamu/lplms-public_cloud/utils/ctx"
 	"github.com/gin-gonic/gin"
 	"net/http"
 )
@@ -168,7 +167,7 @@ func (a *CreateServerArg) serverCreateBaseCheck() error {
 func (co *Compute) CreateServer(c *gin.Context) {
 	var (
 		arg CreateServerArg
-		u   = ctx.GetUser(c)
+		u   = common.GetUser(c)
 	)
 	if err := c.BindJSON(&arg); err != nil {
 		c.JSON(http.StatusBadRequest, common.FailWith(err.Error(), nil))
@@ -210,7 +209,7 @@ func (args *DeleteServerArgs) toEntityArgs(u *entity.User) *entity.ServerDeleteA
 func (co *Compute) DeleteServer(c *gin.Context) {
 	var (
 		arg DeleteServerArgs
-		u   = ctx.GetUser(c)
+		u   = common.GetUser(c)
 	)
 	if err := c.BindJSON(&arg); err != nil {
 		c.JSON(http.StatusBadRequest, common.FailWith(err.Error(), nil))
@@ -270,7 +269,7 @@ func (co *Compute) UpdateServer(c *gin.Context) {
 	var (
 		id  = c.Param("id")
 		arg UpdateServerArgs
-		u   = ctx.GetUser(c)
+		u   = common.GetUser(c)
 	)
 
 	if err := c.BindJSON(&arg); err != nil {
@@ -304,7 +303,7 @@ func (co *Compute) GetServer(c *gin.Context) {
 	var (
 		id  = c.Param("id")
 		arg GetServerArgs
-		u   = ctx.GetUser(c)
+		u   = common.GetUser(c)
 	)
 
 	if err := c.BindJSON(&arg); err != nil {
@@ -337,7 +336,7 @@ func (co *Compute) ListServer(c *gin.Context) {
 	var (
 		id  = c.Param("id")
 		arg ListServerArgs
-		u   = ctx.GetUser(c)
+		u   = common.GetUser(c)
 	)
 
 	if err := c.BindJSON(&arg); err != nil {

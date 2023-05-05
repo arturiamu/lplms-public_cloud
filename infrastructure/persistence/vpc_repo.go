@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"github.com/arturiamu/lplms-public_cloud/common"
 	"github.com/arturiamu/lplms-public_cloud/domain/entity"
-	"github.com/arturiamu/lplms-public_cloud/utils/k8sutils"
 	"github.com/arturiamu/lplms-public_cloud/utils/uuid"
 	ovnv1 "github.com/kubeovn/kube-ovn/pkg/apis/kubeovn/v1"
 	k8serrors "k8s.io/apimachinery/pkg/api/errors"
@@ -149,10 +148,10 @@ func (n *NetworkRepo) ListVpc(args *entity.VpcListArg) (*entity.VpcListResp, err
 		r.VPCs = append(r.VPCs, entity.Vpc{
 			VPCID:       v.Name,
 			Status:      common.AvailableVPCStatus,
-			VPCName:     k8sutils.GetBizName(&v.ObjectMeta),
+			VPCName:     common.GetBizName(&v.ObjectMeta),
 			VSwitchIDs:  subnets,
 			CIDR:        "0.0.0.0/0", // CIDR 在 Subnet, 默认返回 0.0.0.0/0
-			Description: k8sutils.GetDesc(&v.ObjectMeta),
+			Description: common.GetDesc(&v.ObjectMeta),
 			CreatedAt:   v.CreationTimestamp.UTC().UnixMilli(),
 		})
 	}
@@ -247,7 +246,7 @@ func (n *NetworkRepo) GetVSwitch(args *entity.VSwitchGetArg) (*entity.VSwitchGet
 		Resources: []entity.VSwitchResourceInfo{
 			{
 				ID:   subnet.Name,
-				Name: k8sutils.GetBizName(&subnet.ObjectMeta),
+				Name: common.GetBizName(&subnet.ObjectMeta),
 				Type: common.NetworkResourceType,
 			},
 		},
@@ -300,8 +299,8 @@ func (n *NetworkRepo) ListVSwitch(args *entity.VSwitchListArg) (*entity.VSwitchL
 			CIDR:             subnets[i].Spec.CIDRBlock,
 			AvailableIPCount: int(subnets[i].Status.V4AvailableIPs),
 			ResourceCount:    0,
-			Description:      k8sutils.GetDesc(&subnets[i].ObjectMeta),
-			VSwitchName:      k8sutils.GetBizName(&subnets[i].ObjectMeta),
+			Description:      common.GetDesc(&subnets[i].ObjectMeta),
+			VSwitchName:      common.GetBizName(&subnets[i].ObjectMeta),
 			CreatedAt:        subnets[i].CreationTimestamp.UnixMilli(),
 		})
 	}

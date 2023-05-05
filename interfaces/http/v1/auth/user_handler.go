@@ -3,7 +3,6 @@ package auth
 import (
 	"github.com/arturiamu/lplms-public_cloud/common"
 	"github.com/arturiamu/lplms-public_cloud/domain/entity"
-	"github.com/arturiamu/lplms-public_cloud/utils/ctx"
 	"github.com/arturiamu/lplms-public_cloud/utils/md5util"
 	"github.com/arturiamu/lplms-public_cloud/utils/token"
 	"github.com/arturiamu/lplms-public_cloud/utils/uuid"
@@ -102,7 +101,7 @@ type UpdateInfoArgs struct {
 func (u *User) UpdateInfo(c *gin.Context) {
 	var (
 		args UpdateInfoArgs
-		user = ctx.GetUser(c)
+		user = common.GetUser(c)
 	)
 	if err := c.BindJSON(&args); err != nil {
 		c.JSON(http.StatusBadRequest, common.FailWith(err.Error(), nil))
