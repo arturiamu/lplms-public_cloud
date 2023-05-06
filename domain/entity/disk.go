@@ -27,6 +27,67 @@ type Disk struct {
 	ImageName        string
 }
 
+type DiskInfo struct {
+	DiskID           string                `json:"disk_id"`
+	DiskName         string                `json:"disk_name"`
+	DiskCategory     common.DiskCategory   `json:"disk_category"`
+	DiskType         common.DiskType       `json:"disk_type"`
+	Device           string                `json:"device"`
+	Size             int64                 `json:"size"`
+	Status           common.DiskStatusType `json:"status"`
+	SourceSnapshotID string                `json:"source_snapshot_id"`
+	Server           DiskServerInfo        `json:"server"`
+	ImageID          string                `json:"image_id"`
+	OSType           common.OSType         `json:"os_type"`
+	OSName           string                `json:"os_name"`
+	ImageName        string                `json:"image_name"`
+	Portable         bool                  `json:"portable"`
+	Bootable         bool                  `json:"bootable"`
+	AttachedTime     int64                 `json:"attached_time"`
+	DeleteWithServer bool                  `json:"delete_with_server"`
+	Description      string                `json:"description"`
+	DetachedAt       int64                 `json:"detached_at"`
+	CreatedAt        int64                 `json:"created_at"`
+}
+
+type DiskServerInfo struct {
+	ServerID   string `json:"server_id"`
+	ServerName string `json:"server_name"`
+}
+
+func BuildDiskInfo(disk Disk) *DiskInfo {
+	diskInfo := &DiskInfo{
+		DiskID:           disk.DiskID,
+		DiskName:         disk.DiskName,
+		DiskCategory:     disk.Category,
+		Device:           disk.Device,
+		Size:             disk.Size,
+		Status:           disk.Status,
+		SourceSnapshotID: disk.SourceSnapshotID,
+		Server: DiskServerInfo{
+			ServerID:   disk.ServerID,
+			ServerName: disk.ServerName,
+		},
+		ImageID:          disk.ImageID,
+		Portable:         disk.Portable,
+		Bootable:         disk.Bootable,
+		DeleteWithServer: disk.DeleteWithServer,
+		AttachedTime:     disk.AttachedTime,
+		Description:      disk.Description,
+		DetachedAt:       disk.DetachedAt,
+		CreatedAt:        disk.CreatedAt,
+		OSType:           disk.OSType,
+		OSName:           disk.OSName,
+		ImageName:        disk.ImageName,
+	}
+
+	if disk.DiskType != nil {
+		diskInfo.DiskType = *disk.DiskType
+	}
+
+	return diskInfo
+}
+
 type DiskCreateArg struct {
 
 	// 在指定可用区内创建一块按量付费云盘。
@@ -233,7 +294,33 @@ type DiskDetachArg struct {
 
 type DiskDetachResp struct{}
 
-type DiskResizeArg struct{}
+type ResizeDiskType string
+
+var (
+	ResizeDiskTypeOffline ResizeDiskType = "offline"
+	ResizeDiskTypeOnline  ResizeDiskType = "online"
+)
+
+type DiskResizeArg struct {
+	// 项目ID
+	ProjectID string
+
+	// 云盘ID。
+	DiskID string
+
+	// 希望扩容到的云盘容量大小。单位为GiB。取值范围：
+	// - 高效云盘（cloud_efficiency）：20~32768
+	// - SSD云盘（cloud_ssd）：20~32768
+	// - ESSD云盘（cloud_essd）：20~32768
+	// - 普通云盘（cloud）：5~2000
+	// 指定的新云盘容量必须比原云盘容量大。
+	NewSize int64
+
+	// 扩容云盘的方式。取值范围：
+	// - **offline**（默认）：离线扩容。扩容后，您必须在控制台重启实例或者调用API RebootInstance使操作生效。
+	// - **online**：在线扩容，无需重启实例即可完成扩容。云盘类型支持高效云盘、SSD云盘和ESSD云盘。
+	Type *ResizeDiskType
+}
 
 type DiskResizeResp struct{}
 

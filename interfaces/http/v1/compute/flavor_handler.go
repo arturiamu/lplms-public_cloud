@@ -1,8 +1,10 @@
 package compute
 
 import (
+	"github.com/arturiamu/lplms-public_cloud/common"
 	"github.com/arturiamu/lplms-public_cloud/domain/entity"
 	"github.com/gin-gonic/gin"
+	"net/http"
 )
 
 type CreateFlavorArgs struct {
@@ -49,13 +51,11 @@ func (rc *RouterCompute) GetFlavor(c *gin.Context) {
 
 }
 
-type ListFlavorArgs struct {
-}
-
-func (args *ListFlavorArgs) toEntityArgs(u *entity.User) *entity.FlavorListArg {
-	return nil
-}
-
 func (rc *RouterCompute) ListFlavor(c *gin.Context) {
-
+	resp, err := rc.ci.ListFlavor(&entity.FlavorListArg{})
+	if err != nil {
+		c.JSON(http.StatusBadRequest, common.FailWith(err.Error(), nil))
+		return
+	}
+	c.JSON(http.StatusOK, common.SuccessWith("", resp.Flavors))
 }

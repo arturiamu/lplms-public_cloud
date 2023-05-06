@@ -104,4 +104,6 @@ type SnapshotUpdateResp struct{}
 
 type SnapshotGetResp struct{}
 
-type SnapshotListResp struct{}
+type SnapshotListResp struct {
+	Snapshots []Snapshot
+}

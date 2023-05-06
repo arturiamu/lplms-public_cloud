@@ -26,7 +26,7 @@ type Server struct {
 	FlavorID           string               // 规格 ID
 	ServerType         string               // 实例规格。
 	Status             common.ServerStatus  // 实例状态。
-	Disks              []*DiskInfo          // 磁盘信息
+	Disks              []*ServerDiskInfo    // 磁盘信息
 	Recyclable         bool                 // 实例是否可以回收。
 	KeyPairName        string               // 密钥对名称。
 	Tags               []string             // 实例的标签集合。
@@ -85,7 +85,7 @@ type ServerCreateArg struct {
 	//ClientToken *string // 保证请求幂等性。从您的客户端生成一个参数值，确保不同请求间该参数值唯一。
 }
 
-type DiskInfo struct {
+type ServerDiskInfo struct {
 	ID                  string
 	Size                int    // GB
 	IsBoot              bool   // 是否是系统盘
@@ -193,7 +193,7 @@ type ServerDisksGetArg struct {
 }
 
 type ServerDisksGetResp struct {
-	Disks []*DiskInfo
+	Disks []*ServerDiskInfo
 }
 
 type ServerStartArgs struct {

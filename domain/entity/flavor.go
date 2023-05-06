@@ -61,4 +61,6 @@ type FlavorGetResp struct {
 	Flavor Flavor
 }
 
-type FlavorListResp struct{}
+type FlavorListResp struct {
+	Flavors []Flavor
+}

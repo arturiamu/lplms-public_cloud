@@ -435,11 +435,11 @@ func (c *ComputeRepo) GetServerDisks(args *entity.ServerDisksGetArg) (*entity.Se
 	}
 
 	res := &entity.ServerDisksGetResp{
-		Disks: make([]*entity.DiskInfo, 0, len(disks)),
+		Disks: make([]*entity.ServerDiskInfo, 0, len(disks)),
 	}
 
 	for _, v := range disks {
-		res.Disks = append(res.Disks, &entity.DiskInfo{
+		res.Disks = append(res.Disks, &entity.ServerDiskInfo{
 			ID:           v.DiskID,
 			Size:         int(v.Size),
 			IsBoot:       v.Bootable,
@@ -684,12 +684,12 @@ func (c *ComputeRepo) kubevirtServerToStackServer(kubevirtInfo v1.VirtualMachine
 		return
 	}
 
-	diskInfos := make([]*entity.DiskInfo, 0, len(disks))
+	diskInfos := make([]*entity.ServerDiskInfo, 0, len(disks))
 	for _, v := range disks {
 		if *v.DiskType == common.SystemDiskType {
 			systemDisk = v
 		}
-		diskInfos = append(diskInfos, &entity.DiskInfo{
+		diskInfos = append(diskInfos, &entity.ServerDiskInfo{
 			ID:           v.DiskID,
 			Size:         int(v.Size),
 			IsBoot:       v.Bootable,

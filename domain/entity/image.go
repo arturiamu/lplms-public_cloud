@@ -47,6 +47,7 @@ type ImageCreateArg struct {
 }
 
 type ImageDeleteArg struct {
+
 	// 项目 ID
 	ProjectID string
 
@@ -82,6 +83,32 @@ type ImageGetArg struct {
 }
 
 type ImageListArg struct {
+	// 项目 ID
+	ProjectID string
+
+	// 镜像ID。
+	ImageID string
+
+	// 根据某一快照ID创建的自定义镜像。
+	SnapshotID string
+
+	// 状态
+	Status []common.ImageStatus
+
+	// 镜像名称。
+	ImageName string
+
+	// 镜像来源
+	ImageOwnerAlias common.ImageOwnerAlias
+
+	// 指定实例类型可以使用的镜像。
+	ServerType string
+
+	// 镜像的操作系统类型
+	OSType common.OSType
+
+	// 镜像的体系架构
+	Architecture common.ArchitectureType
 }
 
 type ImageCreateResp struct{}

@@ -104,8 +104,34 @@ func (c *ComputeRepo) GetFlavor(args *entity.FlavorGetArg) (*entity.FlavorGetRes
 }
 
 func (c *ComputeRepo) ListFlavor(args *entity.FlavorListArg) (*entity.FlavorListResp, error) {
-	//TODO implement me
-	panic("implement me")
+	var (
+		ns = config.AppConfig.Cluster.BaseNamespace
+		k  = c.k8Virt.VirtualMachineInstancetype(ns)
+	)
+
+	resp, err := k.List(context.Background(), v1.ListOptions{})
+	if err != nil {
+		return nil, err
+	}
+	res := &entity.FlavorListResp{}
+	if resp != nil {
+		res.Flavors = make([]entity.Flavor, 0, len(resp.Items))
+		for _, v := range resp.Items {
+			flavor := entity.Flavor{
+				FlavorID:  v.ObjectMeta.GetName(),
+				Name:      v.ObjectMeta.GetAnnotations()[common.AnnotationName],
+				CPU:       uint(v.Spec.CPU.Guest),
+				Memory:    uint(v.Spec.Memory.Guest.AsDec().UnscaledBig().Uint64() / 1024 / 1024),
+				GPUAmount: uint(len(v.Spec.GPUs)),
+				GPUSpec:   getGUPSpec(v.Spec.GPUs),
+			}
+			if strings.Contains(flavor.Name, "*") {
+				flavor.Name = strings.Split(flavor.Name, "*")[0]
+			}
+			res.Flavors = append(res.Flavors, flavor)
+		}
+	}
+	return res, nil
 }
 
 ///////////////////////////// help functions /////////////

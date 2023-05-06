@@ -45,7 +45,8 @@ type SecurityGroupCreateArg struct {
 }
 
 type SecurityGroupDeleteArg struct {
-	SecurityGroupID string // 安全组ID
+	SecurityGroupRuleID string
+	SecurityGroupID     string
 }
 
 type SecurityGroupUpdateArg struct {

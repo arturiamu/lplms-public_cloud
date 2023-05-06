@@ -20,6 +20,13 @@ type KeypairUpdateArg struct {
 }
 
 type KeypairGetArg struct {
+	ProjectID string
+	// 密钥对名称。支持正则表达式模糊搜索，使用*匹配子表达式，示例：
+	// - *SshKey：查询以SshKey结尾的密钥对名称，包括SshKey。
+	// - SshKey*：查询以SshKey开头的密钥对名称，包括SshKey。
+	// - *SshKey*：查询名称中间有SshKey的密钥对，包括SshKey。
+	// - SshKey：精确匹配SshKey。
+	KeyPairName *string
 }
 
 type KeypairListArg struct {
