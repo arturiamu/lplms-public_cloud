@@ -15,15 +15,21 @@ func (b BizMock) UpdateServer(args *entity.ServerUpdateArg) (*entity.ServerUpdat
 }
 
 func (b BizMock) GetServer(args *entity.ServerGetArg) (*entity.ServerGetResp, error) {
-	return nil, nil
+	return &entity.ServerGetResp{
+		Server: getServer(args.ServerID),
+	}, nil
 }
 
 func (b BizMock) ListServer(args *entity.ServerListArg) (*entity.ServerListResp, error) {
-	return nil, nil
+	return &entity.ServerListResp{
+		Servers: getServerList(),
+	}, nil
 }
 
 func (b BizMock) GetServerDisks(args *entity.ServerDisksGetArg) (*entity.ServerDisksGetResp, error) {
-	return nil, nil
+	return &entity.ServerDisksGetResp{
+		Disks: getServerDisk(args.ServerID),
+	}, nil
 }
 
 func (b BizMock) StartServer(args *entity.ServerStartArgs) (*entity.ServerStartResp, error) {
@@ -51,11 +57,15 @@ func (b BizMock) UpdateFlavor(args *entity.FlavorUpdateArg) (*entity.FlavorUpdat
 }
 
 func (b BizMock) GetFlavor(args *entity.FlavorGetArg) (*entity.FlavorGetResp, error) {
-	return nil, nil
+	return &entity.FlavorGetResp{
+		Flavor: getFlavor(args.FlavorID),
+	}, nil
 }
 
 func (b BizMock) ListFlavor(args *entity.FlavorListArg) (*entity.FlavorListResp, error) {
-	return nil, nil
+	return &entity.FlavorListResp{
+		Flavors: getFlavorList(),
+	}, nil
 }
 
 func (b BizMock) CreateImage(args *entity.ImageCreateArg) (*entity.ImageCreateResp, error) {
@@ -71,11 +81,15 @@ func (b BizMock) UpdateImage(args *entity.ImageUpdateArg) (*entity.ImageUpdateRe
 }
 
 func (b BizMock) GetImage(args *entity.ImageGetArg) (*entity.ImageGetResp, error) {
-	return nil, nil
+	return &entity.ImageGetResp{
+		Image: getImage(args.ImageID),
+	}, nil
 }
 
 func (b BizMock) ListImage(args *entity.ImageListArg) (*entity.ImageListResp, error) {
-	return nil, nil
+	return &entity.ImageListResp{
+		Images: getImageList(),
+	}, nil
 }
 
 func (b BizMock) CreateKeypair(args *entity.KeypairCreateArg) (*entity.KeypairCreateResp, error) {

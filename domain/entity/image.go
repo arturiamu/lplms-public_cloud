@@ -80,6 +80,7 @@ type ImageUpdateArg struct {
 }
 
 type ImageGetArg struct {
+	ImageID string
 }
 
 type ImageListArg struct {
@@ -117,6 +118,10 @@ type ImageDeleteResp struct{}
 
 type ImageUpdateResp struct{}
 
-type ImageGetResp struct{}
+type ImageGetResp struct {
+	Image Image
+}
 
-type ImageListResp struct{}
+type ImageListResp struct {
+	Images []Image
+}

@@ -184,7 +184,7 @@ type ServerGetResp struct {
 }
 
 type ServerListResp struct {
-	Servers []*Server // 由 Servers 组成的数组格式，返回实例的信息。
+	Servers []Server // 由 Servers 组成的数组格式，返回实例的信息。
 }
 
 type ServerDisksGetArg struct {
