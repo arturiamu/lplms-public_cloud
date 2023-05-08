@@ -2,7 +2,7 @@ package application
 
 import (
 	"github.com/arturiamu/lplms-public_cloud/domain/entity"
-	"github.com/arturiamu/lplms-public_cloud/domain/repository"
+	"github.com/arturiamu/lplms-public_cloud/infrastructure/mock"
 )
 
 var _ ComputeAppInterface = &computeApp{}
@@ -66,7 +66,8 @@ type SecurityGroupAppInterface interface {
 }
 
 type computeApp struct {
-	cr repository.ComputeRepositoryInterface
+	cr mock.BizMock
+	//cr   repository.ComputeRepositoryInterface
 }
 
 func (c *computeApp) StartServer(args *entity.ServerStartArgs) (*entity.ServerStartResp, error) {
