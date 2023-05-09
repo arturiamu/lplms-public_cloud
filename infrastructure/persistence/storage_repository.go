@@ -14,7 +14,7 @@ type StorageRepo struct {
 	k8Virt kubecli.KubevirtClient
 }
 
-func NewStorageRepo(path *string) *StorageRepo {
+func NewStorageRepo(path *string) repository.StorageRepositoryInterface {
 	config, err := clientcmd.BuildConfigFromFlags("", *path)
 	if err != nil {
 		panic(err)

@@ -3,6 +3,7 @@ app:
   name: lplms
   version: 0.1
   port: 10086
+  mock: true
 
 mysql:
   host: localhost

@@ -22,6 +22,7 @@ type App struct {
 	Name    string `yaml:"name" mapstructure:"name"`
 	Version string `yaml:"version" mapstructure:"version"`
 	Port    int    `yaml:"port" mapstructure:"port"`
+	Mock    bool   `yaml:"mock" mapstructure:"mock"`
 }
 
 type SQLLite struct {

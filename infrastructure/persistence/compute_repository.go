@@ -16,7 +16,7 @@ type ComputeRepo struct {
 	ovn    *versioned.Clientset
 }
 
-func NewComputeRepo(path *string) *ComputeRepo {
+func NewComputeRepo(path *string) repository.ComputeRepositoryInterface {
 	config, err := clientcmd.BuildConfigFromFlags("", *path)
 	if err != nil {
 		panic(err)

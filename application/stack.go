@@ -3,6 +3,8 @@ package application
 import (
 	"github.com/arturiamu/lplms-public_cloud/config"
 	"github.com/arturiamu/lplms-public_cloud/domain/entity"
+	"github.com/arturiamu/lplms-public_cloud/domain/repository"
+	"github.com/arturiamu/lplms-public_cloud/infrastructure/mock"
 	"github.com/arturiamu/lplms-public_cloud/infrastructure/persistence"
 	"gorm.io/driver/mysql"
 	"gorm.io/driver/sqlite"
@@ -21,9 +23,9 @@ var _ StackInterface = &stk{}
 
 type stk struct {
 	userRepo    *persistence.UserRepo
-	computeRepo *persistence.ComputeRepo
-	storageRepo *persistence.StorageRepo
-	networkRepo *persistence.NetworkRepo
+	computeRepo repository.ComputeRepositoryInterface
+	storageRepo repository.StorageRepositoryInterface
+	networkRepo repository.NetworkRepositoryInterface
 }
 
 func NewStack(path *string) (stack StackInterface, err error) {
@@ -44,6 +46,14 @@ func NewStack(path *string) (stack StackInterface, err error) {
 	}
 	autoMigrate(db)
 
+	if config.AppConfig.App.Mock {
+		return stk{
+			userRepo:    persistence.NewUserRepository(db),
+			computeRepo: mock.BizMock{},
+			storageRepo: mock.BizMock{},
+			networkRepo: mock.BizMock{},
+		}, nil
+	}
 	return stk{
 		userRepo:    persistence.NewUserRepository(db),
 		computeRepo: persistence.NewComputeRepo(path),

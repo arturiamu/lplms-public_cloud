@@ -14,7 +14,7 @@ type NetworkRepo struct {
 	ovn *versioned.Clientset
 }
 
-func NewNetworkRepo(path *string) *NetworkRepo {
+func NewNetworkRepo(path *string) repository.NetworkRepositoryInterface {
 	config, err := clientcmd.BuildConfigFromFlags("", *path)
 	if err != nil {
 		panic(err)
