@@ -109,6 +109,7 @@ func (args *GetKeypairArgs) toEntityArgs(u *entity.User) *entity.KeypairGetArg {
 
 func (rc *RouterCompute) GetKeypair(c *gin.Context) {
 	var (
+		id     = c.Param("id")
 		args   GetKeypairArgs
 		ctxUid = common.GetUid(c)
 		ctxPid = common.GetProject(c)
@@ -117,18 +118,15 @@ func (rc *RouterCompute) GetKeypair(c *gin.Context) {
 			ProjectID: ctxPid,
 		}
 	)
-	if err := c.BindJSON(&args); err != nil {
-		c.JSON(http.StatusBadRequest, common.FailWith(err.Error(), nil))
-		return
-	}
 
 	createArgs := args.toEntityArgs(u)
-	_, err := rc.ci.GetKeypair(createArgs)
+	createArgs.KeyPairID = id
+	resp, err := rc.ci.GetKeypair(createArgs)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, common.FailWith(err.Error(), nil))
 		return
 	}
-	c.JSON(http.StatusOK, common.Success())
+	c.JSON(http.StatusOK, common.SuccessWith("", resp.Keypair))
 }
 
 type ListKeypairArgs struct {
@@ -154,18 +152,14 @@ func (rc *RouterCompute) ListKeypair(c *gin.Context) {
 			ProjectID: ctxPid,
 		}
 	)
-	if err := c.BindJSON(&args); err != nil {
-		c.JSON(http.StatusBadRequest, common.FailWith(err.Error(), nil))
-		return
-	}
 
 	createArgs := args.toEntityArgs(u)
-	_, err := rc.ci.ListKeypair(createArgs)
+	resp, err := rc.ci.ListKeypair(createArgs)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, common.FailWith(err.Error(), nil))
 		return
 	}
-	c.JSON(http.StatusOK, common.Success())
+	c.JSON(http.StatusOK, common.SuccessWith("", resp.KeyPairs))
 }
 
 type DetachKeyPairArgs struct {

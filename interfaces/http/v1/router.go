@@ -113,6 +113,12 @@ func RegisterNetworkGroup(rg *gin.RouterGroup, ni application.NetworkAppInterfac
 	rg.GET("/vpc/:id", routerNetwork.GetVpc)
 	rg.GET("/vpc", routerNetwork.ListVpc)
 
+	rg.POST("/v_switch", routerNetwork.CreateVSwitch)
+	rg.DELETE("/v_switch/:id", routerNetwork.DeleteVSwitch)
+	rg.PATCH("/v_switch/:id", routerNetwork.UpdateVSwitch)
+	rg.GET("/v_switch/:id", routerNetwork.GetVSwitch)
+	rg.GET("/v_switch", routerNetwork.ListVSwitch)
+
 	//rg.POST("/slb", routerNetwork.CreateSlb)
 	//rg.DELETE("/slb/:id", routerNetwork.DeleteSlb)
 	//rg.PATCH("/slb/:id", routerNetwork.UpdateSlb)

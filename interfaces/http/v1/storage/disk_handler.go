@@ -206,6 +206,7 @@ func (args *GetDiskArgs) toEntityArgs(u *entity.User) *entity.DiskGetArg {
 
 func (rs *RouterStorage) GetDisk(c *gin.Context) {
 	var (
+		id     = c.Param("id")
 		args   GetDiskArgs
 		ctxUid = common.GetUid(c)
 		ctxPid = common.GetProject(c)
@@ -214,19 +215,15 @@ func (rs *RouterStorage) GetDisk(c *gin.Context) {
 			ProjectID: ctxPid,
 		}
 	)
-	if err := c.BindJSON(&args); err != nil {
-		c.JSON(http.StatusBadRequest, common.FailWith(err.Error(), nil))
-		return
-	}
-
-	// create v_switch
-	_, err := rs.si.GetDisk(args.toEntityArgs(u))
+	entityArgs := args.toEntityArgs(u)
+	entityArgs.DiskID = id
+	resp, err := rs.si.GetDisk(entityArgs)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, common.FailWith(err.Error(), nil))
 		return
 	}
 
-	c.JSON(http.StatusOK, common.SuccessWith("", nil))
+	c.JSON(http.StatusOK, common.SuccessWith("", resp.Disk))
 }
 
 type ListDiskArgs struct {
@@ -259,17 +256,11 @@ func (rs *RouterStorage) ListDisk(c *gin.Context) {
 			ProjectID: ctxPid,
 		}
 	)
-	if err := c.BindJSON(&args); err != nil {
-		c.JSON(http.StatusBadRequest, common.FailWith(err.Error(), nil))
-		return
-	}
-
 	listArgs := args.toEntityArgs(u)
 	if args.DiskID != nil {
 		listArgs.DiskIDs = []string{*args.DiskID}
 	}
 
-	// create v_switch
 	listRes, err := rs.si.ListDisk(args.toEntityArgs(u))
 	if err != nil {
 		c.JSON(http.StatusBadRequest, common.FailWith(err.Error(), nil))

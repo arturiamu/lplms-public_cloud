@@ -75,7 +75,7 @@ func initDisk() {
 			Size:             500,
 			Description:      "这个一个测试数据盘",
 			Portable:         false,
-			DiskName:         "测试数据盘1",
+			DiskName:         "测试数据盘3",
 			CreatedAt:        1680594796000,
 			Status:           common.DiskAvailable,
 			Category:         common.CloudSSDiskCategory,
@@ -98,7 +98,7 @@ func initDisk() {
 			Size:             300,
 			Description:      "这个一个测试数据盘",
 			Portable:         false,
-			DiskName:         "测试数据盘2",
+			DiskName:         "测试数据盘4",
 			CreatedAt:        1680594796000,
 			Status:           common.DiskAvailable,
 			Category:         common.CloudSSDiskCategory,
@@ -108,8 +108,8 @@ func initDisk() {
 			ImageName:        "",
 		},
 	}
-	for _, flavor := range mockFlavorList {
-		mockFlavorMap[flavor.FlavorID] = flavor
+	for _, disk := range mockDiskList {
+		mockDiskMap[disk.DiskID] = disk
 	}
 }
 

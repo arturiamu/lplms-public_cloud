@@ -48,7 +48,16 @@ func (args *GetFlavorArgs) toEntityArgs(u *entity.User) *entity.FlavorGetArg {
 }
 
 func (rc *RouterCompute) GetFlavor(c *gin.Context) {
+	var (
+		id = c.Param("id")
+	)
 
+	resp, err := rc.ci.GetFlavor(&entity.FlavorGetArg{FlavorID: id})
+	if err != nil {
+		c.JSON(http.StatusBadRequest, common.FailWith(err.Error(), nil))
+		return
+	}
+	c.JSON(http.StatusOK, common.SuccessWith("", resp.Flavor))
 }
 
 func (rc *RouterCompute) ListFlavor(c *gin.Context) {

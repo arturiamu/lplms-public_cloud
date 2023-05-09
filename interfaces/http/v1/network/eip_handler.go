@@ -1,8 +1,10 @@
 package network
 
 import (
+	"github.com/arturiamu/lplms-public_cloud/common"
 	"github.com/arturiamu/lplms-public_cloud/domain/entity"
 	"github.com/gin-gonic/gin"
+	"net/http"
 )
 
 type CreateEipArgs struct {
@@ -46,7 +48,16 @@ func (args *GetEipArgs) toEntityArgs(u *entity.User) *entity.EipGetArg {
 }
 
 func (rn *RouterNetwork) GetEip(c *gin.Context) {
+	var (
+		id = c.Param("id")
+	)
 
+	resp, err := rn.ni.GetEip(&entity.EipGetArg{EIPID: id})
+	if err != nil {
+		c.JSON(http.StatusBadRequest, common.FailWith(err.Error(), nil))
+		return
+	}
+	c.JSON(http.StatusOK, common.SuccessWith("", resp.Eip))
 }
 
 type ListEipArgs struct {
@@ -57,5 +68,10 @@ func (args *ListEipArgs) toEntityArgs(u *entity.User) *entity.EipListArg {
 }
 
 func (rn *RouterNetwork) ListEip(c *gin.Context) {
-
+	resp, err := rn.ni.ListEip(&entity.EipListArg{})
+	if err != nil {
+		c.JSON(http.StatusBadRequest, common.FailWith(err.Error(), nil))
+		return
+	}
+	c.JSON(http.StatusOK, common.SuccessWith("", resp.EIPs))
 }

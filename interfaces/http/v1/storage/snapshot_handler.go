@@ -156,6 +156,7 @@ func (args *GetSnapshotArgs) toEntityArgs(u *entity.User) *entity.SnapshotGetArg
 
 func (rs *RouterStorage) GetSnapshot(c *gin.Context) {
 	var (
+		id     = c.Param("id")
 		args   GetSnapshotArgs
 		ctxUid = common.GetUid(c)
 		ctxPid = common.GetProject(c)
@@ -164,19 +165,15 @@ func (rs *RouterStorage) GetSnapshot(c *gin.Context) {
 			ProjectID: ctxPid,
 		}
 	)
-	if err := c.BindJSON(&args); err != nil {
-		c.JSON(http.StatusBadRequest, common.FailWith(err.Error(), nil))
-		return
-	}
-
-	// create v_switch
-	_, err := rs.si.GetSnapshot(args.toEntityArgs(u))
+	ea := args.toEntityArgs(u)
+	ea.SnapshotID = id
+	resp, err := rs.si.GetSnapshot(ea)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, common.FailWith(err.Error(), nil))
 		return
 	}
 
-	c.JSON(http.StatusOK, common.SuccessWith("", nil))
+	c.JSON(http.StatusOK, common.SuccessWith("", resp.Snapshot))
 }
 
 type ListSnapshotArgs struct {
@@ -189,11 +186,11 @@ type ListSnapshotArgs struct {
 
 func (args *ListSnapshotArgs) toEntityArgs(u *entity.User) *entity.SnapshotListArg {
 	var arg = entity.SnapshotListArg{
-		ProjectID:      u.ProjectID,
-		SnapshotName:   args.SnapshotName,
-		DiskID:         args.DiskID,
-		ServerID:       args.ServerID,
-		SourceDiskType: args.SourceDiskType.String(),
+		ProjectID:    u.ProjectID,
+		SnapshotName: args.SnapshotName,
+		DiskID:       args.DiskID,
+		ServerID:     args.ServerID,
+		//SourceDiskType: args.SourceDiskType.String(),
 	}
 	return &arg
 }
@@ -208,17 +205,12 @@ func (rs *RouterStorage) ListSnapshot(c *gin.Context) {
 			ProjectID: ctxPid,
 		}
 	)
-	if err := c.BindJSON(&args); err != nil {
-		c.JSON(http.StatusBadRequest, common.FailWith(err.Error(), nil))
-		return
-	}
 
 	listArgs := args.toEntityArgs(u)
 	if args.SnapshotID != nil {
 		listArgs.SnapshotIDs = []string{*args.SnapshotID}
 	}
 
-	// create v_switch
 	listRes, err := rs.si.ListSnapshot(args.toEntityArgs(u))
 	if err != nil {
 		c.JSON(http.StatusBadRequest, common.FailWith(err.Error(), nil))

@@ -193,7 +193,16 @@ func (args *GetVpcArgs) toEntityArgs(u *entity.User) *entity.VpcGetArg {
 }
 
 func (rn *RouterNetwork) GetVpc(c *gin.Context) {
+	var (
+		id = c.Param("id")
+	)
 
+	resp, err := rn.ni.GetVpc(&entity.VpcGetArg{VPCID: id})
+	if err != nil {
+		c.JSON(http.StatusBadRequest, common.FailWith(err.Error(), nil))
+		return
+	}
+	c.JSON(http.StatusOK, common.SuccessWith("", resp.VPC))
 }
 
 type ListVpcArgs struct {
@@ -218,10 +227,6 @@ func (rn *RouterNetwork) ListVpc(c *gin.Context) {
 			ProjectID: ctxPid,
 		}
 	)
-	if err := c.BindJSON(&args); err != nil {
-		c.JSON(http.StatusBadRequest, common.FailWith(err.Error(), nil))
-		return
-	}
 
 	resp, err := rn.ni.ListVpc(&entity.VpcListArg{
 		VPCIDs:    args.VPCIDs,

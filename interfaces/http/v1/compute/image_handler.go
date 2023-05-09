@@ -151,7 +151,15 @@ func (args *GetImageArgs) toEntityArgs(u *entity.User) *entity.ImageGetArg {
 }
 
 func (rc *RouterCompute) GetImage(c *gin.Context) {
-
+	var (
+		id = c.Param("id")
+	)
+	resp, err := rc.ci.GetImage(&entity.ImageGetArg{ImageID: id})
+	if err != nil {
+		c.JSON(http.StatusBadRequest, common.FailWith(err.Error(), nil))
+		return
+	}
+	c.JSON(http.StatusOK, common.SuccessWith("", resp.Image))
 }
 
 type ListImageArgs struct {
@@ -185,15 +193,11 @@ func (rc *RouterCompute) ListImage(c *gin.Context) {
 			ProjectID: ctxPid,
 		}
 	)
-	if err := c.BindJSON(&args); err != nil {
-		c.JSON(http.StatusBadRequest, common.FailWith(err.Error(), nil))
-		return
-	}
 	createArgs := args.toEntityArgs(u)
-	_, err := rc.ci.ListImage(createArgs)
+	resp, err := rc.ci.ListImage(createArgs)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, common.FailWith(err.Error(), nil))
 		return
 	}
-	c.JSON(http.StatusOK, common.Success())
+	c.JSON(http.StatusOK, common.SuccessWith("", resp.Images))
 }

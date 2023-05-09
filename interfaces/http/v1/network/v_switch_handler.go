@@ -146,7 +146,16 @@ func (args *GetVSwitchArgs) toEntityArgs(u *entity.User) *entity.VSwitchGetArg {
 }
 
 func (rn *RouterNetwork) GetVSwitch(c *gin.Context) {
+	var (
+		id = c.Param("id")
+	)
 
+	resp, err := rn.ni.GetVSwitch(&entity.VSwitchGetArg{VPCID: &id, VSwitchID: id})
+	if err != nil {
+		c.JSON(http.StatusBadRequest, common.FailWith(err.Error(), nil))
+		return
+	}
+	c.JSON(http.StatusOK, common.SuccessWith("", resp.VSwitch))
 }
 
 type ListVSwitchArgs struct {
@@ -173,12 +182,7 @@ func (rn *RouterNetwork) ListVSwitch(c *gin.Context) {
 			ProjectID: ctxPid,
 		}
 	)
-	if err := c.BindJSON(&args); err != nil {
-		c.JSON(http.StatusBadRequest, common.FailWith(err.Error(), nil))
-		return
-	}
 
-	// create v_switch
 	resp, err := rn.ni.ListVSwitch(args.toEntityArgs(u))
 	if err != nil {
 		c.JSON(http.StatusBadRequest, common.FailWith(err.Error(), nil))

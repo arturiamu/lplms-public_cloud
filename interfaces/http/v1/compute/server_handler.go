@@ -325,18 +325,13 @@ func (rc *RouterCompute) GetServer(c *gin.Context) {
 			ProjectID: ctxPid,
 		}
 	)
-
-	if err := c.BindJSON(&arg); err != nil {
-		c.JSON(http.StatusBadRequest, common.FailWith(err.Error(), nil))
-		return
-	}
 	arg.ServerID = id
-	_, err := rc.ci.GetServer(arg.toEntityArgs(u))
+	resp, err := rc.ci.GetServer(arg.toEntityArgs(u))
 	if err != nil {
 		c.JSON(http.StatusBadRequest, common.FailWith(err.Error(), nil))
 		return
 	}
-	c.JSON(http.StatusOK, common.Success())
+	c.JSON(http.StatusOK, common.SuccessWith("", resp.Server))
 }
 
 type ListServerArgs struct {

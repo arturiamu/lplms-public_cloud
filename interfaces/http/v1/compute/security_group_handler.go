@@ -143,6 +143,7 @@ func (args *GetSecurityGroupArgs) toEntityArgs(u *entity.User) *entity.SecurityG
 
 func (rc *RouterCompute) GetSecurityGroup(c *gin.Context) {
 	var (
+		id     = c.Param("id")
 		args   GetSecurityGroupArgs
 		ctxUid = common.GetUid(c)
 		ctxPid = common.GetProject(c)
@@ -151,18 +152,15 @@ func (rc *RouterCompute) GetSecurityGroup(c *gin.Context) {
 			ProjectID: ctxPid,
 		}
 	)
-	if err := c.BindJSON(&args); err != nil {
-		c.JSON(http.StatusBadRequest, common.FailWith(err.Error(), nil))
-		return
-	}
 
 	createArgs := args.toEntityArgs(u)
-	_, err := rc.ci.GetSecurityGroup(createArgs)
+	createArgs.SecurityGroupID = id
+	resp, err := rc.ci.GetSecurityGroup(createArgs)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, common.FailWith(err.Error(), nil))
 		return
 	}
-	c.JSON(http.StatusOK, common.Success())
+	c.JSON(http.StatusOK, common.SuccessWith("", resp.SecurityGroup))
 }
 
 type ListSecurityGroupArgs struct {
@@ -188,18 +186,14 @@ func (rc *RouterCompute) ListSecurityGroup(c *gin.Context) {
 			ProjectID: ctxPid,
 		}
 	)
-	if err := c.BindJSON(&args); err != nil {
-		c.JSON(http.StatusBadRequest, common.FailWith(err.Error(), nil))
-		return
-	}
 
 	createArgs := args.toEntityArgs(u)
-	_, err := rc.ci.ListSecurityGroup(createArgs)
+	resp, err := rc.ci.ListSecurityGroup(createArgs)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, common.FailWith(err.Error(), nil))
 		return
 	}
-	c.JSON(http.StatusOK, common.Success())
+	c.JSON(http.StatusOK, common.SuccessWith("", resp.SecurityGroups))
 }
 
 type CreateSecurityGroupRuleArgs struct {
@@ -370,7 +364,6 @@ func (args *GetSecurityGroupRuleArgs) toEntityArgs(u *entity.User) *entity.Secur
 }
 
 func (rc *RouterCompute) GetSecurityGroupRule(c *gin.Context) {
-
 }
 
 type ListSecurityGroupRuleArgs struct {
@@ -387,6 +380,7 @@ func (args *ListSecurityGroupRuleArgs) toEntityArgs(u *entity.User) *entity.Secu
 
 func (rc *RouterCompute) ListSecurityGroupRule(c *gin.Context) {
 	var (
+		id     = c.Param("id")
 		args   ListSecurityGroupRuleArgs
 		ctxUid = common.GetUid(c)
 		ctxPid = common.GetProject(c)
@@ -395,12 +389,9 @@ func (rc *RouterCompute) ListSecurityGroupRule(c *gin.Context) {
 			ProjectID: ctxPid,
 		}
 	)
-	if err := c.BindJSON(&args); err != nil {
-		c.JSON(http.StatusBadRequest, common.FailWith(err.Error(), nil))
-		return
-	}
 
 	createArgs := args.toEntityArgs(u)
+	createArgs.SecurityGroupID = id
 	describeRes, err := rc.ci.ListSecurityGroupRule(createArgs)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, common.FailWith(err.Error(), nil))
