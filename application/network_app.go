@@ -3,9 +3,11 @@ package application
 import (
 	"github.com/arturiamu/lplms-public_cloud/domain/entity"
 	"github.com/arturiamu/lplms-public_cloud/domain/repository"
+	"github.com/arturiamu/lplms-public_cloud/infrastructure/mock"
 )
 
 var _ NetworkAppInterface = &networkApp{}
+var _ NetworkAppInterface = &mock.BizMock{}
 
 type NetworkAppInterface interface {
 	EIPInterface
