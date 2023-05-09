@@ -7,8 +7,6 @@ import (
 	"net/http"
 )
 
-const UserInfo = "user_info"
-
 func AuthMiddleware() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		tokenStr := c.GetHeader("Authorization")
@@ -25,7 +23,9 @@ func AuthMiddleware() gin.HandlerFunc {
 			c.JSON(http.StatusOK, common.FailWith(err.Error(), nil))
 			return
 		}
-		c.Set(UserInfo, ac.User)
+		//c.Set(common.UserInfo, ac.User)
+		c.Set(common.UserID, ac.User.UID)
+		c.Set(common.ProjectID, ac.User.ProjectID)
 		c.Next()
 		return
 	}

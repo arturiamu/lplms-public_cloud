@@ -166,8 +166,13 @@ func (a *CreateServerArg) serverCreateBaseCheck() error {
 
 func (rc *RouterCompute) CreateServer(c *gin.Context) {
 	var (
-		arg CreateServerArg
-		u   = common.GetUser(c)
+		arg    CreateServerArg
+		ctxUid = common.GetUid(c)
+		ctxPid = common.GetProject(c)
+		u      = &entity.User{
+			UID:       ctxUid,
+			ProjectID: ctxPid,
+		}
 	)
 	if err := c.BindJSON(&arg); err != nil {
 		c.JSON(http.StatusBadRequest, common.FailWith(err.Error(), nil))
@@ -208,8 +213,13 @@ func (args *DeleteServerArgs) toEntityArgs(u *entity.User) *entity.ServerDeleteA
 }
 func (rc *RouterCompute) DeleteServer(c *gin.Context) {
 	var (
-		arg DeleteServerArgs
-		u   = common.GetUser(c)
+		arg    DeleteServerArgs
+		ctxUid = common.GetUid(c)
+		ctxPid = common.GetProject(c)
+		u      = &entity.User{
+			UID:       ctxUid,
+			ProjectID: ctxPid,
+		}
 	)
 	if err := c.BindJSON(&arg); err != nil {
 		c.JSON(http.StatusBadRequest, common.FailWith(err.Error(), nil))
@@ -267,9 +277,14 @@ func (args *UpdateServerArgs) toEntityArgs(u *entity.User) *entity.ServerUpdateA
 
 func (rc *RouterCompute) UpdateServer(c *gin.Context) {
 	var (
-		id  = c.Param("id")
-		arg UpdateServerArgs
-		u   = common.GetUser(c)
+		id     = c.Param("id")
+		arg    UpdateServerArgs
+		ctxUid = common.GetUid(c)
+		ctxPid = common.GetProject(c)
+		u      = &entity.User{
+			UID:       ctxUid,
+			ProjectID: ctxPid,
+		}
 	)
 
 	if err := c.BindJSON(&arg); err != nil {
@@ -301,9 +316,14 @@ func (args *GetServerArgs) toEntityArgs(u *entity.User) *entity.ServerGetArg {
 
 func (rc *RouterCompute) GetServer(c *gin.Context) {
 	var (
-		id  = c.Param("id")
-		arg GetServerArgs
-		u   = common.GetUser(c)
+		id     = c.Param("id")
+		arg    GetServerArgs
+		ctxUid = common.GetUid(c)
+		ctxPid = common.GetProject(c)
+		u      = &entity.User{
+			UID:       ctxUid,
+			ProjectID: ctxPid,
+		}
 	)
 
 	if err := c.BindJSON(&arg); err != nil {
@@ -321,8 +341,6 @@ func (rc *RouterCompute) GetServer(c *gin.Context) {
 
 type ListServerArgs struct {
 	ProjectID string `json:"project_id"` // 实例ID。
-	ServerID  string `json:"server_id"`  // 实例ID。
-
 }
 
 func (args *ListServerArgs) toEntityArgs(u *entity.User) *entity.ServerListArg {
@@ -334,22 +352,20 @@ func (args *ListServerArgs) toEntityArgs(u *entity.User) *entity.ServerListArg {
 
 func (rc *RouterCompute) ListServer(c *gin.Context) {
 	var (
-		id  = c.Param("id")
-		arg ListServerArgs
-		u   = common.GetUser(c)
+		arg    ListServerArgs
+		ctxUid = common.GetUid(c)
+		ctxPid = common.GetProject(c)
+		u      = &entity.User{
+			UID:       ctxUid,
+			ProjectID: ctxPid,
+		}
 	)
-
-	if err := c.BindJSON(&arg); err != nil {
-		c.JSON(http.StatusBadRequest, common.FailWith(err.Error(), nil))
-		return
-	}
-	arg.ServerID = id
-	_, err := rc.ci.ListServer(arg.toEntityArgs(u))
+	resp, err := rc.ci.ListServer(arg.toEntityArgs(u))
 	if err != nil {
 		c.JSON(http.StatusBadRequest, common.FailWith(err.Error(), nil))
 		return
 	}
-	c.JSON(http.StatusOK, common.Success())
+	c.JSON(http.StatusOK, common.SuccessWith("", resp.Servers))
 }
 
 type GetServerDisksArgs struct {
@@ -365,8 +381,13 @@ func (rc *RouterCompute) GetServerDisks(c *gin.Context) {
 
 func (rc *RouterCompute) StartServer(c *gin.Context) {
 	var (
-		id = c.Param("id")
-		u  = common.GetUser(c)
+		id     = c.Param("id")
+		ctxUid = common.GetUid(c)
+		ctxPid = common.GetProject(c)
+		u      = &entity.User{
+			UID:       ctxUid,
+			ProjectID: ctxPid,
+		}
 	)
 	_, err := rc.ci.StartServer(&entity.ServerStartArgs{
 		ServerID:  id,
@@ -385,8 +406,13 @@ type StopServerArgs struct {
 
 func (rc *RouterCompute) StopServer(c *gin.Context) {
 	var (
-		id   = c.Param("id")
-		u    = common.GetUser(c)
+		id     = c.Param("id")
+		ctxUid = common.GetUid(c)
+		ctxPid = common.GetProject(c)
+		u      = &entity.User{
+			UID:       ctxUid,
+			ProjectID: ctxPid,
+		}
 		args StopServerArgs
 	)
 	if err := c.BindJSON(&args); err != nil {
@@ -411,8 +437,13 @@ type RestartServerArgs struct {
 
 func (rc *RouterCompute) RestartServer(c *gin.Context) {
 	var (
-		id   = c.Param("id")
-		u    = common.GetUser(c)
+		id     = c.Param("id")
+		ctxUid = common.GetUid(c)
+		ctxPid = common.GetProject(c)
+		u      = &entity.User{
+			UID:       ctxUid,
+			ProjectID: ctxPid,
+		}
 		args RestartServerArgs
 	)
 	if err := c.BindJSON(&args); err != nil {

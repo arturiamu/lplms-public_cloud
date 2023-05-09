@@ -105,7 +105,7 @@ type UpdateInfoArgs struct {
 func (ur *UserRouter) UpdateInfo(c *gin.Context) {
 	var (
 		args UpdateInfoArgs
-		u    = common.GetUser(c)
+		uid  = common.GetUid(c)
 	)
 	if err := c.BindJSON(&args); err != nil {
 		c.JSON(http.StatusBadRequest, common.FailWith(err.Error(), nil))
@@ -115,7 +115,7 @@ func (ur *UserRouter) UpdateInfo(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, common.FailWith(err.Error(), nil))
 		return
 	}
-	resp, err := ur.ui.GetUser(&entity.UserGetArg{UID: u.UID})
+	resp, err := ur.ui.GetUser(&entity.UserGetArg{UID: uid})
 	if err != nil {
 		c.JSON(http.StatusBadRequest, common.FailWith(err.Error(), nil))
 		return

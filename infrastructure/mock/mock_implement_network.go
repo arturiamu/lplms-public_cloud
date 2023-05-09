@@ -15,11 +15,15 @@ func (b BizMock) UpdateEip(args *entity.EipUpdateArg) (*entity.EipUpdateResp, er
 }
 
 func (b BizMock) GetEip(args *entity.EipGetArg) (*entity.EipGetResp, error) {
-	return nil, nil
+	return &entity.EipGetResp{
+		Eip: getEip(args.EIPID),
+	}, nil
 }
 
 func (b BizMock) ListEip(args *entity.EipListArg) (*entity.EipListResp, error) {
-	return nil, nil
+	return &entity.EipListResp{
+		EIPs: getEipList(),
+	}, nil
 }
 
 func (b BizMock) CreateVpc(args *entity.VpcCreateArg) (*entity.VpcCreateResp, error) {
@@ -35,11 +39,15 @@ func (b BizMock) UpdateVpc(args *entity.VpcUpdateArg) (*entity.VpcUpdateResp, er
 }
 
 func (b BizMock) GetVpc(args *entity.VpcGetArg) (*entity.VpcGetResp, error) {
-	return nil, nil
+	return &entity.VpcGetResp{
+		VPC: getVpc(args.VPCID),
+	}, nil
 }
 
 func (b BizMock) ListVpc(args *entity.VpcListArg) (*entity.VpcListResp, error) {
-	return nil, nil
+	return &entity.VpcListResp{
+		VPCs: getVpcList(),
+	}, nil
 }
 
 func (b BizMock) CreateVSwitch(args *entity.VSwitchCreateArg) (*entity.VSwitchCreateResp, error) {
@@ -55,11 +63,15 @@ func (b BizMock) UpdateVSwitch(args *entity.VSwitchUpdateArg) (*entity.VSwitchUp
 }
 
 func (b BizMock) GetVSwitch(args *entity.VSwitchGetArg) (*entity.VSwitchGetResp, error) {
-	return nil, nil
+	return &entity.VSwitchGetResp{
+		VSwitch: getVSwitch(args.VSwitchID),
+	}, nil
 }
 
 func (b BizMock) ListVSwitch(args *entity.VSwitchListArg) (*entity.VSwitchListResp, error) {
-	return nil, nil
+	return &entity.VSwitchListResp{
+		VSwitches: getVSwitchList(),
+	}, nil
 }
 
 func (b BizMock) CreateSlb(args *entity.SlbCreateArg) (*entity.SlbCreateResp, error) {

@@ -1,39 +1,134 @@
 package mock
 
-import "github.com/arturiamu/lplms-public_cloud/domain/entity"
+import (
+	"github.com/arturiamu/lplms-public_cloud/domain/entity"
+	"github.com/arturiamu/lplms-public_cloud/utils/pointerutil"
+	"github.com/arturiamu/lplms-public_cloud/utils/uuid"
+)
 
+var mockSecurityGroupRuleMap map[string]entity.SecurityGroupRule
+var mockSecurityGroupMap map[string]entity.SecurityGroup
 var mockSecurityGroupList = []entity.SecurityGroup{
 	{
-		SecurityGroupID:    "",
-		SecurityGroupName:  "",
-		Description:        "",
-		SecurityGroupRules: "",
+		SecurityGroupID:   uuid.GenerateUUID(),
+		SecurityGroupName: "测试安全组1",
+		Description:       "这是一个测试安全组",
+		SecurityGroupRules: []entity.SecurityGroupRule{
+			{
+				SecurityGroupRuleID:   uuid.GenerateUUID(),
+				Direction:             "ingress",
+				Type:                  1,                         // 安全组授权类型，1 表示安全组，2 表示 ip 段
+				RemoteSecurityGroupID: nil,                       // 远端安全组 ID
+				CIDR:                  nil,                       // 远端 IP 段
+				Protocol:              "tcp",                     // enum tcp | udp | icmp | gre | all
+				FromPort:              pointerutil.Pointer(3306), // 最小端口号
+				ToPort:                pointerutil.Pointer(3306), // 最大端口号
+				Description:           "mysql",
+				CreatedAt:             1683043199,
+			},
+			{
+				SecurityGroupRuleID:   uuid.GenerateUUID(),
+				Direction:             "egress",
+				Type:                  1,                         // 安全组授权类型，1 表示安全组，2 表示 ip 段
+				RemoteSecurityGroupID: nil,                       // 远端安全组 ID
+				CIDR:                  nil,                       // 远端 IP 段
+				Protocol:              "tcp",                     // enum tcp | udp | icmp | gre | all
+				FromPort:              pointerutil.Pointer(3306), // 最小端口号
+				ToPort:                pointerutil.Pointer(3306), // 最大端口号
+				Description:           "mysql",
+				CreatedAt:             1683043199,
+			},
+			{
+				SecurityGroupRuleID:   uuid.GenerateUUID(),
+				Direction:             "all",
+				Type:                  1,                         // 安全组授权类型，1 表示安全组，2 表示 ip 段
+				RemoteSecurityGroupID: nil,                       // 远端安全组 ID
+				CIDR:                  nil,                       // 远端 IP 段
+				Protocol:              "all",                     // enum tcp | udp | icmp | gre | all
+				FromPort:              pointerutil.Pointer(8888), // 最小端口号
+				ToPort:                pointerutil.Pointer(9999), // 最大端口号
+				Description:           "自定义端口范围",
+				CreatedAt:             1683043199,
+			},
+		},
+	},
+	{
+		SecurityGroupID:   uuid.GenerateUUID(),
+		SecurityGroupName: "测试安全组2",
+		Description:       "这是一个测试安全组",
+		SecurityGroupRules: []entity.SecurityGroupRule{
+			{
+				SecurityGroupRuleID:   uuid.GenerateUUID(),
+				Direction:             "ingress",
+				Type:                  1,                         // 安全组授权类型，1 表示安全组，2 表示 ip 段
+				RemoteSecurityGroupID: nil,                       // 远端安全组 ID
+				CIDR:                  nil,                       // 远端 IP 段
+				Protocol:              "tcp",                     // enum tcp | udp | icmp | gre | all
+				FromPort:              pointerutil.Pointer(3306), // 最小端口号
+				ToPort:                pointerutil.Pointer(3306), // 最大端口号
+				Description:           "mysql",
+				CreatedAt:             1683043199,
+			},
+			{
+				SecurityGroupRuleID:   uuid.GenerateUUID(),
+				Direction:             "egress",
+				Type:                  1,                         // 安全组授权类型，1 表示安全组，2 表示 ip 段
+				RemoteSecurityGroupID: nil,                       // 远端安全组 ID
+				CIDR:                  nil,                       // 远端 IP 段
+				Protocol:              "tcp",                     // enum tcp | udp | icmp | gre | all
+				FromPort:              pointerutil.Pointer(3306), // 最小端口号
+				ToPort:                pointerutil.Pointer(3306), // 最大端口号
+				Description:           "mysql",
+				CreatedAt:             1683043199,
+			},
+			{
+				SecurityGroupRuleID:   uuid.GenerateUUID(),
+				Direction:             "egress",
+				Type:                  1,                         // 安全组授权类型，1 表示安全组，2 表示 ip 段
+				RemoteSecurityGroupID: nil,                       // 远端安全组 ID
+				CIDR:                  nil,                       // 远端 IP 段
+				Protocol:              "tcp",                     // enum tcp | udp | icmp | gre | all
+				FromPort:              pointerutil.Pointer(6379), // 最小端口号
+				ToPort:                pointerutil.Pointer(6379), // 最大端口号
+				Description:           "redis",
+				CreatedAt:             1683043199,
+			},
+			{
+				SecurityGroupRuleID:   uuid.GenerateUUID(),
+				Direction:             "all",
+				Type:                  1,                         // 安全组授权类型，1 表示安全组，2 表示 ip 段
+				RemoteSecurityGroupID: nil,                       // 远端安全组 ID
+				CIDR:                  nil,                       // 远端 IP 段
+				Protocol:              "all",                     // enum tcp | udp | icmp | gre | all
+				FromPort:              pointerutil.Pointer(8000), // 最小端口号
+				ToPort:                pointerutil.Pointer(9000), // 最大端口号
+				Description:           "自定义端口范围",
+				CreatedAt:             1683043199,
+			},
+		},
 	},
 }
 
-var mockSecurityGroupRuleList = []entity.SecurityGroupRule{
-	{
-		SecurityGroupRuleID:   "",
-		Direction:             "",
-		Type:                  "", // 安全组授权类型，1 表示安全组，2 表示 ip 段
-		RemoteSecurityGroupID: "", // 远端安全组 ID
-		CIDR:                  "", // 远端 IP 段
+func initSecurityGroup() {
+	mockSecurityGroupRuleMap = make(map[string]entity.SecurityGroupRule)
+	mockSecurityGroupMap = make(map[string]entity.SecurityGroup)
 
-		// 传输层协议。取值大小写敏感。取值范围：
-		// - icmp
-		// - gre
-		// - tcp
-		// - udp
-		// - all：支持所有协议
-		Protocol: "", // enum tcp | udp | icmp | gre | all
+	for _, group := range mockSecurityGroupList {
+		mockSecurityGroupMap[group.SecurityGroupID] = group
+		for _, rule := range group.SecurityGroupRules {
+			mockSecurityGroupRuleMap[rule.SecurityGroupRuleID] = rule
+		}
+	}
+}
 
-		// 目的端安全组开放的传输层协议相关的端口范围
-		FromPort: "", // 最小端口号
-		ToPort:   "", // 最大端口号
+func getSecurityGroup(id string) entity.SecurityGroup {
+	return mockSecurityGroupMap[id]
+}
 
-		// 安全组规则的描述信息。长度为1~512个字符。
-		Description: "",
+func getSecurityGroupList() []entity.SecurityGroup {
+	return mockSecurityGroupList
+}
 
-		CreatedAt: "",
-	},
+func getSecurityGroupRules(id string) []entity.SecurityGroupRule {
+	return mockSecurityGroupMap[id].SecurityGroupRules
 }

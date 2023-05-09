@@ -27,8 +27,13 @@ func (args *CreateVSwitchArgs) toEntityArgs(u *entity.User) *entity.VSwitchCreat
 
 func (rn *RouterNetwork) CreateVSwitch(c *gin.Context) {
 	var (
-		args CreateVSwitchArgs
-		u    = common.GetUser(c)
+		args   CreateVSwitchArgs
+		ctxUid = common.GetUid(c)
+		ctxPid = common.GetProject(c)
+		u      = &entity.User{
+			UID:       ctxUid,
+			ProjectID: ctxPid,
+		}
 	)
 	if err := c.BindJSON(&args); err != nil {
 		c.JSON(http.StatusBadRequest, common.FailWith(err.Error(), nil))
@@ -69,8 +74,13 @@ func (args *DeleteVSwitchArgs) toEntityArgs(u *entity.User) *entity.VSwitchDelet
 
 func (rn *RouterNetwork) DeleteVSwitch(c *gin.Context) {
 	var (
-		args DeleteVSwitchArgs
-		u    = common.GetUser(c)
+		args   DeleteVSwitchArgs
+		ctxUid = common.GetUid(c)
+		ctxPid = common.GetProject(c)
+		u      = &entity.User{
+			UID:       ctxUid,
+			ProjectID: ctxPid,
+		}
 	)
 	if err := c.BindJSON(&args); err != nil {
 		c.JSON(http.StatusBadRequest, common.FailWith(err.Error(), nil))
@@ -105,8 +115,13 @@ func (args *UpdateVSwitchArgs) toEntityArgs(u *entity.User) *entity.VSwitchUpdat
 
 func (rn *RouterNetwork) UpdateVSwitch(c *gin.Context) {
 	var (
-		args UpdateVSwitchArgs
-		u    = common.GetUser(c)
+		args   UpdateVSwitchArgs
+		ctxUid = common.GetUid(c)
+		ctxPid = common.GetProject(c)
+		u      = &entity.User{
+			UID:       ctxUid,
+			ProjectID: ctxPid,
+		}
 	)
 	if err := c.BindJSON(&args); err != nil {
 		c.JSON(http.StatusBadRequest, common.FailWith(err.Error(), nil))
@@ -150,8 +165,13 @@ func (args *ListVSwitchArgs) toEntityArgs(u *entity.User) *entity.VSwitchListArg
 
 func (rn *RouterNetwork) ListVSwitch(c *gin.Context) {
 	var (
-		args ListVSwitchArgs
-		u    = common.GetUser(c)
+		args   ListVSwitchArgs
+		ctxUid = common.GetUid(c)
+		ctxPid = common.GetProject(c)
+		u      = &entity.User{
+			UID:       ctxUid,
+			ProjectID: ctxPid,
+		}
 	)
 	if err := c.BindJSON(&args); err != nil {
 		c.JSON(http.StatusBadRequest, common.FailWith(err.Error(), nil))

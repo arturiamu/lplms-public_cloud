@@ -4,27 +4,27 @@ import "github.com/arturiamu/lplms-public_cloud/common"
 
 type Disk struct {
 	//ZoneID           enums.Zone
-	ImageID          string
-	Device           string
-	DetachedAt       int64
-	DiskType         *common.DiskType
-	Bootable         bool
-	ServerID         string
-	ServerName       string
-	AttachedTime     int64
-	SourceSnapshotID string
-	Size             int64
-	Description      string
-	Portable         bool
-	DiskName         string
-	CreatedAt        int64
-	Status           common.DiskStatusType
-	Category         common.DiskCategory
-	DeleteWithServer bool
-	DiskID           string
-	OSType           common.OSType
-	OSName           string
-	ImageName        string
+	DiskID           string                `json:"disk_id"`
+	ImageID          string                `json:"image_id"`
+	Device           string                `json:"device"`
+	DetachedAt       int64                 `json:"detached_at"`
+	DiskType         *common.DiskType      `json:"disk_type"`
+	Bootable         bool                  `json:"bootable"`
+	ServerID         string                `json:"server_id"`
+	ServerName       string                `json:"server_name"`
+	AttachedTime     int64                 `json:"attached_time"`
+	SourceSnapshotID string                `json:"source_snapshot_id"`
+	Size             int64                 `json:"size"`
+	Description      string                `json:"description"`
+	Portable         bool                  `json:"portable"`
+	DiskName         string                `json:"disk_name"`
+	CreatedAt        int64                 `json:"created_at"`
+	Status           common.DiskStatusType `json:"status"`
+	Category         common.DiskCategory   `json:"category"`
+	DeleteWithServer bool                  `json:"delete_with_server"`
+	OSType           common.OSType         `json:"os_type"`
+	OSName           string                `json:"os_name"`
+	ImageName        string                `json:"image_name"`
 }
 
 type DiskInfo struct {

@@ -71,8 +71,13 @@ func (args *CreateDiskArgs) toEntityArgs(u *entity.User) *entity.DiskCreateArg {
 
 func (rs *RouterStorage) CreateDisk(c *gin.Context) {
 	var (
-		args CreateDiskArgs
-		u    = common.GetUser(c)
+		args   CreateDiskArgs
+		ctxUid = common.GetUid(c)
+		ctxPid = common.GetProject(c)
+		u      = &entity.User{
+			UID:       ctxUid,
+			ProjectID: ctxPid,
+		}
 	)
 	if err := c.BindJSON(&args); err != nil {
 		c.JSON(http.StatusBadRequest, common.FailWith(err.Error(), nil))
@@ -114,8 +119,13 @@ func (args *DeleteDiskArgs) toEntityArgs(u *entity.User) *entity.DiskDeleteArg {
 
 func (rs *RouterStorage) DeleteDisk(c *gin.Context) {
 	var (
-		args DeleteDiskArgs
-		u    = common.GetUser(c)
+		args   DeleteDiskArgs
+		ctxUid = common.GetUid(c)
+		ctxPid = common.GetProject(c)
+		u      = &entity.User{
+			UID:       ctxUid,
+			ProjectID: ctxPid,
+		}
 	)
 	if err := c.BindJSON(&args); err != nil {
 		c.JSON(http.StatusBadRequest, common.FailWith(err.Error(), nil))
@@ -159,8 +169,13 @@ func (args *UpdateDiskArgs) toEntityArgs(u *entity.User) *entity.DiskUpdateArg {
 
 func (rs *RouterStorage) UpdateDisk(c *gin.Context) {
 	var (
-		args UpdateDiskArgs
-		u    = common.GetUser(c)
+		args   UpdateDiskArgs
+		ctxUid = common.GetUid(c)
+		ctxPid = common.GetProject(c)
+		u      = &entity.User{
+			UID:       ctxUid,
+			ProjectID: ctxPid,
+		}
 	)
 	if err := c.BindJSON(&args); err != nil {
 		c.JSON(http.StatusBadRequest, common.FailWith(err.Error(), nil))
@@ -191,8 +206,13 @@ func (args *GetDiskArgs) toEntityArgs(u *entity.User) *entity.DiskGetArg {
 
 func (rs *RouterStorage) GetDisk(c *gin.Context) {
 	var (
-		args GetDiskArgs
-		u    = common.GetUser(c)
+		args   GetDiskArgs
+		ctxUid = common.GetUid(c)
+		ctxPid = common.GetProject(c)
+		u      = &entity.User{
+			UID:       ctxUid,
+			ProjectID: ctxPid,
+		}
 	)
 	if err := c.BindJSON(&args); err != nil {
 		c.JSON(http.StatusBadRequest, common.FailWith(err.Error(), nil))
@@ -231,8 +251,13 @@ func (args *ListDiskArgs) toEntityArgs(u *entity.User) *entity.DiskListArg {
 
 func (rs *RouterStorage) ListDisk(c *gin.Context) {
 	var (
-		args ListDiskArgs
-		u    = common.GetUser(c)
+		args   ListDiskArgs
+		ctxUid = common.GetUid(c)
+		ctxPid = common.GetProject(c)
+		u      = &entity.User{
+			UID:       ctxUid,
+			ProjectID: ctxPid,
+		}
 	)
 	if err := c.BindJSON(&args); err != nil {
 		c.JSON(http.StatusBadRequest, common.FailWith(err.Error(), nil))
@@ -273,8 +298,13 @@ func (args *DetachDiskArgs) toEntityArgs(u *entity.User) *entity.DiskDetachArg {
 
 func (rs *RouterStorage) DetachDisk(c *gin.Context) {
 	var (
-		args DetachDiskArgs
-		u    = common.GetUser(c)
+		args   DetachDiskArgs
+		ctxUid = common.GetUid(c)
+		ctxPid = common.GetProject(c)
+		u      = &entity.User{
+			UID:       ctxUid,
+			ProjectID: ctxPid,
+		}
 	)
 	if err := c.BindJSON(&args); err != nil {
 		c.JSON(http.StatusBadRequest, common.FailWith(err.Error(), nil))
@@ -326,8 +356,13 @@ func (args *AttachDiskArgs) toEntityArgs(u *entity.User) *entity.DiskAttachArg {
 
 func (rs *RouterStorage) AttachDisk(c *gin.Context) {
 	var (
-		args AttachDiskArgs
-		u    = common.GetUser(c)
+		args   AttachDiskArgs
+		ctxUid = common.GetUid(c)
+		ctxPid = common.GetProject(c)
+		u      = &entity.User{
+			UID:       ctxUid,
+			ProjectID: ctxPid,
+		}
 	)
 	if err := c.BindJSON(&args); err != nil {
 		c.JSON(http.StatusBadRequest, common.FailWith(err.Error(), nil))
@@ -382,8 +417,13 @@ func (args *ResizeDiskArgs) toEntityArgs(u *entity.User) *entity.DiskResizeArg {
 
 func (rs *RouterStorage) ResizeDisk(c *gin.Context) {
 	var (
-		args ResizeDiskArgs
-		u    = common.GetUser(c)
+		args   ResizeDiskArgs
+		ctxUid = common.GetUid(c)
+		ctxPid = common.GetProject(c)
+		u      = &entity.User{
+			UID:       ctxUid,
+			ProjectID: ctxPid,
+		}
 	)
 	if err := c.BindJSON(&args); err != nil {
 		c.JSON(http.StatusBadRequest, common.FailWith(err.Error(), nil))
@@ -417,8 +457,13 @@ func (args *ResetDiskArgs) toEntityArgs(u *entity.User) *entity.DiskResetArg {
 
 func (rs *RouterStorage) ResetDisk(c *gin.Context) {
 	var (
-		args ResetDiskArgs
-		u    = common.GetUser(c)
+		args   ResetDiskArgs
+		ctxUid = common.GetUid(c)
+		ctxPid = common.GetProject(c)
+		u      = &entity.User{
+			UID:       ctxUid,
+			ProjectID: ctxPid,
+		}
 	)
 	if err := c.BindJSON(&args); err != nil {
 		c.JSON(http.StatusBadRequest, common.FailWith(err.Error(), nil))

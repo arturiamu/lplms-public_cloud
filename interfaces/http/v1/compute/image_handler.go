@@ -30,8 +30,13 @@ func (args *CreateImageArgs) toEntityArgs(u *entity.User) *entity.ImageCreateArg
 
 func (rc *RouterCompute) CreateImage(c *gin.Context) {
 	var (
-		args CreateImageArgs
-		u    = common.GetUser(c)
+		args   CreateImageArgs
+		ctxUid = common.GetUid(c)
+		ctxPid = common.GetProject(c)
+		u      = &entity.User{
+			UID:       ctxUid,
+			ProjectID: ctxPid,
+		}
 	)
 	if err := c.BindJSON(&args); err != nil {
 		c.JSON(http.StatusBadRequest, common.FailWith(err.Error(), nil))
@@ -74,8 +79,13 @@ func (args *DeleteImageArgs) toEntityArgs(u *entity.User) *entity.ImageDeleteArg
 
 func (rc *RouterCompute) DeleteImage(c *gin.Context) {
 	var (
-		args DeleteImageArgs
-		u    = common.GetUser(c)
+		args   DeleteImageArgs
+		ctxUid = common.GetUid(c)
+		ctxPid = common.GetProject(c)
+		u      = &entity.User{
+			UID:       ctxUid,
+			ProjectID: ctxPid,
+		}
 	)
 	if err := c.BindJSON(&args); err != nil {
 		c.JSON(http.StatusBadRequest, common.FailWith(err.Error(), nil))
@@ -112,8 +122,13 @@ func (args *UpdateImageArgs) toEntityArgs(u *entity.User) *entity.ImageUpdateArg
 
 func (rc *RouterCompute) UpdateImage(c *gin.Context) {
 	var (
-		args UpdateImageArgs
-		u    = common.GetUser(c)
+		args   UpdateImageArgs
+		ctxUid = common.GetUid(c)
+		ctxPid = common.GetProject(c)
+		u      = &entity.User{
+			UID:       ctxUid,
+			ProjectID: ctxPid,
+		}
 	)
 	if err := c.BindJSON(&args); err != nil {
 		c.JSON(http.StatusBadRequest, common.FailWith(err.Error(), nil))
@@ -162,8 +177,13 @@ func (args *ListImageArgs) toEntityArgs(u *entity.User) *entity.ImageListArg {
 
 func (rc *RouterCompute) ListImage(c *gin.Context) {
 	var (
-		args ListImageArgs
-		u    = common.GetUser(c)
+		args   ListImageArgs
+		ctxUid = common.GetUid(c)
+		ctxPid = common.GetProject(c)
+		u      = &entity.User{
+			UID:       ctxUid,
+			ProjectID: ctxPid,
+		}
 	)
 	if err := c.BindJSON(&args); err != nil {
 		c.JSON(http.StatusBadRequest, common.FailWith(err.Error(), nil))

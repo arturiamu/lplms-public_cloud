@@ -24,8 +24,13 @@ func (args *CreateKeypairArgs) toEntityArgs(u *entity.User) *entity.KeypairCreat
 
 func (rc *RouterCompute) CreateKeypair(c *gin.Context) {
 	var (
-		args CreateKeypairArgs
-		u    = common.GetUser(c)
+		args   CreateKeypairArgs
+		ctxUid = common.GetUid(c)
+		ctxPid = common.GetProject(c)
+		u      = &entity.User{
+			UID:       ctxUid,
+			ProjectID: ctxPid,
+		}
 	)
 	if err := c.BindJSON(&args); err != nil {
 		c.JSON(http.StatusBadRequest, common.FailWith(err.Error(), nil))
@@ -56,8 +61,13 @@ func (args *DeleteKeypairArgs) toEntityArgs(u *entity.User) *entity.KeypairDelet
 
 func (rc *RouterCompute) DeleteKeypair(c *gin.Context) {
 	var (
-		args DeleteKeypairArgs
-		u    = common.GetUser(c)
+		args   DeleteKeypairArgs
+		ctxUid = common.GetUid(c)
+		ctxPid = common.GetProject(c)
+		u      = &entity.User{
+			UID:       ctxUid,
+			ProjectID: ctxPid,
+		}
 	)
 	if err := c.BindJSON(&args); err != nil {
 		c.JSON(http.StatusBadRequest, common.FailWith(err.Error(), nil))
@@ -99,8 +109,13 @@ func (args *GetKeypairArgs) toEntityArgs(u *entity.User) *entity.KeypairGetArg {
 
 func (rc *RouterCompute) GetKeypair(c *gin.Context) {
 	var (
-		args GetKeypairArgs
-		u    = common.GetUser(c)
+		args   GetKeypairArgs
+		ctxUid = common.GetUid(c)
+		ctxPid = common.GetProject(c)
+		u      = &entity.User{
+			UID:       ctxUid,
+			ProjectID: ctxPid,
+		}
 	)
 	if err := c.BindJSON(&args); err != nil {
 		c.JSON(http.StatusBadRequest, common.FailWith(err.Error(), nil))
@@ -131,8 +146,13 @@ func (args *ListKeypairArgs) toEntityArgs(u *entity.User) *entity.KeypairListArg
 
 func (rc *RouterCompute) ListKeypair(c *gin.Context) {
 	var (
-		args ListKeypairArgs
-		u    = common.GetUser(c)
+		args   ListKeypairArgs
+		ctxUid = common.GetUid(c)
+		ctxPid = common.GetProject(c)
+		u      = &entity.User{
+			UID:       ctxUid,
+			ProjectID: ctxPid,
+		}
 	)
 	if err := c.BindJSON(&args); err != nil {
 		c.JSON(http.StatusBadRequest, common.FailWith(err.Error(), nil))

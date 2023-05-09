@@ -2,7 +2,7 @@ package application
 
 import (
 	"github.com/arturiamu/lplms-public_cloud/domain/entity"
-	"github.com/arturiamu/lplms-public_cloud/infrastructure/mock"
+	"github.com/arturiamu/lplms-public_cloud/domain/repository"
 )
 
 var _ NetworkAppInterface = &networkApp{}
@@ -47,8 +47,7 @@ type SLBInterface interface {
 }
 
 type networkApp struct {
-	nr mock.BizMock
-	//nr repository.NetworkRepositoryInterface
+	nr repository.NetworkRepositoryInterface
 }
 
 func (n networkApp) CreateEip(args *entity.EipCreateArg) (*entity.EipCreateResp, error) {

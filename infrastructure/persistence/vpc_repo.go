@@ -243,12 +243,9 @@ func (n *NetworkRepo) GetVSwitch(args *entity.VSwitchGetArg) (*entity.VSwitchGet
 	}
 
 	return &entity.VSwitchGetResp{
-		Resources: []entity.VSwitchResourceInfo{
-			{
-				ID:   subnet.Name,
-				Name: common.GetBizName(&subnet.ObjectMeta),
-				Type: common.NetworkResourceType,
-			},
+		VSwitch: entity.VSwitch{
+			VSwitchID:   subnet.Name,
+			VSwitchName: common.GetBizName(&subnet.ObjectMeta),
 		},
 	}, err
 }

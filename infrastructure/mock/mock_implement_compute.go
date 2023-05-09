@@ -105,11 +105,15 @@ func (b BizMock) UpdateKeypair(args *entity.KeypairUpdateArg) (*entity.KeypairUp
 }
 
 func (b BizMock) GetKeypair(args *entity.KeypairGetArg) (*entity.KeypairGetResp, error) {
-	return nil, nil
+	return &entity.KeypairGetResp{
+		Keypair: getKeypair(args.KeyPairID),
+	}, nil
 }
 
 func (b BizMock) ListKeypair(args *entity.KeypairListArg) (*entity.KeypairListResp, error) {
-	return nil, nil
+	return &entity.KeypairListResp{
+		KeyPairs: getKeypairList(),
+	}, nil
 }
 
 func (b BizMock) DetachKeyPair(args *entity.KeypairDetachArg) (*entity.KeypairDetachResp, error) {
@@ -133,11 +137,15 @@ func (b BizMock) UpdateSecurityGroup(args *entity.SecurityGroupUpdateArg) (*enti
 }
 
 func (b BizMock) GetSecurityGroup(args *entity.SecurityGroupGetArg) (*entity.SecurityGroupGetResp, error) {
-	return nil, nil
+	return &entity.SecurityGroupGetResp{
+		SecurityGroup: getSecurityGroup(args.SecurityGroupID),
+	}, nil
 }
 
 func (b BizMock) ListSecurityGroup(args *entity.SecurityGroupListArg) (*entity.SecurityGroupListResp, error) {
-	return nil, nil
+	return &entity.SecurityGroupListResp{
+		SecurityGroups: getSecurityGroupList(),
+	}, nil
 }
 
 func (b BizMock) CreateSecurityGroupRule(args *entity.SecurityGroupRuleCreateArg) (*entity.SecurityGroupRuleCreateResp, error) {
@@ -153,5 +161,7 @@ func (b BizMock) GetSecurityGroupRule(args *entity.SecurityGroupRuleGetArg) (*en
 }
 
 func (b BizMock) ListSecurityGroupRule(args *entity.SecurityGroupRuleListArg) (*entity.SecurityGroupRuleListResp, error) {
-	return nil, nil
+	return &entity.SecurityGroupRuleListResp{
+		SecurityGroupRoles: getSecurityGroupRules(args.SecurityGroupID),
+	}, nil
 }

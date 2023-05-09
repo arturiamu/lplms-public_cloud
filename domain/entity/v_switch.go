@@ -87,7 +87,8 @@ type VSwitchDeleteResp struct{}
 type VSwitchUpdateResp struct{}
 
 type VSwitchGetResp struct {
-	Resources []VSwitchResourceInfo
+	//Resources []VSwitchResourceInfo
+	VSwitch VSwitch
 }
 
 type VSwitchResourceInfo struct {

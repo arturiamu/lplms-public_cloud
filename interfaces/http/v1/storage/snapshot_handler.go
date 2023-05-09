@@ -30,8 +30,13 @@ func (args *CreateSnapshotArgs) toEntityArgs(u *entity.User) *entity.SnapshotCre
 
 func (rs *RouterStorage) CreateSnapshot(c *gin.Context) {
 	var (
-		args CreateSnapshotArgs
-		u    = common.GetUser(c)
+		args   CreateSnapshotArgs
+		ctxUid = common.GetUid(c)
+		ctxPid = common.GetProject(c)
+		u      = &entity.User{
+			UID:       ctxUid,
+			ProjectID: ctxPid,
+		}
 	)
 	if err := c.BindJSON(&args); err != nil {
 		c.JSON(http.StatusBadRequest, common.FailWith(err.Error(), nil))
@@ -69,8 +74,13 @@ func (args *DeleteSnapshotArgs) toEntityArgs(u *entity.User) *entity.SnapshotDel
 
 func (rs *RouterStorage) DeleteSnapshot(c *gin.Context) {
 	var (
-		args DeleteSnapshotArgs
-		u    = common.GetUser(c)
+		args   DeleteSnapshotArgs
+		ctxUid = common.GetUid(c)
+		ctxPid = common.GetProject(c)
+		u      = &entity.User{
+			UID:       ctxUid,
+			ProjectID: ctxPid,
+		}
 	)
 	if err := c.BindJSON(&args); err != nil {
 		c.JSON(http.StatusBadRequest, common.FailWith(err.Error(), nil))
@@ -109,8 +119,13 @@ func (args *UpdateSnapshotArgs) toEntityArgs(u *entity.User) *entity.SnapshotUpd
 
 func (rs *RouterStorage) UpdateSnapshot(c *gin.Context) {
 	var (
-		args UpdateSnapshotArgs
-		u    = common.GetUser(c)
+		args   UpdateSnapshotArgs
+		ctxUid = common.GetUid(c)
+		ctxPid = common.GetProject(c)
+		u      = &entity.User{
+			UID:       ctxUid,
+			ProjectID: ctxPid,
+		}
 	)
 	if err := c.BindJSON(&args); err != nil {
 		c.JSON(http.StatusBadRequest, common.FailWith(err.Error(), nil))
@@ -141,8 +156,13 @@ func (args *GetSnapshotArgs) toEntityArgs(u *entity.User) *entity.SnapshotGetArg
 
 func (rs *RouterStorage) GetSnapshot(c *gin.Context) {
 	var (
-		args GetSnapshotArgs
-		u    = common.GetUser(c)
+		args   GetSnapshotArgs
+		ctxUid = common.GetUid(c)
+		ctxPid = common.GetProject(c)
+		u      = &entity.User{
+			UID:       ctxUid,
+			ProjectID: ctxPid,
+		}
 	)
 	if err := c.BindJSON(&args); err != nil {
 		c.JSON(http.StatusBadRequest, common.FailWith(err.Error(), nil))
@@ -180,8 +200,13 @@ func (args *ListSnapshotArgs) toEntityArgs(u *entity.User) *entity.SnapshotListA
 
 func (rs *RouterStorage) ListSnapshot(c *gin.Context) {
 	var (
-		args ListSnapshotArgs
-		u    = common.GetUser(c)
+		args   ListSnapshotArgs
+		ctxUid = common.GetUid(c)
+		ctxPid = common.GetProject(c)
+		u      = &entity.User{
+			UID:       ctxUid,
+			ProjectID: ctxPid,
+		}
 	)
 	if err := c.BindJSON(&args); err != nil {
 		c.JSON(http.StatusBadRequest, common.FailWith(err.Error(), nil))

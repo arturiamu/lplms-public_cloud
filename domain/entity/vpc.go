@@ -84,6 +84,7 @@ type VpcUpdateArg struct {
 
 type VpcGetArg struct {
 	ProjectID string
+	VPCID     string
 }
 
 type VpcListArg struct {
@@ -99,7 +100,9 @@ type VpcDeleteResp struct{}
 
 type VpcUpdateResp struct{}
 
-type VpcGetResp struct{}
+type VpcGetResp struct {
+	VPC Vpc
+}
 
 type VpcListResp struct {
 	VPCs []Vpc

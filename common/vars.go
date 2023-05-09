@@ -28,3 +28,9 @@ const (
 	LabelName   = "name"
 	LabelDiskID = "label/disk"
 )
+
+const (
+	UserInfo  = ""
+	UserID    = "user_id"
+	ProjectID = "project_id"
+)

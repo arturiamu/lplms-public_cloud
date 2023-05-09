@@ -63,6 +63,7 @@ type EipUpdateArg struct {
 }
 
 type EipGetArg struct {
+	EIPID string
 }
 
 type EipListArg struct {
@@ -103,7 +104,9 @@ type EipDeleteResp struct{}
 
 type EipUpdateResp struct{}
 
-type EipGetResp struct{}
+type EipGetResp struct {
+	Eip Eip
+}
 
 type EipListResp struct {
 	EIPs []Eip

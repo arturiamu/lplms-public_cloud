@@ -464,7 +464,7 @@ func (c *ComputeRepo) ListServer(args *entity.ServerListArg) (*entity.ServerList
 	}
 
 	res := &entity.ServerListResp{
-		Servers: make([]*entity.Server, 0, len(resp.Items)),
+		Servers: make([]entity.Server, 0, len(resp.Items)),
 	}
 	for _, v := range resp.Items {
 		info, er := c.kubevirtServerToStackServer(v)
@@ -473,7 +473,7 @@ func (c *ComputeRepo) ListServer(args *entity.ServerListArg) (*entity.ServerList
 			return nil, err
 		}
 
-		res.Servers = append(res.Servers, info)
+		res.Servers = append(res.Servers, *info)
 	}
 
 	return res, nil

@@ -28,8 +28,13 @@ func (args *CreateSecurityGroupArgs) toEntityArgs(u *entity.User) *entity.Securi
 
 func (rc *RouterCompute) CreateSecurityGroup(c *gin.Context) {
 	var (
-		args CreateSecurityGroupArgs
-		u    = common.GetUser(c)
+		args   CreateSecurityGroupArgs
+		ctxUid = common.GetUid(c)
+		ctxPid = common.GetProject(c)
+		u      = &entity.User{
+			UID:       ctxUid,
+			ProjectID: ctxPid,
+		}
 	)
 	if err := c.BindJSON(&args); err != nil {
 		c.JSON(http.StatusBadRequest, common.FailWith(err.Error(), nil))
@@ -59,8 +64,13 @@ func (args *DeleteSecurityGroupArgs) toEntityArgs(u *entity.User) *entity.Securi
 
 func (rc *RouterCompute) DeleteSecurityGroup(c *gin.Context) {
 	var (
-		args DeleteSecurityGroupArgs
-		u    = common.GetUser(c)
+		args   DeleteSecurityGroupArgs
+		ctxUid = common.GetUid(c)
+		ctxPid = common.GetProject(c)
+		u      = &entity.User{
+			UID:       ctxUid,
+			ProjectID: ctxPid,
+		}
 	)
 	if err := c.BindJSON(&args); err != nil {
 		c.JSON(http.StatusBadRequest, common.FailWith(err.Error(), nil))
@@ -94,8 +104,13 @@ func (args *UpdateSecurityGroupArgs) toEntityArgs(u *entity.User) *entity.Securi
 
 func (rc *RouterCompute) UpdateSecurityGroup(c *gin.Context) {
 	var (
-		args UpdateSecurityGroupArgs
-		u    = common.GetUser(c)
+		args   UpdateSecurityGroupArgs
+		ctxUid = common.GetUid(c)
+		ctxPid = common.GetProject(c)
+		u      = &entity.User{
+			UID:       ctxUid,
+			ProjectID: ctxPid,
+		}
 	)
 	if err := c.BindJSON(&args); err != nil {
 		c.JSON(http.StatusBadRequest, common.FailWith(err.Error(), nil))
@@ -128,8 +143,13 @@ func (args *GetSecurityGroupArgs) toEntityArgs(u *entity.User) *entity.SecurityG
 
 func (rc *RouterCompute) GetSecurityGroup(c *gin.Context) {
 	var (
-		args GetSecurityGroupArgs
-		u    = common.GetUser(c)
+		args   GetSecurityGroupArgs
+		ctxUid = common.GetUid(c)
+		ctxPid = common.GetProject(c)
+		u      = &entity.User{
+			UID:       ctxUid,
+			ProjectID: ctxPid,
+		}
 	)
 	if err := c.BindJSON(&args); err != nil {
 		c.JSON(http.StatusBadRequest, common.FailWith(err.Error(), nil))
@@ -160,8 +180,13 @@ func (args *ListSecurityGroupArgs) toEntityArgs(u *entity.User) *entity.Security
 
 func (rc *RouterCompute) ListSecurityGroup(c *gin.Context) {
 	var (
-		args ListSecurityGroupArgs
-		u    = common.GetUser(c)
+		args   ListSecurityGroupArgs
+		ctxUid = common.GetUid(c)
+		ctxPid = common.GetProject(c)
+		u      = &entity.User{
+			UID:       ctxUid,
+			ProjectID: ctxPid,
+		}
 	)
 	if err := c.BindJSON(&args); err != nil {
 		c.JSON(http.StatusBadRequest, common.FailWith(err.Error(), nil))
@@ -228,8 +253,13 @@ func (args *CreateSecurityGroupRuleArgs) toEntityArgs(u *entity.User) *entity.Se
 
 func (rc *RouterCompute) CreateSecurityGroupRule(c *gin.Context) {
 	var (
-		args CreateSecurityGroupRuleArgs
-		u    = common.GetUser(c)
+		args   CreateSecurityGroupRuleArgs
+		ctxUid = common.GetUid(c)
+		ctxPid = common.GetProject(c)
+		u      = &entity.User{
+			UID:       ctxUid,
+			ProjectID: ctxPid,
+		}
 	)
 	if err := c.BindJSON(&args); err != nil {
 		c.JSON(http.StatusBadRequest, common.FailWith(err.Error(), nil))
@@ -310,8 +340,13 @@ func (args *DeleteSecurityGroupRuleArgs) toEntityArgs(u *entity.User) *entity.Se
 
 func (rc *RouterCompute) DeleteSecurityGroupRule(c *gin.Context) {
 	var (
-		args DeleteSecurityGroupRuleArgs
-		u    = common.GetUser(c)
+		args   DeleteSecurityGroupRuleArgs
+		ctxUid = common.GetUid(c)
+		ctxPid = common.GetProject(c)
+		u      = &entity.User{
+			UID:       ctxUid,
+			ProjectID: ctxPid,
+		}
 	)
 	if err := c.BindJSON(&args); err != nil {
 		c.JSON(http.StatusBadRequest, common.FailWith(err.Error(), nil))
@@ -352,8 +387,13 @@ func (args *ListSecurityGroupRuleArgs) toEntityArgs(u *entity.User) *entity.Secu
 
 func (rc *RouterCompute) ListSecurityGroupRule(c *gin.Context) {
 	var (
-		args ListSecurityGroupRuleArgs
-		u    = common.GetUser(c)
+		args   ListSecurityGroupRuleArgs
+		ctxUid = common.GetUid(c)
+		ctxPid = common.GetProject(c)
+		u      = &entity.User{
+			UID:       ctxUid,
+			ProjectID: ctxPid,
+		}
 	)
 	if err := c.BindJSON(&args); err != nil {
 		c.JSON(http.StatusBadRequest, common.FailWith(err.Error(), nil))

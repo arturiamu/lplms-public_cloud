@@ -49,8 +49,13 @@ func (args *CreateVPCWithVSwitchArgs) vpcCreateBaseCheck() (err error) {
 
 func (rn *RouterNetwork) CreateVpc(c *gin.Context) {
 	var (
-		args CreateVPCWithVSwitchArgs
-		u    = common.GetUser(c)
+		args   CreateVPCWithVSwitchArgs
+		ctxUid = common.GetUid(c)
+		ctxPid = common.GetProject(c)
+		u      = &entity.User{
+			UID:       ctxUid,
+			ProjectID: ctxPid,
+		}
 	)
 	if err := c.BindJSON(&args); err != nil {
 		c.JSON(http.StatusBadRequest, common.FailWith(err.Error(), nil))
@@ -102,8 +107,13 @@ func (args *DeleteVpcArgs) toEntityArgs(u *entity.User) *entity.VpcDeleteArg {
 
 func (rn *RouterNetwork) DeleteVpc(c *gin.Context) {
 	var (
-		args DeleteVpcArgs
-		u    = common.GetUser(c)
+		args   DeleteVpcArgs
+		ctxUid = common.GetUid(c)
+		ctxPid = common.GetProject(c)
+		u      = &entity.User{
+			UID:       ctxUid,
+			ProjectID: ctxPid,
+		}
 	)
 	if err := c.BindJSON(&args); err != nil {
 		c.JSON(http.StatusBadRequest, common.FailWith(err.Error(), nil))
@@ -148,8 +158,13 @@ func (args *UpdateVpcArgs) toEntityArgs(u *entity.User) *entity.VpcUpdateArg {
 
 func (rn *RouterNetwork) UpdateVpc(c *gin.Context) {
 	var (
-		args UpdateVpcArgs
-		u    = common.GetUser(c)
+		args   UpdateVpcArgs
+		ctxUid = common.GetUid(c)
+		ctxPid = common.GetProject(c)
+		u      = &entity.User{
+			UID:       ctxUid,
+			ProjectID: ctxPid,
+		}
 	)
 	if err := c.BindJSON(&args); err != nil {
 		c.JSON(http.StatusBadRequest, common.FailWith(err.Error(), nil))
@@ -195,8 +210,13 @@ func (args *ListVpcArgs) toEntityArgs(u *entity.User) *entity.VpcListArg {
 
 func (rn *RouterNetwork) ListVpc(c *gin.Context) {
 	var (
-		args ListVpcArgs
-		u    = common.GetUser(c)
+		args   ListVpcArgs
+		ctxUid = common.GetUid(c)
+		ctxPid = common.GetProject(c)
+		u      = &entity.User{
+			UID:       ctxUid,
+			ProjectID: ctxPid,
+		}
 	)
 	if err := c.BindJSON(&args); err != nil {
 		c.JSON(http.StatusBadRequest, common.FailWith(err.Error(), nil))

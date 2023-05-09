@@ -15,11 +15,15 @@ func (b BizMock) UpdateDisk(args *entity.DiskUpdateArg) (*entity.DiskUpdateResp,
 }
 
 func (b BizMock) GetDisk(args *entity.DiskGetArg) (*entity.DiskGetResp, error) {
-	return nil, nil
+	return &entity.DiskGetResp{
+		Disk: getDisk(args.DiskID),
+	}, nil
 }
 
 func (b BizMock) ListDisk(args *entity.DiskListArg) (*entity.DiskListResp, error) {
-	return nil, nil
+	return &entity.DiskListResp{
+		Disks: getDiskList(),
+	}, nil
 }
 
 func (b BizMock) AttachDisk(args *entity.DiskAttachArg) (*entity.DiskAttachResp, error) {
@@ -51,9 +55,13 @@ func (b BizMock) UpdateSnapshot(args *entity.SnapshotUpdateArg) (*entity.Snapsho
 }
 
 func (b BizMock) GetSnapshot(args *entity.SnapshotGetArg) (*entity.SnapshotGetResp, error) {
-	return nil, nil
+	return &entity.SnapshotGetResp{
+		Snapshot: getSnapshot(args.SnapshotID),
+	}, nil
 }
 
 func (b BizMock) ListSnapshot(args *entity.SnapshotListArg) (*entity.SnapshotListResp, error) {
-	return nil, nil
+	return &entity.SnapshotListResp{
+		Snapshots: getSnapshotList(),
+	}, nil
 }

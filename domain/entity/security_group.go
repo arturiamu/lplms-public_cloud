@@ -134,7 +134,9 @@ type SecurityGroupRuleDeleteResp struct{}
 
 type SecurityGroupRuleUpdateResp struct{}
 
-type SecurityGroupRuleGetResp struct{}
+type SecurityGroupRuleGetResp struct {
+	SecurityGroupRule SecurityGroupRule
+}
 
 type SecurityGroupRuleListResp struct {
 	SecurityGroupRoles []SecurityGroupRule

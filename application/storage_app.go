@@ -2,7 +2,7 @@ package application
 
 import (
 	"github.com/arturiamu/lplms-public_cloud/domain/entity"
-	"github.com/arturiamu/lplms-public_cloud/infrastructure/mock"
+	"github.com/arturiamu/lplms-public_cloud/domain/repository"
 )
 
 var _ StorageAppInterface = &storageApp{}
@@ -33,8 +33,7 @@ type SnapshotRepositoryInterface interface {
 }
 
 type storageApp struct {
-	sr mock.BizMock
-	//sr repository.StorageRepositoryInterface
+	sr repository.StorageRepositoryInterface
 }
 
 func (s *storageApp) AttachDisk(args *entity.DiskAttachArg) (*entity.DiskAttachResp, error) {

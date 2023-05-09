@@ -102,8 +102,10 @@ type SnapshotDeleteResp struct{}
 
 type SnapshotUpdateResp struct{}
 
-type SnapshotGetResp struct{}
+type SnapshotGetResp struct {
+	Snapshot SnapshotInfo
+}
 
 type SnapshotListResp struct {
-	Snapshots []Snapshot
+	Snapshots []SnapshotInfo
 }

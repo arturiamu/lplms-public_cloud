@@ -1,6 +1,7 @@
 package entity
 
 type Keypair struct {
+	KeyPairID   string
 	KeyPairName string // SSH密钥对名称。
 	FingerPrint string // 密钥对的指纹。
 }
@@ -26,6 +27,7 @@ type KeypairGetArg struct {
 	// - SshKey*：查询以SshKey开头的密钥对名称，包括SshKey。
 	// - *SshKey*：查询名称中间有SshKey的密钥对，包括SshKey。
 	// - SshKey：精确匹配SshKey。
+	KeyPairID   string
 	KeyPairName *string
 }
 
@@ -53,7 +55,9 @@ type KeypairDeleteResp struct{}
 
 type KeypairUpdateResp struct{}
 
-type KeypairGetResp struct{}
+type KeypairGetResp struct {
+	Keypair Keypair
+}
 
 type KeypairListResp struct {
 	KeyPairs []Keypair
